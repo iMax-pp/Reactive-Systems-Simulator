@@ -1,11 +1,10 @@
-/*
- *  main.cpp
- *  Projet CSR C++
- *
- *  Created by Maxime Simon on 11/04/08.
- *  Copyright 2008 __MyCompanyName__. All rights reserved.
- *
- */
+/****************************************************************************/
+/*								Le petit main								*/
+/****************************************************************************/
 
-#include "main.h"
+#include <iostream>
 
+int main()
+{
+	return 0;
+}
