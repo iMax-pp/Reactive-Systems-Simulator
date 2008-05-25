@@ -131,7 +131,7 @@ void MainWindow::createActions()
 	    resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
 	    resetSimAct->setStatusTip(tr("Reset the simulation"));
 	
-	    stopSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("S&top"), this);
+	    stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
 	    stopSimAct->setShortcut(tr("Ctrl+T"));
 	    stopSimAct->setStatusTip(tr("Stop the simulation"));
 	
