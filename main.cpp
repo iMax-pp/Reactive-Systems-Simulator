@@ -1,10 +1,13 @@
-/****************************************************************************/
-/*								Le petit main								*/
-/****************************************************************************/
+#include <QApplication>
 
-#include <iostream>
+#include "mainwindow.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-	return 0;
+    Q_INIT_RESOURCE(application);
+
+    QApplication app(argc, argv);
+    MainWindow mainWin;
+    mainWin.show();
+    return app.exec();
 }
