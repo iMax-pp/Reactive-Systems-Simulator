@@ -74,6 +74,9 @@ private:
     QListWidget *console;
     void toConsole(const QString &message);
     
+	//Dock d'infos
+	QDockWidget *infoDock;
+	
     //Dock et widget du contrôleur
     QDockWidget *controlDock;
     QToolBox *controlTabs;
@@ -110,7 +113,7 @@ private:
     
     //Sim menu actions
     QAction *runSimAct;
-    QAction *restartSimAct;
+	QAction *restartSimAct;
     QAction *resetSimAct;
     QAction *stopSimAct;
 

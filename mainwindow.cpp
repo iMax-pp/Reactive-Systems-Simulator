@@ -253,7 +253,7 @@ void MainWindow::createDocks()
 	console = new QListWidget(consoleDock);
 	consoleDock->setWidget(console);
 	
-	toConsole(QString("The simulator is up and running..."));
+	toConsole(QString("The simulator is up and ready to run..."));
 	
 	//Création du dock de contrôle
 	controlDock = new QDockWidget(tr("Controls"), this);
@@ -263,10 +263,6 @@ void MainWindow::createDocks()
 	
 	controlTabs = new QToolBox(controlDock);
 	controlDock->setWidget(controlTabs);
-	
-	//Contrôles de vitesse
-	speedGlobal = new QSlider(Qt::Vertical, controlTabs);
-	controlTabs->addItem(speedGlobal, tr("Speed"));
 	
 	//Contrôles de caméra
 	viewControls = new QGroupBox(controlTabs);
@@ -287,6 +283,21 @@ void MainWindow::createDocks()
 	viewControls->setLayout(viewControlsLayout);
 	
 	controlTabs->addItem(viewControls, tr("View Controls"));
+	
+	//Contrôles de vitesse
+	speedGlobal = new QSlider(Qt::Vertical, controlTabs);
+	speedGlobal->setValue(50);
+	controlTabs->addItem(speedGlobal, tr("Speed"));
+	
+	// Dock d'infos
+	infoDock = new QDockWidget(tr("Informations"), this);
+	infoDock->setAllowedAreas(Qt::LeftDockWidgetArea
+								 | Qt::RightDockWidgetArea);
+	addDockWidget(Qt::RightDockWidgetArea, infoDock);
+	
+	QLabel *info = new QLabel("<p>No Informations <br/> for the moment sorry.<p>");
+	info->setAlignment(Qt::AlignRight);
+	infoDock->setWidget(info);
 }
 
 void MainWindow::toConsole(const QString &message)
@@ -294,14 +305,14 @@ void MainWindow::toConsole(const QString &message)
 	//On met en place les structures de temps
 	time_t rawtime;
 	struct tm * timeinfo;
-	char timeBuffer [11];
+	char timeBuffer [12];
 
 	//On s'en sert pour prendre l'heure. Ca sera nécessaire à chaque fois.
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
-	strftime (timeBuffer,11,"[%X] ",timeinfo);
+	strftime(timeBuffer,11,"[%X] ",timeinfo);
 
-	console->addItem(QString(timeBuffer)+message);	
+	console->addItem(QString(timeBuffer) + message);	
 }
 
 void MainWindow::readSettings()
