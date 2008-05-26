@@ -1,3 +1,24 @@
+/*******************************************************************************************
+**
+**    Copyright 2008 Simon & Humphries
+**
+**    This file is part of the Reactive Systems Simulator.
+**
+**    The Reactive Systems Simulator is free software: you can redistribute it and/or modify
+**    it under the terms of the GNU General Public License as published by
+**    the Free Software Foundation, either version 3 of the License, or
+**    (at your option) any later version.
+**
+**    The Reactive Systems Simulator is distributed in the hope that it will be useful,
+**    but WITHOUT ANY WARRANTY; without even the implied warranty of
+**    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**    GNU General Public License for more details.
+**
+**    You should have received a copy of the GNU General Public License
+**    along with the Reactive Systems Simulator .  If not, see <http://www.gnu.org/licenses/>.
+**
+********************************************************************************************/
+
 #include <time.h>
 
 #include <QtGui>
@@ -81,6 +102,7 @@ void MainWindow::about()
             tr("<p>The <b>Reactive Systems Simulator</b>: a total recoding of the CSR Project, with ameliorated GUI and environment, functionality, speed and more.</p>"
                "<p>Compatible with Linux, MacOS and Windows, and any other system capable of compiling C++ code with Qt4 and OpenGL.</p>"
                "<p>This program is open source and released under the GNU General Public License.</p>"
+               "<p>The icons used are from the FamFamFam `Silk' icons collection: <a href='http://www.famfamfam.com/lab/icons/silk/'>http://www.famfamfam.com/lab/icons/silk/</a></p>"
                "<p>For more info visit <a href='http://code.google.com/p/projet-csr-cpp/'>http://code.google.com/p/projet-csr-cpp</a>.</p>"));
 }
 
@@ -232,6 +254,39 @@ void MainWindow::createDocks()
 	consoleDock->setWidget(console);
 	
 	toConsole(QString("The simulator is up and running..."));
+	
+	//Création du dock de contrôle
+	controlDock = new QDockWidget(tr("Controls"), this);
+	controlDock->setAllowedAreas(Qt::LeftDockWidgetArea
+	                              | Qt::RightDockWidgetArea);
+	addDockWidget(Qt::LeftDockWidgetArea, controlDock);
+	
+	controlTabs = new QToolBox(controlDock);
+	controlDock->setWidget(controlTabs);
+	
+	//Contrôles de vitesse
+	speedGlobal = new QSlider(Qt::Vertical, controlTabs);
+	controlTabs->addItem(speedGlobal, tr("Speed"));
+	
+	//Contrôles de caméra
+	viewControls = new QGroupBox(controlTabs);
+	
+	topView = new QRadioButton(tr("Top view"), viewControls);
+	followCam = new QRadioButton(tr("Follow"), viewControls);
+	circlingCam = new QRadioButton(tr("Circle map"), viewControls);
+	teamCam = new QRadioButton(tr("Follow team"), viewControls);
+	
+	topView->setChecked(true);
+	
+	viewControlsLayout = new QVBoxLayout;
+	viewControlsLayout->addWidget(topView);
+	viewControlsLayout->addWidget(followCam);
+	viewControlsLayout->addWidget(circlingCam);
+	viewControlsLayout->addWidget(teamCam);
+	viewControlsLayout->addStretch(1);
+	viewControls->setLayout(viewControlsLayout);
+	
+	controlTabs->addItem(viewControls, tr("View Controls"));
 }
 
 void MainWindow::toConsole(const QString &message)
