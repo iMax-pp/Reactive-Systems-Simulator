@@ -250,7 +250,7 @@ void MainWindow::createDocks()
 	                              | Qt::TopDockWidgetArea);
 	addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
 	
-	console = new QListWidget(consoleDock);
+	console = new QListWidget;
 	consoleDock->setWidget(console);
 	
 	toConsole(QString("The simulator is up and ready to run..."));
@@ -261,7 +261,7 @@ void MainWindow::createDocks()
 	                              | Qt::RightDockWidgetArea);
 	addDockWidget(Qt::LeftDockWidgetArea, controlDock);
 	
-	controlTabs = new QToolBox(controlDock);
+	controlTabs = new QToolBox;
 	controlDock->setWidget(controlTabs);
 	
 	//Contrôles de caméra
@@ -289,15 +289,56 @@ void MainWindow::createDocks()
 	speedGlobal->setValue(50);
 	controlTabs->addItem(speedGlobal, tr("Speed"));
 	
-	// Dock d'infos
-	infoDock = new QDockWidget(tr("Informations"), this);
-	infoDock->setAllowedAreas(Qt::LeftDockWidgetArea
+	// Dock de liste des informations disponibles
+	listItemsDock = new QDockWidget(tr(""), this);
+	listItemsDock->setAllowedAreas(Qt::LeftDockWidgetArea
 								 | Qt::RightDockWidgetArea);
-	addDockWidget(Qt::RightDockWidgetArea, infoDock);
+	addDockWidget(Qt::RightDockWidgetArea, listItemsDock);
 	
-	QLabel *info = new QLabel("<p>No Informations <br/> for the moment sorry.<p>");
-	info->setAlignment(Qt::AlignRight);
-	infoDock->setWidget(info);
+	listItems = new QTreeWidget;
+	listItems->setHeaderLabel("Items");
+	QTreeWidgetItem *world = new QTreeWidgetItem;
+	world->setText(0,tr("World"));
+	QTreeWidgetItem *team1 = new QTreeWidgetItem;
+	team1->setText(0,tr("Team 1"));
+	QTreeWidgetItem *Entity11 = new QTreeWidgetItem(team1);
+	Entity11->setText(0,tr("Entity 1"));
+	QTreeWidgetItem *Entity12 = new QTreeWidgetItem(team1);
+	Entity12->setText(0,tr("Entity 2"));
+	QTreeWidgetItem *Entity13 = new QTreeWidgetItem(team1);
+	Entity13->setText(0,tr("Entity 3"));
+	QTreeWidgetItem *team2 = new QTreeWidgetItem();
+	team2->setText(0,tr("Team 2"));
+	QTreeWidgetItem *Entity21 = new QTreeWidgetItem(team2);
+	Entity21->setText(0,tr("Entity 1"));
+	QTreeWidgetItem *Entity22 = new QTreeWidgetItem(team2);
+	Entity22->setText(0,tr("Entity 2"));
+	QTreeWidgetItem *Entity23 = new QTreeWidgetItem(team2);
+	Entity23->setText(0,tr("Entity 3"));
+	
+	listItems->addTopLevelItem(world);
+	listItems->addTopLevelItem(team1);
+	listItems->addTopLevelItem(Entity11);
+	listItems->addTopLevelItem(Entity12);
+	listItems->addTopLevelItem(Entity13);
+	listItems->addTopLevelItem(team2);
+	listItems->addTopLevelItem(Entity21);
+	listItems->addTopLevelItem(Entity22);
+	listItems->addTopLevelItem(Entity23);
+	
+	listItemsDock->setWidget(listItems);
+
+	// Dock d'affichage des informations
+	//Création de la console
+	infoDock = new QDockWidget(tr("Informations Dock"), this);
+	infoDock->setAllowedAreas(Qt::BottomDockWidgetArea
+								 | Qt::TopDockWidgetArea);
+	addDockWidget(Qt::BottomDockWidgetArea, infoDock);
+	
+	infos = new InformationsBox;
+	infoDock->setWidget(infos);
+	
+	QObject::connect(listItems,SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
 }
 
 void MainWindow::toConsole(const QString &message)

@@ -29,6 +29,9 @@
 #include <QVBoxLayout>
 #include <QRadioButton>
 #include <QWidget>
+#include <QTreeWidget>
+
+#include "informationsbox.h"
 
 class QAction;
 class QMenu;
@@ -74,23 +77,28 @@ private:
     QListWidget *console;
     void toConsole(const QString &message);
     
+	//Dock liste item
+	QDockWidget *listItemsDock;
+	QTreeWidget *listItems;
+	
 	//Dock d'infos
 	QDockWidget *infoDock;
-	
-    //Dock et widget du contrôleur
+	InformationsBox *infos;
+    
+	//Dock et widget du contrôleur
     QDockWidget *controlDock;
     QToolBox *controlTabs;
 
-		//Contrôles de vitesse
-		QSlider *speedGlobal;
-		
-		//Contrôles de caméra
-		QGroupBox *viewControls;
-		QVBoxLayout *viewControlsLayout;
-		QRadioButton *topView;
-		QRadioButton *followCam;
-		QRadioButton *circlingCam;
-		QRadioButton *teamCam;
+	//Contrôles de vitesse
+	QSlider *speedGlobal;
+
+	//Contrôles de caméra
+	QGroupBox *viewControls;
+	QVBoxLayout *viewControlsLayout;
+	QRadioButton *topView;
+	QRadioButton *followCam;
+	QRadioButton *circlingCam;
+	QRadioButton *teamCam;
 
     QString curFile;
 
