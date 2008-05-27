@@ -12,5 +12,6 @@
     <file>images/cog.png</file>
     <file>images/script_gear.png</file>
     <file>images/comment.png</file>    
+    <file>images/logo.png</file>    
 </qresource>
 </RCC>
