@@ -13,5 +13,8 @@
     <file>images/script_gear.png</file>
     <file>images/comment.png</file>    
     <file>images/logo.png</file>    
+    <file>images/browser.png</file>
+    <file>images/systemsettings.png</file>
+    <file>images/x.png</file>
 </qresource>
 </RCC>

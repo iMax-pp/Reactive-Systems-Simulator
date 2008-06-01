@@ -113,6 +113,12 @@ void MainWindow::documentWasModified()
     */
 }
 
+void MainWindow::openConfigBox()
+{
+	ConfigDialog dialog;
+	dialog.exec();
+}
+
 void MainWindow::createActions()
 {
 	//Actions menu File
@@ -162,11 +168,15 @@ void MainWindow::createActions()
 	    fullscreenAct->setShortcut(tr("Ctrl+F"));
 	    fullscreenAct->setStatusTip(tr("Switch to fullscreen simulation"));
 	
-	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Co&nfigure program"), this);
-	    programConfigAct->setStatusTip(tr("Configure the simulator/program"));
+	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Configure &program"), this);
+		programConfigAct->setShortcut(tr("Ctrl+P"));
+	    programConfigAct->setStatusTip(tr("Configure the program"));
+		connect(programConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
+
 	
-	    simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
-	    simConfigAct->setStatusTip(tr("Configure the simulation files"));
+//	    simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
+//	    simConfigAct->setStatusTip(tr("Configure the simulation files"));
+//		connect(simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
 
 
 	//Action menu Help
@@ -212,7 +222,7 @@ void MainWindow::createMenus()
     simMenu = menuBar()->addMenu(tr("&Options"));
     simMenu->addAction(fullscreenAct);
     simMenu->addAction(programConfigAct);
-    simMenu->addAction(simConfigAct);
+    //simMenu->addAction(simConfigAct);
 
     menuBar()->addSeparator();
 

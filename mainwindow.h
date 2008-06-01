@@ -32,6 +32,7 @@
 #include <QTreeWidget>
 
 #include "informationsbox.h"
+#include "configdialog.h"
 
 class QAction;
 class QMenu;
@@ -54,6 +55,7 @@ private slots:
     bool saveAs();
     void about();
     void documentWasModified();
+	void openConfigBox();
 
 private:
     void createActions();
@@ -128,7 +130,7 @@ private:
     //Options menu actions
     QAction *fullscreenAct;
     QAction *programConfigAct;
-    QAction *simConfigAct;
+    //QAction *simConfigAct;
     
     //Help menu actions
     QAction *aboutAct;
