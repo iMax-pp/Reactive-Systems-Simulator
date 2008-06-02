@@ -312,7 +312,6 @@ void MainWindow::createDocks()
 	listItemsDock->setWidget(listItems);
 
 	// Dock d'affichage des informations
-	//Création de la console
 	infoDock = new QDockWidget(tr("Informations Dock"), this);
 	infoDock->setAllowedAreas(Qt::BottomDockWidgetArea
 								 | Qt::TopDockWidgetArea);

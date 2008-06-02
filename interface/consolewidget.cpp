@@ -26,15 +26,16 @@
 
 ConsoleWidget::ConsoleWidget(){}
 
-void ConsoleWidget::newMsg(const QString &message)
+void ConsoleWidget::newMsg(QString message)
 {
 	QTime t;
 	t.start();
-	addItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
-	scrollToItem(currentItem());
+	QListWidgetItem * newItem = new QListWidgetItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
+	addItem(newItem);
+	scrollToItem(newItem);
 }
 
-void ConsoleWidget::sendMsg(const QString &message)
+void ConsoleWidget::sendMsg(const QString message)
 {
 	newMsg(message);
 }

@@ -24,6 +24,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include <QString>
 #include <QTime>
 
 class ConsoleWidget : public QListWidget
@@ -32,13 +33,13 @@ class ConsoleWidget : public QListWidget
 	
 	public:
 		ConsoleWidget();
-		void newMsg(const QString &message);
+		void newMsg(QString message);
 
 	signals:
-		void consoleMsg(const QString &message);
+		void consoleMsg(const QString message);
 	
 	public slots:
-		void sendMsg(const QString &message);
+		void sendMsg(const QString message);
 	
 	private:
 		//QListWidget *console;
