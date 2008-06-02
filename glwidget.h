@@ -35,11 +35,14 @@ public:
     void resizeGL(int w, int h);
     void paintGL();
     void timerEvent(QTimerEvent *) { update(); }
-    //void mousePressEvent(QMouseEvent *) { killTimer(timerId); }
+    void mousePressEvent(QMouseEvent *event);
     //void mouseReleaseEvent(QMouseEvent *) { timerId = startTimer(20); }
 
 public slots:
     void setWorldSpeed(int speed);
+
+signals:
+	void consoleMsg(const QString &message);
 
 private:
     int timerId;

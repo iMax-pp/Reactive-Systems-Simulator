@@ -8,9 +8,10 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += configdialog.h glwidget.h informationsbox.h mainwindow.h pages.h
+HEADERS += configdialog.h glwidget.h consolewidget.h informationsbox.h mainwindow.h pages.h
 SOURCES += configdialog.cpp \
            glwidget.cpp \
+           consolewidget.cpp \
            informationsbox.cpp \
            main.cpp \
            mainwindow.cpp \

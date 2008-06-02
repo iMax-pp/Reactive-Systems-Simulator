@@ -259,11 +259,9 @@ void MainWindow::createDocks()
 	consoleDock->setAllowedAreas(Qt::BottomDockWidgetArea
 	                              | Qt::TopDockWidgetArea);
 	addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
-	
-	console = new QListWidget;
-	consoleDock->setWidget(console);
-	
-	toConsole(QString("The simulator is up and ready to run..."));
+	consoleWidget = new ConsoleWidget;
+	consoleDock->setWidget(consoleWidget);	
+	consoleWidget->newMsg(QString("The simulator is up and ready to run..."));
 	
 	//Création du dock de contrôle
 	controlDock = new QDockWidget(tr("Controls"), this);
@@ -348,22 +346,9 @@ void MainWindow::createDocks()
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
 	
-	QObject::connect(listItems,SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
-}
-
-void MainWindow::toConsole(const QString &message)
-{
-	//On met en place les structures de temps
-	time_t rawtime;
-	struct tm * timeinfo;
-	char timeBuffer [12];
-
-	//On s'en sert pour prendre l'heure. Ca sera nécessaire à chaque fois.
-	time ( &rawtime );
-	timeinfo = localtime ( &rawtime );
-	strftime(timeBuffer,11,"[%X] ",timeinfo);
-
-	console->addItem(QString(timeBuffer) + message);	
+	//connections
+	QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
+	QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
 }
 
 void MainWindow::readSettings()

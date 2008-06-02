@@ -31,6 +31,7 @@
 #include <QWidget>
 #include <QTreeWidget>
 
+#include "consolewidget.h"
 #include "informationsbox.h"
 #include "configdialog.h"
 
@@ -76,8 +77,7 @@ private:
     
     //Widget, dock et fonctions de la console
     QDockWidget *consoleDock;
-    QListWidget *console;
-    void toConsole(const QString &message);
+    ConsoleWidget *consoleWidget;
     
 	//Dock liste item
 	QDockWidget *listItemsDock;

@@ -35,6 +35,19 @@ GLWidget::~GLWidget()
 {
 }
 
+void GLWidget::mousePressEvent(QMouseEvent *event)
+{
+	QString message = QString("QGLWidget Clicked! (");
+	QString x; x.setNum(event->x());
+	QString y; y.setNum(event->y());
+	message.append(x);
+	message.append(",");
+	message.append(y);
+	message.append(")");
+	emit consoleMsg(message);
+}
+
+
 void GLWidget::setWorldSpeed(int speed)
 {
 	worldSpeedFactor = speed;
@@ -54,6 +67,8 @@ void GLWidget::initializeGL()
 	y2 = 0.0;
 	y3 = 0.0;
 	worldSpeedFactor = 2;
+	
+	emit consoleMsg(QString("OpenGL load successful..."));
 }
 
 void GLWidget::resizeGL(int w, int h)
