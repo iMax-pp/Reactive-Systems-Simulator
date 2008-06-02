@@ -20,6 +20,7 @@
  ********************************************************************************************/
 
 #include <QtGui>
+#include <QTime>
 
 #include "consolewidget.h"
 
@@ -27,17 +28,9 @@ ConsoleWidget::ConsoleWidget(){}
 
 void ConsoleWidget::newMsg(const QString &message)
 {
-	//On met en place les structures de temps
-	time_t rawtime;
-	struct tm * timeinfo;
-	char timeBuffer [12];
-
-	//On s'en sert pour prendre l'heure. Ca sera nécessaire à chaque fois.
-	time ( &rawtime );
-	timeinfo = localtime ( &rawtime );
-	strftime(timeBuffer,11,"[%X] ",timeinfo);
-
-	addItem(message.prepend(timeBuffer));
+	QTime t;
+	t.start();
+	addItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
 	scrollToItem(currentItem());
 }
 
