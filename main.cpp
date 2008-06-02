@@ -21,7 +21,7 @@
 
 #include <QApplication>
 
-#include "mainwindow.h"
+#include "interface/mainwindow.h"
 
 int main(int argc, char *argv[])
 {
