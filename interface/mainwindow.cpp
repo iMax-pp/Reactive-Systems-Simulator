@@ -24,12 +24,14 @@
 #include <QtGui>
 
 #include "mainwindow.h"
-#include "glwidget.h"
+#include "../simulator/GLViewer.h"
 
 MainWindow::MainWindow()
 {
-    glWidget = new GLWidget;
-    setCentralWidget(glWidget);
+    //glWidget = new GLWidget;
+    //setCentralWidget(glWidget);
+    glViewer = new Viewer;
+    setCentralWidget(glViewer);
 
     createActions();
     createMenus();
@@ -322,7 +324,7 @@ void MainWindow::createDocks()
 	
 	//connections
 	QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
-	QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
+	//QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
 }
 
 void MainWindow::readSettings()

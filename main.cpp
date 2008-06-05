@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     MainWindow mainWin;
+	mainWin.setWindowTitle("Reactive Systems Simulator");
     mainWin.show();
     return app.exec();
 }

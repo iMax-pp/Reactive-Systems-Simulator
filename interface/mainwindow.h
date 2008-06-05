@@ -35,10 +35,11 @@
 #include "controlswidget.h"
 #include "informationsbox.h"
 #include "configdialog.h"
+#include "../simulator/GLViewer.h"
 
 class QAction;
 class QMenu;
-class GLWidget;
+//class GLViewer;
 
 class MainWindow : public QMainWindow
 {
@@ -74,7 +75,7 @@ private:
     QString strippedName(const QString &fullFileName);
 
     //Le widget OpenGL
-    GLWidget *glWidget;
+    Viewer *glViewer;
     
     //Widget, dock et fonctions de la console
     QDockWidget *consoleDock;
