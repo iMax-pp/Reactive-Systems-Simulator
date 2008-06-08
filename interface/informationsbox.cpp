@@ -25,7 +25,7 @@
 
 InformationsBox::InformationsBox()
 {
-	m_text = new QLabel("No Selected Item");
+	m_text = new QLabel(tr("No Selected Item"));
 
 	QVBoxLayout *vbox = new QVBoxLayout;
 	vbox->addWidget(m_text);

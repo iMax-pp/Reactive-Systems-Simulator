@@ -214,7 +214,7 @@ void MainWindow::createMenus()
     fileMenu->addAction(exitAct);
 
 	//Sim menu
-    simMenu = menuBar()->addMenu(tr("&Sim"));
+    simMenu = menuBar()->addMenu(tr("&Simulation"));
     simMenu->addAction(runSimAct);
     simMenu->addAction(restartSimAct);
     simMenu->addAction(resetSimAct);
@@ -281,7 +281,7 @@ void MainWindow::createDocks()
 	addDockWidget(Qt::RightDockWidgetArea, listItemsDock);
 	
 	listItems = new QTreeWidget;
-	listItems->setHeaderLabel("Items");
+	listItems->setHeaderLabel(tr("Items"));
 	QTreeWidgetItem *world = new QTreeWidgetItem;
 	world->setText(0,tr("World"));
 	QTreeWidgetItem *team1 = new QTreeWidgetItem;

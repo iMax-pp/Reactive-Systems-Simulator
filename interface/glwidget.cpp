@@ -67,8 +67,6 @@ void GLWidget::initializeGL()
 	y2 = 0.0;
 	y3 = 0.0;
 	worldSpeedFactor = 2;
-	
-	emit consoleMsg(QString("OpenGL load successful..."));
 }
 
 void GLWidget::resizeGL(int w, int h)
