@@ -31,9 +31,11 @@
 
 class GLControler : public QObject
 {
+	Q_OBJECT
+	
 	public:
-		GLControler
-		~GLControler
+		GLControler();
+		~GLControler();
 	
 		//Ces deux fontions se chargent d'ajouter et d'enlever les entitées au monde.
 		//On passe par le controleur pour que celui-ci ait un controle total sur le monde.
@@ -43,7 +45,7 @@ class GLControler : public QObject
 									  //Pas sur de comment spécifier l'entitée: instance ou pointeur?
 		
 	private:
-		vector<*Entity> _Entities; //Un vecteur c'est une sorte de de tableau/pile/file hybride qui peut être itérée, utilisée avec des indices, et a des méthode push/pop. 
+		vector<*GLEntity> _Entities; //Un vecteur c'est une sorte de de tableau/pile/file hybride qui peut être itérée, utilisée avec des indices, et a des méthode push/pop. 
 
 	signals:
 		void newEntity(Entity *ent);

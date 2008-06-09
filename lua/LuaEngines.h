@@ -19,43 +19,19 @@
 **
 ********************************************************************************************/
 
-#include "GLViewer.h"
+#ifndef LUAENGINES_H
+#define LUAENGINES_H
 
-using namespace std;
-
-// Draws a spiral
-void Viewer::draw()
+class LuaSimpleEngine
 {
-	glCallList(spiral);
-}
+	//Très Simple (d'ou le nom) celui la ne fait que extraire des valeurs, pour les configs par exemple...voir même les écrire...
+};
 
-void Viewer::init()
+class LuaMetaEngine
 {
-	// Restore previous viewer state.
-	//restoreStateFromFile();
-	
-	spiral = glGenLists(1);
+	//Très Compliqué (d'ou le nom pourri...), celui ci se charge d'instancier le projet à partir des fichiers projet en Lua.
+	//Meta? Parce que le langage des fichiers projet sera entre C++ et Lua. Les fichiers projet n'étant pas "actifs", ils ne font que configurer les entitées, et tout instancier avant de lancer la simulation.
+	//En quelque sorte, il n'y aura qu'un appel de cette chose par projet...
+};
 
-	const float nbSteps = 200.0;
-	
-	glNewList(spiral, GL_COMPILE);
-		glBegin(GL_QUAD_STRIP);
-		for (int i=0; i<nbSteps; ++i)
-		{
-			const float ratio = i/nbSteps;
-			const float angle = 21.0f*ratio;
-			const float c = cos(angle);
-			const float s = sin(angle);
-			const float r1 = 1.0f - 0.8f*ratio;
-			const float r2 = 0.8f - 0.8f*ratio;
-			const float alt = ratio - 0.5f;
-			const float nor = 0.5f;
-			const float up = sqrt(1.0f-nor*nor);
-			glColor3f(1.0f-ratio, 0.2f , ratio);
-			glNormal3f(nor*c, up, nor*s);
-			glVertex3f(r1*c, alt, r1*s);
-			glVertex3f(r2*c, alt+0.05f, r2*s);
-		}
-		glEnd();
-	glEndList();
-}
+#endif

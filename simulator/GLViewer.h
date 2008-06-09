@@ -30,6 +30,9 @@ class Viewer : public QGLViewer
 		virtual void draw();
 		virtual void init();
 		//virtual QString helpString() const;
+		
+	private:
+		GLuint spiral;
 };
 
 #endif

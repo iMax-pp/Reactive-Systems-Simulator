@@ -39,6 +39,8 @@ class GLEntity
 		void rotate3f(num3f relAngle); //Sert à tourner une entitée relativement à ses angles courants => rotation
 		void move(float fact); //Sert à faire avancer ou reculer une entité;
 		
+		void reSpawn(); //Une entitée bloquée ou perdue pourra être RAZ
+		
 		QStringList getProperties(); //Renvoit les propriétés de l'entité.
 									 //Sert à être utilisé directement par l'afficheur d'infos, doù le QStringList.
 		
@@ -75,4 +77,33 @@ class GLLivingEntity
 		vector<*AIState> states;
 		vector<*AICapacity> capacities;
 }
+
+class GLBot : public GLLivingEntity
+{
+	public:
+		GLBot(); //Il faudra ajouter les capacités classiques d'un bot directement à la construction.
+		~GLBot();
+		
+		//Une entité bot hérite de toutes les fonctions d'un entité vivante, mais elle est assez spéciale, elle a des actions propre à elle.
+		MoveForward();
+		MoveBack();
+		MoveUp(); //Un bot qui peut nager? Il aura besoin de monter.
+		MoveDown(); //Et de descendre... Je sens qu'on va me haïr...
+		MoveLeft(); //Pas de côté? Pas très utile mais je met quand même.
+		MoveRight(); // Idem.
+		Jump(); // Un bot qui peut sauter? Peut être utile...je commence mes derniers voeux...
+		UseItem(); //Utiliser un objet porté?
+		
+	private:
+		//Bon chaque bot aura aussi des propriétés, des charactéristiques...compte tenu d'un idée personnelle qui se développe, on pourrait les appeler des gênes :D
+		float _speed;
+		float _vision_angle; //Angle du cône de vision. On suppose que c'est vraiment un cône
+		float _vision_distance; //Pas dur :)
+		
+		//Ces gênes spécifient comment le bot va agir. Concrêtement, ils influencent ses choix d'action dans la state machine.
+		int _explorer; //Tendence à explorer
+		int _curious; //Tendence à être curieux: "Ce point d'énergie pourrait être une bombe, mais je m'y aventure, car je suis très curieux :)"
+		//pas trop d'inspiration pour ce type de gêne tout de suite...
+};
+
 #endif
