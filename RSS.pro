@@ -42,3 +42,4 @@ SOURCES += main.cpp \
            simulator/GLViewer.cpp
            
 RESOURCES += application.qrc
+LIBS *= -Llib -lQGLViewer2
