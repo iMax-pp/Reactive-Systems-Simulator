@@ -22,6 +22,10 @@
 #include <QApplication>
 
 #include "interface/mainwindow.h"
+#include "lua/luaEngines.h"
+#include <lua.hpp>
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -29,7 +33,11 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     MainWindow mainWin;
-	mainWin.setWindowTitle("Reactive Systems Simulator");
+    
+    LuaSimpleEngine luaConfig;
+    luaConfig.loadFile("mainconfig.lua");
+    mainWin.setWindowTitle(luaConfig.getString("windowtitle"));
+
     mainWin.show();
     return app.exec();
 }

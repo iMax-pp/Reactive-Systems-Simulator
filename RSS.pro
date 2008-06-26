@@ -6,14 +6,17 @@ TEMPLATE = app
 TARGET = RSS
 CONFIG  += qt opengl warn_on release thread
 QT += xml opengl
+DESTDIR = release
 
 DEPENDPATH += . \
               interface \
               simulator \
+              lua \
 
 INCLUDEPATH += . \
                interface \
                simulator \
+               lua \
 
 # Input
 HEADERS += interface/cameracontrolswidget.h \
@@ -26,7 +29,8 @@ HEADERS += interface/cameracontrolswidget.h \
            interface/mainwindow.h \
            interface/pages.h \
            interface/speedcontrolswidget.h \
-           simulator/GLViewer.h
+           simulator/GLViewer.h \
+           lua\luaEngines.h
            
 SOURCES += main.cpp \
            interface/cameracontrolswidget.cpp \
@@ -39,7 +43,8 @@ SOURCES += main.cpp \
            interface/mainwindow.cpp \
            interface/pages.cpp \
            interface/speedcontrolswidget.cpp \
-           simulator/GLViewer.cpp
+           simulator/GLViewer.cpp \
+           lua\luaEngines.cpp
            
 RESOURCES += application.qrc
-LIBS *= -Llib -lQGLViewer2
+LIBS *= -Llib -lQGLViewer2 -llua

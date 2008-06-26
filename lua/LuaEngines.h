@@ -22,9 +22,24 @@
 #ifndef LUAENGINES_H
 #define LUAENGINES_H
 
+#include <string>
+#include <lua.hpp>
+
+using namespace std;
+
 class LuaSimpleEngine
 {
-	//Très Simple (d'ou le nom) celui la ne fait que extraire des valeurs, pour les configs par exemple...voir même les écrire...
+	public:
+		LuaSimpleEngine();
+		~LuaSimpleEngine();
+		bool loadFile(const char *fileName);
+		int getInt(const char *varName);
+		float getFloat(const char *varName);
+		const char *getString(const char *varName);
+		bool getBool(const char *varName);
+
+	private:
+		lua_State *luaState;
 };
 
 class LuaMetaEngine
@@ -35,3 +50,4 @@ class LuaMetaEngine
 };
 
 #endif
+
