@@ -47,4 +47,7 @@ SOURCES += main.cpp \
            lua\luaEngines.cpp
            
 RESOURCES += application.qrc
-LIBS *= -Llib -lQGLViewer2 -llua
+
+linux-g++:LIBS *= -Llib/linux -lQGLViewer -llua
+macx:LIBS *= -Llib/macx -lQGLViewer -llua
+win32:LIBS *= -Llib/windows -lQGLViewer2 -llua
