@@ -30,7 +30,7 @@ HEADERS += interface/cameracontrolswidget.h \
            interface/pages.h \
            interface/speedcontrolswidget.h \
            simulator/GLViewer.h \
-           lua\luaEngines.h
+           lua/luaEngines.h
            
 SOURCES += main.cpp \
            interface/cameracontrolswidget.cpp \
@@ -44,7 +44,7 @@ SOURCES += main.cpp \
            interface/pages.cpp \
            interface/speedcontrolswidget.cpp \
            simulator/GLViewer.cpp \
-           lua\luaEngines.cpp
+           lua/luaEngines.cpp
            
 RESOURCES += application.qrc
 
