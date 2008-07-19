@@ -20,18 +20,23 @@
 ********************************************************************************************/
 
 #include <time.h>
-
 #include <QtGui>
 
 #include "mainwindow.h"
-#include "../simulator/GLViewer.h"
 
 MainWindow::MainWindow()
 {
+	LuaSimpleEngine luaConfig;
+    luaConfig.loadFile("/Users/maxime/Documents/Programmation/RSS/config/mainwindowconfig.lua");
+	// Aïe Aïe Aïe, l'accès au fichier ne peut se faire que de manière absolue...
+    
+	setWindowTitle(luaConfig.getString("windowtitle"));
+	
     //glWidget = new GLWidget;
     //setCentralWidget(glWidget);
     glViewer = new Viewer;
     setCentralWidget(glViewer);
+	glViewer->setFullScreen(luaConfig.getBool("fullscreen"));
 
     createActions();
     createMenus();
@@ -169,6 +174,7 @@ void MainWindow::createActions()
 	    fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
 	    fullscreenAct->setShortcut(tr("Ctrl+F"));
 	    fullscreenAct->setStatusTip(tr("Switch to fullscreen simulation"));
+		connect(fullscreenAct, SIGNAL(triggered()), glViewer, SLOT(toggleFullScreen()));
 	
 	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Configure &program"), this);
 		programConfigAct->setShortcut(tr("Ctrl+P"));

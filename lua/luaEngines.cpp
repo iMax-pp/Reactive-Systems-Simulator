@@ -19,8 +19,6 @@
 **
 ********************************************************************************************/
 
-#include <string>
-#include <lua.hpp>
 #include "luaEngines.h"
 
 using namespace std;
