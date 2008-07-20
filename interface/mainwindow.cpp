@@ -27,8 +27,7 @@
 MainWindow::MainWindow()
 {
 	LuaSimpleEngine luaConfig;
-    luaConfig.loadFile("/Users/maxime/Documents/Programmation/RSS/config/mainwindowconfig.lua");
-	// Aïe Aïe Aïe, l'accès au fichier ne peut se faire que de manière absolue...
+    luaConfig.loadFile("config/mainwindowconfig.lua");
     
 	setWindowTitle(luaConfig.getString("windowtitle"));
 	

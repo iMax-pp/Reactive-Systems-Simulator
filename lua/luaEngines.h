@@ -23,6 +23,7 @@
 #define LUAENGINES_H
 
 #include <iostream>
+#include <string>
 #include <lua.hpp>
 
 using namespace std;

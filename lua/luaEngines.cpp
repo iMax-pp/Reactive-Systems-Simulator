@@ -35,7 +35,12 @@ LuaSimpleEngine::~LuaSimpleEngine()
 
 bool LuaSimpleEngine::loadFile(const char *fileName)
 {
-	return !(luaL_loadfile(luaState,fileName) || lua_pcall(luaState,0,0,0));
+	bool result = luaL_loadfile(luaState,fileName) || lua_pcall(luaState,0,0,0);
+	if(result)
+	{
+		std::cout << "Cannot load the file" << std::endl;
+	}
+	return !result;
 }
 
 int LuaSimpleEngine::getInt(const char *varName)
