@@ -60,6 +60,7 @@ private slots:
     void about();
     void documentWasModified();
 	void openConfigBox();
+	void toggleFullScreen();
 
 private:
     void createActions();

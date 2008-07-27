@@ -31,11 +31,15 @@ MainWindow::MainWindow()
     
 	setWindowTitle(luaConfig.getString("windowtitle"));
 	
+	setMinimumSize(800,500);
+	
+	if(luaConfig.getBool("fullscreen"))
+		{showFullScreen();}
+	
     //glWidget = new GLWidget;
     //setCentralWidget(glWidget);
     glViewer = new Viewer;
     setCentralWidget(glViewer);
-	glViewer->setFullScreen(luaConfig.getBool("fullscreen"));
 
     createActions();
     createMenus();
@@ -173,7 +177,7 @@ void MainWindow::createActions()
 	    fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
 	    fullscreenAct->setShortcut(tr("Ctrl+F"));
 	    fullscreenAct->setStatusTip(tr("Switch to fullscreen simulation"));
-		connect(fullscreenAct, SIGNAL(triggered()), glViewer, SLOT(toggleFullScreen()));
+		connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
 	
 	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Configure &program"), this);
 		programConfigAct->setShortcut(tr("Ctrl+P"));
@@ -270,6 +274,8 @@ void MainWindow::createDocks()
 	consoleDock->setWidget(consoleWidget);	
 	consoleWidget->newMsg(QString("The simulator is up and ready to run..."));
 	
+	consoleWidget->setMaximumHeight(100);
+	
 	//Création du dock de contrôle
 	controlsDock = new QDockWidget(tr("Controls"), this);
 	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea
@@ -284,6 +290,8 @@ void MainWindow::createDocks()
 	listItemsDock->setAllowedAreas(Qt::LeftDockWidgetArea
 								 | Qt::RightDockWidgetArea);
 	addDockWidget(Qt::RightDockWidgetArea, listItemsDock);
+	
+	listItemsDock->setFixedWidth(250);
 	
 	listItems = new QTreeWidget;
 	listItems->setHeaderLabel(tr("Items"));
@@ -323,6 +331,8 @@ void MainWindow::createDocks()
 	infoDock->setAllowedAreas(Qt::BottomDockWidgetArea
 								 | Qt::TopDockWidgetArea);
 	addDockWidget(Qt::BottomDockWidgetArea, infoDock);
+	
+	infoDock->setFixedWidth(250);
 	
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
@@ -438,4 +448,12 @@ void MainWindow::setCurrentFile(const QString &fileName)
 QString MainWindow::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
+}
+
+void MainWindow::toggleFullScreen()
+{
+	if(!isFullScreen())
+		{showFullScreen();}
+	else
+		{showNormal();}
 }
