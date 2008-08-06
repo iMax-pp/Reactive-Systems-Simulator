@@ -22,6 +22,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <time.h>
+#include <QtGui>
 #include <QMainWindow>
 #include <QListWidget>
 #include <QToolBox>
@@ -35,8 +37,9 @@
 #include "controlswidget.h"
 #include "informationsbox.h"
 #include "configdialog.h"
+#include "programsettings.h"
 #include "../simulator/GLViewer.h"
-#include "lua/luaEngines.h"
+#include "../lua/luaEngines.h"
 
 class QAction;
 class QMenu;
@@ -68,8 +71,6 @@ private:
     void createToolBars();
     void createStatusBar();
     void createDocks(); //Ajoute les parties docks
-    void readSettings();
-    void writeSettings();
     bool maybeSave();
     void loadFile(const QString &fileName);
     bool saveFile(const QString &fileName);

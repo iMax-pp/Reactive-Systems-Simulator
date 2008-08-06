@@ -19,22 +19,16 @@
 **
 ********************************************************************************************/
 
-#include <time.h>
-#include <QtGui>
-
 #include "mainwindow.h"
 
 MainWindow::MainWindow()
 {
-	LuaSimpleEngine luaConfig;
-    luaConfig.loadFile("config/mainwindowconfig.lua");
-    
-	setWindowTitle(luaConfig.getString("windowtitle"));
+	ProgramSettings settings;
 	
 	setMinimumSize(800,500);
 	
-	if(luaConfig.getBool("fullscreen"))
-		{showFullScreen();}
+	if(settings.value("fullscreen").toBool())
+	{ showFullScreen(); }
 	
     //glWidget = new GLWidget;
     //setCentralWidget(glWidget);
@@ -47,8 +41,6 @@ MainWindow::MainWindow()
     createStatusBar();
     createDocks(); //Ajoute les parties docks
 
-    readSettings();
-
 	//Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
     //connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));
 
@@ -59,7 +51,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 	//Une simulation est en cours, confirmation pour quitter.
     if (maybeSave()) {
-        writeSettings();
         event->accept();
     } else {
         event->ignore();
@@ -340,28 +331,6 @@ void MainWindow::createDocks()
 	//connections
 	QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
 	//QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
-}
-
-void MainWindow::readSettings()
-{
-	//Lecture des paramètres...aucuns pour le moment...on commente!
-	/*
-    QSettings settings("Trolltech", "Application Example");
-    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("size", QSize(400, 400)).toSize();
-    resize(size);
-    move(pos);
-    */
-}
-
-void MainWindow::writeSettings()
-{
-	//Idem
-	/*
-    QSettings settings("Trolltech", "Application Example");
-    settings.setValue("pos", pos());
-    settings.setValue("size", size());
-    */
 }
 
 bool MainWindow::maybeSave()

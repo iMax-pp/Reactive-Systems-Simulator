@@ -19,9 +19,6 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-#include <QTime>
-
 #include "consolewidget.h"
 
 ConsoleWidget::ConsoleWidget(){}

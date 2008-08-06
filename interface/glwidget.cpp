@@ -20,9 +20,6 @@
 ********************************************************************************************/
 
 #include "glwidget.h"
-#include <QtGui/QImage>
-
-#include <math.h>
 
 GLWidget::GLWidget(QWidget *parent)
   : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)

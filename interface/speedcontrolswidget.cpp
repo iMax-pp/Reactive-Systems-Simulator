@@ -19,8 +19,6 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-
 #include "speedcontrolswidget.h"
 
 SpeedControlsWidget::SpeedControlsWidget()

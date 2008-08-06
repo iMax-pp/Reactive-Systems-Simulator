@@ -19,26 +19,42 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-
 #include "pages.h"
+
+ConfigurationPage::ConfigurationPage(QWidget *parent)
+: QWidget(parent)
+{	
+	ProgramSettings * settings = new ProgramSettings();
+	
+	QCheckBox *fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
+	fullscreenCheckBox->setChecked(settings->value("fullscreen").toBool());
+	QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)), settings, SLOT(setFullscreen(int)));
+	
+	QVBoxLayout *programConfigLayout = new QVBoxLayout;
+	programConfigLayout->addWidget(fullscreenCheckBox);
+	setLayout(programConfigLayout);
+}
 
 WorldConfigPage::WorldConfigPage(QWidget *parent)
 : QWidget(parent)
 {
+	LuaSimpleEngine *luaConfig = new LuaSimpleEngine;
+    luaConfig->loadFile("config/worlddefaultconfig.lua");
+	
 	QGroupBox *teamsConfigGroup = new QGroupBox(tr("Teams configuration"));
 	
 	QLabel *numberOfTeamsLabel = new QLabel(tr("Number of Teams :"));
 	QSpinBox *numberOfTeamsSelector = new QSpinBox;
 	numberOfTeamsSelector->setMinimum(1);
 	numberOfTeamsSelector->setMaximum(3);
-	numberOfTeamsSelector->setValue(2);
+	numberOfTeamsSelector->setValue(luaConfig->getInt("numberofteams"));
+	QObject::connect(numberOfTeamsSelector, SIGNAL(valueChanged(int)), luaConfig, SLOT(setInt(int)));
 	
 	QLabel *numberOfEntitiesLabel = new QLabel(tr("Number of Entities per Team :"));
 	QSpinBox *numberOfEntitiesSelector = new QSpinBox;
 	numberOfEntitiesSelector->setMinimum(1);
 	numberOfEntitiesSelector->setMaximum(3);
-	numberOfEntitiesSelector->setValue(3);	
+	numberOfEntitiesSelector->setValue(luaConfig->getInt("numberofentities"));
 	
 	QVBoxLayout *teamsConfigLayout = new QVBoxLayout;
 	teamsConfigLayout->addWidget(numberOfTeamsLabel);
@@ -53,7 +69,7 @@ WorldConfigPage::WorldConfigPage(QWidget *parent)
 	QSpinBox *temperatureSelector = new QSpinBox;
 	temperatureSelector->setMinimum(0);
 	temperatureSelector->setMaximum(100);
-	temperatureSelector->setValue(20);	
+	temperatureSelector->setValue(luaConfig->getInt("temperature"));	
 	
 	QVBoxLayout *worldConfigLayout = new QVBoxLayout;
 	worldConfigLayout->addWidget(temperatureLabel);
@@ -65,13 +81,6 @@ WorldConfigPage::WorldConfigPage(QWidget *parent)
 	mainLayout->addWidget(worldConfig);
 	mainLayout->addStretch(1);
 	setLayout(mainLayout);
-}
-
-
-ConfigurationPage::ConfigurationPage(QWidget *parent)
-: QWidget(parent)
-{
-	
 }
 
 OpenGLPage::OpenGLPage(QWidget *parent)

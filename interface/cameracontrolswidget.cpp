@@ -19,8 +19,6 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-
 #include "cameracontrolswidget.h"
 
 CameraControlsWidget::CameraControlsWidget()

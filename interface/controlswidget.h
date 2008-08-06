@@ -22,6 +22,7 @@
 #ifndef CONTROLSWIDGET_H
 #define CONTROLSWIDGET_H
 
+#include <QtGui>
 #include <QWidget>
 #include <QToolBox>
 

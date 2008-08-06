@@ -22,24 +22,28 @@
 #ifndef PAGES_H
 #define PAGES_H
 
+#include <QtGui>
 #include <QWidget>
+#include "programsettings.h"
+#include "../lua/luaEngines.h"
 
 class WorldConfigPage : public QWidget
-	{
-	public:
-		WorldConfigPage(QWidget *parent = 0);
-	};
+{
+public:
+	WorldConfigPage(QWidget *parent = 0);
+};
 
 class ConfigurationPage : public QWidget
-	{
-	public:
-		ConfigurationPage(QWidget *parent = 0);
-	};
+{
+Q_OBJECT
+public:
+	ConfigurationPage(QWidget *parent = 0);
+};
 
 class OpenGLPage : public QWidget
-	{
-	public:
-		OpenGLPage(QWidget *parent = 0);
-	};
+{
+public:
+	OpenGLPage(QWidget *parent = 0);
+};
 
 #endif

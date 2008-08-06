@@ -26,6 +26,7 @@ using namespace std;
 LuaSimpleEngine::LuaSimpleEngine()
 {
 	luaState = lua_open();
+	luaL_openlibs(luaState);
 }
 
 LuaSimpleEngine::~LuaSimpleEngine()
@@ -81,4 +82,10 @@ const char *LuaSimpleEngine::getString(const char *varName)
 		return lua_tostring(luaState,-1);
 	}
 	else return NULL;
+}
+
+void LuaSimpleEngine::setInt(int value)
+{
+	lua_pushnumber(luaState, value);
+	lua_setglobal(luaState, "numbersofteams");
 }

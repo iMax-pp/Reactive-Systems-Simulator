@@ -19,8 +19,6 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-
 #include "informationsbox.h"
 
 InformationsBox::InformationsBox()

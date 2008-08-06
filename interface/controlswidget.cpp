@@ -19,8 +19,6 @@
  **
  ********************************************************************************************/
 
-#include <QtGui>
-
 #include "controlswidget.h"
 
 ControlsWidget::ControlsWidget()

@@ -19,31 +19,34 @@
  **
  ********************************************************************************************/
 
-#ifndef CONSOLEWIDGET_H
-#define CONSOLEWIDGET_H
+#include "programsettings.h"
 
-#include <QtGui>
-#include <QWidget>
-#include <QListWidget>
-#include <QString>
-#include <QTime>
+ProgramSettings::ProgramSettings(){}
 
-class ConsoleWidget : public QListWidget
+QVariant ProgramSettings::value(const QString key, const QVariant defaultValue)
 {
-	Q_OBJECT
+	QSettings settings("HS Company", "RSS");
+	QVariant returnedValue = settings.value(key, defaultValue);
+	settings.sync();
 	
-	public:
-		ConsoleWidget();
-		void newMsg(QString message);
+	return returnedValue;
+}
 
-	signals:
-		void consoleMsg(const QString message);
-	
-	public slots:
-		void sendMsg(const QString message);
-	
-	private:
-		//QListWidget *console;
-};
+void ProgramSettings::setValue(const QString key, const QVariant value)
+{
+	QSettings settings("HS Company", "RSS");
+	settings.setValue(key, value);
+	settings.sync();
+}
 
-#endif
+void ProgramSettings::setFullscreen(int fullscreen)
+{	
+	QSettings settings("HS Company", "RSS");
+	
+	if(fullscreen == 0)
+	{ settings.setValue("fullscreen", false); }
+	else
+	{ settings.setValue("fullscreen", true); }
+	
+	settings.sync();
+}

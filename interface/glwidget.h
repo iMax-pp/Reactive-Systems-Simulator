@@ -23,6 +23,10 @@
 #define GLWIDGET_H
 
 #include <QtOpenGL>
+#include <QtGui/QImage>
+
+#include <math.h>
+
 
 class GLWidget : public QGLWidget
 {

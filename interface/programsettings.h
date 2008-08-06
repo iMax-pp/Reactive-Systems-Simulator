@@ -19,31 +19,22 @@
  **
  ********************************************************************************************/
 
-#ifndef CONSOLEWIDGET_H
-#define CONSOLEWIDGET_H
+#ifndef PROGRAMSETTINGS_H
+#define PROGRAMSETTINGS_H
 
-#include <QtGui>
-#include <QWidget>
-#include <QListWidget>
-#include <QString>
-#include <QTime>
+#include <QSettings>
 
-class ConsoleWidget : public QListWidget
+class ProgramSettings : public QSettings
 {
-	Q_OBJECT
+Q_OBJECT
 	
-	public:
-		ConsoleWidget();
-		void newMsg(QString message);
-
-	signals:
-		void consoleMsg(const QString message);
-	
-	public slots:
-		void sendMsg(const QString message);
-	
-	private:
-		//QListWidget *console;
+public:
+	ProgramSettings();
+	QVariant value(const QString key, const QVariant defaultValue = QVariant());
+	void setValue(const QString key, const QVariant value);
+		
+public slots:
+	void setFullscreen(int fullscreen);
 };
 
 #endif

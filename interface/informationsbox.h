@@ -22,6 +22,7 @@
 #ifndef INFORMATIONSBOX_H
 #define INFORMATIONSBOX_H
 
+#include <QtGui>
 #include <QWidget>
 #include <QObject>
 #include <QGroupBox>

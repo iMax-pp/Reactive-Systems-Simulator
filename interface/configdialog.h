@@ -22,7 +22,9 @@
 #ifndef CONFIGDIALOG_H
 #define CONFIGDIALOG_H
 
+#include <QtGui>
 #include <QDialog>
+#include "pages.h"
 
 class QListWidget;
 class QListWidgetItem;
