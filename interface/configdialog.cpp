@@ -32,8 +32,8 @@ ConfigDialog::ConfigDialog()
 	contentsWidget->setSpacing(12);
 	
 	pagesWidget = new QStackedWidget;
-	pagesWidget->addWidget(new ConfigurationPage);
 	pagesWidget->addWidget(new WorldConfigPage);
+	pagesWidget->addWidget(new ConfigurationPage);
 	pagesWidget->addWidget(new OpenGLPage);
 	
 	QPushButton *closeButton = new QPushButton(tr("Close"));
@@ -63,17 +63,17 @@ ConfigDialog::ConfigDialog()
 
 void ConfigDialog::createIcons()
 {	
-	QListWidgetItem *programConfigButton = new QListWidgetItem(contentsWidget);
-	programConfigButton->setIcon(QIcon(":/images/systemsettings.png"));
-	programConfigButton->setText(tr("Program\n Configuration"));
-	programConfigButton->setTextAlignment(Qt::AlignHCenter);
-	programConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
 	QListWidgetItem *worldConfigButton = new QListWidgetItem(contentsWidget);
 	worldConfigButton->setIcon(QIcon(":/images/browser.png"));
 	worldConfigButton->setText(tr("World\n Configuration"));
 	worldConfigButton->setTextAlignment(Qt::AlignHCenter);
 	worldConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	
+	QListWidgetItem *programConfigButton = new QListWidgetItem(contentsWidget);
+	programConfigButton->setIcon(QIcon(":/images/systemsettings.png"));
+	programConfigButton->setText(tr("Program\n Configuration"));
+	programConfigButton->setTextAlignment(Qt::AlignHCenter);
+	programConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	
 	QListWidgetItem *openGLConfigButton = new QListWidgetItem(contentsWidget);
 	openGLConfigButton->setIcon(QIcon(":/images/x.png"));

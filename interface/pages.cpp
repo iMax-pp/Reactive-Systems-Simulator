@@ -21,6 +21,55 @@
 
 #include "pages.h"
 
+WorldConfigPage::WorldConfigPage(QWidget *parent)
+: QWidget(parent)
+{	
+	WorldSettings * settings = new WorldSettings();
+	
+	QGroupBox *teamsConfigGroup = new QGroupBox(tr("Teams configuration"));
+	
+	QLabel *numberOfTeamsLabel = new QLabel(tr("Number of Teams :"));
+	QSpinBox *numberOfTeamsSelector = new QSpinBox;
+	numberOfTeamsSelector->setMinimum(1);
+	numberOfTeamsSelector->setMaximum(3);
+	numberOfTeamsSelector->setValue(settings->value("numberofteams").toInt());
+	QObject::connect(numberOfTeamsSelector, SIGNAL(valueChanged(int)), settings, SLOT(setNumberOfTeams(int)));
+	
+	QLabel *numberOfEntitiesLabel = new QLabel(tr("Number of Entities per Team :"));
+	QSpinBox *numberOfEntitiesSelector = new QSpinBox;
+	numberOfEntitiesSelector->setMinimum(1);
+	numberOfEntitiesSelector->setMaximum(3);
+	numberOfEntitiesSelector->setValue(settings->value("numberofentities").toInt());
+	QObject::connect(numberOfEntitiesSelector, SIGNAL(valueChanged(int)), settings, SLOT(setNumberOfEntities(int)));
+	
+	QVBoxLayout *teamsConfigLayout = new QVBoxLayout;
+	teamsConfigLayout->addWidget(numberOfTeamsLabel);
+	teamsConfigLayout->addWidget(numberOfTeamsSelector);
+	teamsConfigLayout->addWidget(numberOfEntitiesLabel);
+	teamsConfigLayout->addWidget(numberOfEntitiesSelector);
+	teamsConfigGroup->setLayout(teamsConfigLayout);
+	
+	QGroupBox *worldConfig = new QGroupBox(tr("World configuration"));
+	
+	QLabel *temperatureLabel = new QLabel(tr("Temperature of the World :"));
+	QSpinBox *temperatureSelector = new QSpinBox;
+	temperatureSelector->setMinimum(0);
+	temperatureSelector->setMaximum(100);
+	temperatureSelector->setValue(settings->value("temperature").toInt());
+	QObject::connect(temperatureSelector, SIGNAL(valueChanged(int)), settings, SLOT(setTemperature(int)));
+	
+	QVBoxLayout *worldConfigLayout = new QVBoxLayout;
+	worldConfigLayout->addWidget(temperatureLabel);
+	worldConfigLayout->addWidget(temperatureSelector);
+	worldConfig->setLayout(worldConfigLayout);
+	
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addWidget(teamsConfigGroup);
+	mainLayout->addWidget(worldConfig);
+	mainLayout->addStretch(1);
+	setLayout(mainLayout);
+}
+
 ConfigurationPage::ConfigurationPage(QWidget *parent)
 : QWidget(parent)
 {	
@@ -33,54 +82,6 @@ ConfigurationPage::ConfigurationPage(QWidget *parent)
 	QVBoxLayout *programConfigLayout = new QVBoxLayout;
 	programConfigLayout->addWidget(fullscreenCheckBox);
 	setLayout(programConfigLayout);
-}
-
-WorldConfigPage::WorldConfigPage(QWidget *parent)
-: QWidget(parent)
-{
-	LuaSimpleEngine *luaConfig = new LuaSimpleEngine;
-    luaConfig->loadFile("config/worlddefaultconfig.lua");
-	
-	QGroupBox *teamsConfigGroup = new QGroupBox(tr("Teams configuration"));
-	
-	QLabel *numberOfTeamsLabel = new QLabel(tr("Number of Teams :"));
-	QSpinBox *numberOfTeamsSelector = new QSpinBox;
-	numberOfTeamsSelector->setMinimum(1);
-	numberOfTeamsSelector->setMaximum(3);
-	numberOfTeamsSelector->setValue(luaConfig->getInt("numberofteams"));
-	QObject::connect(numberOfTeamsSelector, SIGNAL(valueChanged(int)), luaConfig, SLOT(setInt(int)));
-	
-	QLabel *numberOfEntitiesLabel = new QLabel(tr("Number of Entities per Team :"));
-	QSpinBox *numberOfEntitiesSelector = new QSpinBox;
-	numberOfEntitiesSelector->setMinimum(1);
-	numberOfEntitiesSelector->setMaximum(3);
-	numberOfEntitiesSelector->setValue(luaConfig->getInt("numberofentities"));
-	
-	QVBoxLayout *teamsConfigLayout = new QVBoxLayout;
-	teamsConfigLayout->addWidget(numberOfTeamsLabel);
-	teamsConfigLayout->addWidget(numberOfTeamsSelector);
-	teamsConfigLayout->addWidget(numberOfEntitiesLabel);
-	teamsConfigLayout->addWidget(numberOfEntitiesSelector);
-	teamsConfigGroup->setLayout(teamsConfigLayout);
-
-	QGroupBox *worldConfig = new QGroupBox(tr("World configuration"));
-	
-	QLabel *temperatureLabel = new QLabel(tr("Temperature of the World :"));
-	QSpinBox *temperatureSelector = new QSpinBox;
-	temperatureSelector->setMinimum(0);
-	temperatureSelector->setMaximum(100);
-	temperatureSelector->setValue(luaConfig->getInt("temperature"));	
-	
-	QVBoxLayout *worldConfigLayout = new QVBoxLayout;
-	worldConfigLayout->addWidget(temperatureLabel);
-	worldConfigLayout->addWidget(temperatureSelector);
-	worldConfig->setLayout(worldConfigLayout);
-	
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(teamsConfigGroup);
-	mainLayout->addWidget(worldConfig);
-	mainLayout->addStretch(1);
-	setLayout(mainLayout);
 }
 
 OpenGLPage::OpenGLPage(QWidget *parent)

@@ -29,7 +29,8 @@ HEADERS += interface/cameracontrolswidget.h \
            interface/mainwindow.h \
            interface/pages.h \
 		   interface/programsettings.h \
-           interface/speedcontrolswidget.h \
+		   interface/worldsettings.h \
+		   interface/speedcontrolswidget.h \
            simulator/GLViewer.h \
            lua/luaEngines.h \
 		   lua/lunar.h
@@ -45,6 +46,7 @@ SOURCES += main.cpp \
            interface/mainwindow.cpp \
            interface/pages.cpp \
 		   interface/programsettings.cpp \
+		   interface/worldsettings.cpp \
            interface/speedcontrolswidget.cpp \
            simulator/GLViewer.cpp \
            lua/luaEngines.cpp

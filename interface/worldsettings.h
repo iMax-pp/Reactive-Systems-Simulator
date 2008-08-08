@@ -19,32 +19,24 @@
  **
  ********************************************************************************************/
 
-#ifndef PAGES_H
-#define PAGES_H
+#ifndef WORLDSETTINGS_H
+#define WORLDSETTINGS_H
 
-#include <QtGui>
-#include <QWidget>
-#include "programsettings.h"
-#include "worldsettings.h"
-//#include "../lua/luaEngines.h"
+#include <QSettings>
 
-class WorldConfigPage : public QWidget
+class WorldSettings : public QSettings
 {
+	Q_OBJECT
+	
 public:
-	WorldConfigPage(QWidget *parent = 0);
-};
+	WorldSettings();
+	QVariant value(const QString key, const QVariant defaultValue = QVariant());
+	void setValue(const QString key, const QVariant value);
 
-class ConfigurationPage : public QWidget
-{
-Q_OBJECT
-public:
-	ConfigurationPage(QWidget *parent = 0);
-};
-
-class OpenGLPage : public QWidget
-{
-public:
-	OpenGLPage(QWidget *parent = 0);
+public slots:
+	void setNumberOfTeams(int value);
+	void setNumberOfEntities(int value);
+	void setTemperature(int value);
 };
 
 #endif

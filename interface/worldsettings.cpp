@@ -19,32 +19,43 @@
  **
  ********************************************************************************************/
 
-#ifndef PAGES_H
-#define PAGES_H
-
-#include <QtGui>
-#include <QWidget>
-#include "programsettings.h"
 #include "worldsettings.h"
-//#include "../lua/luaEngines.h"
 
-class WorldConfigPage : public QWidget
+WorldSettings::WorldSettings(){}
+
+QVariant WorldSettings::value(const QString key, const QVariant defaultValue)
 {
-public:
-	WorldConfigPage(QWidget *parent = 0);
-};
+	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
+	QVariant returnedValue = settings.value(key, defaultValue);
+	settings.sync();
+	
+	return returnedValue;
+}
 
-class ConfigurationPage : public QWidget
+void WorldSettings::setValue(const QString key, const QVariant value)
 {
-Q_OBJECT
-public:
-	ConfigurationPage(QWidget *parent = 0);
-};
+	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
+	settings.setValue(key, value);
+	settings.sync();
+}
 
-class OpenGLPage : public QWidget
+void WorldSettings::setNumberOfTeams(int value)
 {
-public:
-	OpenGLPage(QWidget *parent = 0);
-};
+	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
+	settings.setValue("numberofteams",value);
+	settings.sync();	
+}
 
-#endif
+void WorldSettings::setNumberOfEntities(int value)
+{
+	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
+	settings.setValue("numberofentities",value);	
+	settings.sync();
+}
+
+void WorldSettings::setTemperature(int value)
+{
+	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
+	settings.setValue("temperature",value);	
+	settings.sync();
+}
