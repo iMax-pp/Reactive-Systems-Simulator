@@ -20,42 +20,55 @@
 ********************************************************************************************/
 
 #include "GLViewer.h"
+#include "../interface/consolewidget.h"
 
 using namespace std;
+
+void Viewer::setConsole(ConsoleWidget *consolePointer)
+{
+	console = consolePointer;
+}
 
 // Draws a spiral
 void Viewer::draw()
 {
+	if(!listDone)
+	{
+		spiral = glGenLists(1);
+
+		const float nbSteps = 200.0;
+		
+		glNewList(spiral, GL_COMPILE);
+			glBegin(GL_QUAD_STRIP);
+			for (int i=0; i<nbSteps; ++i)
+			{
+				const float ratio = i/nbSteps;
+				const float angle = 21.0f*ratio;
+				const float c = cos(angle);
+				const float s = sin(angle);
+				const float r1 = 1.0f - 0.8f*ratio;
+				const float r2 = 0.8f - 0.8f*ratio;
+				const float alt = ratio - 0.5f;
+				const float nor = 0.5f;
+				const float up = sqrt(1.0f-nor*nor);
+				glColor3f(1.0f-ratio, 0.2f , ratio);
+				glNormal3f(nor*c, up, nor*s);
+				glVertex3f(r1*c, alt, r1*s);
+				glVertex3f(r2*c, alt+0.05f, r2*s);
+			}
+			glEnd();
+		glEndList();		
+	}
 	glCallList(spiral);
 }
 
 void Viewer::init()
 {
+	listDone = false;
+	
+	console->newMsg(QString("Viewer initiated"));
+
 	// Restore previous viewer state.
 	//restoreStateFromFile();
 	
-	spiral = glGenLists(1);
-
-	const float nbSteps = 200.0;
-	
-	glNewList(spiral, GL_COMPILE);
-		glBegin(GL_QUAD_STRIP);
-		for (int i=0; i<nbSteps; ++i)
-		{
-			const float ratio = i/nbSteps;
-			const float angle = 21.0f*ratio;
-			const float c = cos(angle);
-			const float s = sin(angle);
-			const float r1 = 1.0f - 0.8f*ratio;
-			const float r2 = 0.8f - 0.8f*ratio;
-			const float alt = ratio - 0.5f;
-			const float nor = 0.5f;
-			const float up = sqrt(1.0f-nor*nor);
-			glColor3f(1.0f-ratio, 0.2f , ratio);
-			glNormal3f(nor*c, up, nor*s);
-			glVertex3f(r1*c, alt, r1*s);
-			glVertex3f(r2*c, alt+0.05f, r2*s);
-		}
-		glEnd();
-	glEndList();
 }

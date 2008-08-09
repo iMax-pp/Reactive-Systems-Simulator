@@ -29,17 +29,18 @@ MainWindow::MainWindow()
 	
 	if(settings.value("fullscreen").toBool())
 	{ showFullScreen(); }
-	
-    //glWidget = new GLWidget;
-    //setCentralWidget(glWidget);
-    glViewer = new Viewer;
-    setCentralWidget(glViewer);
 
+	
     createActions();
     createMenus();
     createToolBars();
     createStatusBar();
     createDocks(); //Ajoute les parties docks
+
+    glViewer = new Viewer;
+    glViewer->setConsole(consoleWidget);
+    setCentralWidget(glViewer);
+
 
 	//Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
     //connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));

@@ -23,16 +23,23 @@
 #define GLVIEWER_H
 
 #include <QGLViewer/qglviewer.h>
+#include "../interface/consolewidget.h"
 
 class Viewer : public QGLViewer
 {
-	protected :
+	public:
+		void setConsole(ConsoleWidget* consolePointer);
+	
+	protected:
 		virtual void draw();
 		virtual void init();
 		//virtual QString helpString() const;
 		
 	private:
 		GLuint spiral;
+		bool listDone;
+		
+		ConsoleWidget *console;
 };
 
 #endif
