@@ -23,24 +23,17 @@
 #define INFORMATIONSBOX_H
 
 #include <QtGui>
-#include <QWidget>
-#include <QObject>
-#include <QGroupBox>
-#include <QTreeWidgetItem>
-#include <QLabel>
 
-class InformationsBox : public QGroupBox
+class InformationsBox : public QListWidget
 {
 	Q_OBJECT
-	
+
 public:
 	InformationsBox();
-	
+
 public slots:
 	void setInfoText(QTreeWidgetItem * item, int column);
-	
-private:
-	QLabel *m_text;
+	void listSet(QStringList infos);
 };
 
 #endif

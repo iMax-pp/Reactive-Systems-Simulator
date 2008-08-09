@@ -23,12 +23,16 @@
 #define GLVIEWER_H
 
 #include <QGLViewer/qglviewer.h>
+#include <QList>
+#include <QStringList>
 #include "../interface/consolewidget.h"
+#include "../interface/informationsbox.h"
 
 class Viewer : public QGLViewer
 {
 	public:
 		void setConsole(ConsoleWidget* consolePointer);
+		void setInfos(InformationsBox* infoPointer);
 	
 	protected:
 		virtual void draw();
@@ -38,8 +42,12 @@ class Viewer : public QGLViewer
 	private:
 		GLuint spiral;
 		bool listDone;
+		int framenum;
 		
 		ConsoleWidget *console;
+		InformationsBox *infos;
+		
+		QStringList stringList;
 };
 
 #endif

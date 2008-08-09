@@ -21,12 +21,19 @@
 
 #include "GLViewer.h"
 #include "../interface/consolewidget.h"
+#include <QList>
+#include <QStringList>
 
 using namespace std;
 
 void Viewer::setConsole(ConsoleWidget *consolePointer)
 {
 	console = consolePointer;
+}
+
+void Viewer::setInfos(InformationsBox* infoPointer)
+{
+	infos = infoPointer;
 }
 
 // Draws a spiral
@@ -57,9 +64,18 @@ void Viewer::draw()
 				glVertex3f(r2*c, alt+0.05f, r2*s);
 			}
 			glEnd();
-		glEndList();		
+		glEndList();
+		listDone = true;
+		framenum = 0;
+		console->newMsg(QString("DisplayList id:%1").arg(spiral));
 	}
 	glCallList(spiral);
+	framenum++;
+	
+	//console->newMsg(QString("Frame %1").arg(framenum));
+	stringList.clear();
+	stringList << QString("Viewer info") << QString("  Frame number: %1").arg(framenum) << QString("  Other wonderful info");
+	infos->listSet(stringList);
 }
 
 void Viewer::init()

@@ -23,14 +23,22 @@
 
 InformationsBox::InformationsBox()
 {
-	m_text = new QLabel(tr("No Selected Item"));
+	//m_text = new QLabel(tr("No Selected Item"));
 
-	QVBoxLayout *vbox = new QVBoxLayout;
-	vbox->addWidget(m_text);
-	setLayout(vbox);
+	//QVBoxLayout *vbox = new QVBoxLayout;
+	//vbox->addWidget(m_text);
+	//setLayout(vbox);
 }
 
 void InformationsBox::setInfoText(QTreeWidgetItem * item, int column)
 {
-	m_text->setText(item->text(column));
+	//m_text->setText(item->text(column));
+	clear();
+	addItem(QString(item->text(column)));
+}
+
+void InformationsBox::listSet(QStringList infos)
+{
+	clear();
+	addItems(infos);
 }

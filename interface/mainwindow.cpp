@@ -39,6 +39,7 @@ MainWindow::MainWindow()
 
     glViewer = new Viewer;
     glViewer->setConsole(consoleWidget);
+    glViewer->setInfos(infos);
     setCentralWidget(glViewer);
 
 
