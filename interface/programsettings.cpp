@@ -27,7 +27,7 @@ QVariant ProgramSettings::value(const QString key, const QVariant defaultValue)
 {
 	QSettings settings("HS Company", "RSS");
 	QVariant returnedValue = settings.value(key, defaultValue);
-	settings.sync();
+	//settings.sync();
 	
 	return returnedValue;
 }
@@ -36,7 +36,7 @@ void ProgramSettings::setValue(const QString key, const QVariant value)
 {
 	QSettings settings("HS Company", "RSS");
 	settings.setValue(key, value);
-	settings.sync();
+	//settings.sync();
 }
 
 void ProgramSettings::setFullscreen(int fullscreen)
@@ -48,5 +48,5 @@ void ProgramSettings::setFullscreen(int fullscreen)
 	else
 	{ settings.setValue("fullscreen", true); }
 	
-	settings.sync();
+	//settings.sync();
 }

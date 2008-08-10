@@ -27,7 +27,7 @@ QVariant WorldSettings::value(const QString key, const QVariant defaultValue)
 {
 	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
 	QVariant returnedValue = settings.value(key, defaultValue);
-	settings.sync();
+	//settings.sync();
 	
 	return returnedValue;
 }
@@ -36,26 +36,26 @@ void WorldSettings::setValue(const QString key, const QVariant value)
 {
 	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
 	settings.setValue(key, value);
-	settings.sync();
+	//settings.sync();
 }
 
 void WorldSettings::setNumberOfTeams(int value)
 {
 	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
 	settings.setValue("numberofteams",value);
-	settings.sync();	
+	//settings.sync();	
 }
 
 void WorldSettings::setNumberOfEntities(int value)
 {
 	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
 	settings.setValue("numberofentities",value);	
-	settings.sync();
+	//settings.sync();
 }
 
 void WorldSettings::setTemperature(int value)
 {
 	QSettings settings("config/worldconfig.ini",QSettings::IniFormat);
 	settings.setValue("temperature",value);	
-	settings.sync();
+	//settings.sync();
 }
