@@ -21,71 +21,55 @@
 
 #include "pages.h"
 
-WorldConfigPage::WorldConfigPage(QWidget *parent)
-: QWidget(parent)
-{	
-	WorldSettings * settings = new WorldSettings();
-	
-	QGroupBox *teamsConfigGroup = new QGroupBox(tr("Teams configuration"));
-	
-	QLabel *numberOfTeamsLabel = new QLabel(tr("Number of Teams :"));
-	QSpinBox *numberOfTeamsSelector = new QSpinBox;
-	numberOfTeamsSelector->setMinimum(1);
-	numberOfTeamsSelector->setMaximum(3);
-	numberOfTeamsSelector->setValue(settings->value("numberofteams").toInt());
-	QObject::connect(numberOfTeamsSelector, SIGNAL(valueChanged(int)), settings, SLOT(setNumberOfTeams(int)));
-	
-	QLabel *numberOfEntitiesLabel = new QLabel(tr("Number of Entities per Team :"));
-	QSpinBox *numberOfEntitiesSelector = new QSpinBox;
-	numberOfEntitiesSelector->setMinimum(1);
-	numberOfEntitiesSelector->setMaximum(3);
-	numberOfEntitiesSelector->setValue(settings->value("numberofentities").toInt());
-	QObject::connect(numberOfEntitiesSelector, SIGNAL(valueChanged(int)), settings, SLOT(setNumberOfEntities(int)));
-	
-	QVBoxLayout *teamsConfigLayout = new QVBoxLayout;
-	teamsConfigLayout->addWidget(numberOfTeamsLabel);
-	teamsConfigLayout->addWidget(numberOfTeamsSelector);
-	teamsConfigLayout->addWidget(numberOfEntitiesLabel);
-	teamsConfigLayout->addWidget(numberOfEntitiesSelector);
-	teamsConfigGroup->setLayout(teamsConfigLayout);
-	
-	QGroupBox *worldConfig = new QGroupBox(tr("World configuration"));
-	
-	QLabel *temperatureLabel = new QLabel(tr("Temperature of the World :"));
-	QSpinBox *temperatureSelector = new QSpinBox;
-	temperatureSelector->setMinimum(0);
-	temperatureSelector->setMaximum(100);
-	temperatureSelector->setValue(settings->value("temperature").toInt());
-	QObject::connect(temperatureSelector, SIGNAL(valueChanged(int)), settings, SLOT(setTemperature(int)));
-	
-	QVBoxLayout *worldConfigLayout = new QVBoxLayout;
-	worldConfigLayout->addWidget(temperatureLabel);
-	worldConfigLayout->addWidget(temperatureSelector);
-	worldConfig->setLayout(worldConfigLayout);
-	
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(teamsConfigGroup);
-	mainLayout->addWidget(worldConfig);
-	mainLayout->addStretch(1);
-	setLayout(mainLayout);
-}
-
-ConfigurationPage::ConfigurationPage(QWidget *parent)
-: QWidget(parent)
+ConfigurationPage::ConfigurationPage()
 {	
 	ProgramSettings * settings = new ProgramSettings();
 	
-	QCheckBox *fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
-	fullscreenCheckBox->setChecked(settings->value("fullscreen").toBool());
+	QVBoxLayout * programConfigLayout = new QVBoxLayout;
+	
+	QCheckBox * fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
+	fullscreenCheckBox->setChecked(settings->value("program/fullscreen").toBool());
 	QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)), settings, SLOT(setFullscreen(int)));
 	
-	QVBoxLayout *programConfigLayout = new QVBoxLayout;
 	programConfigLayout->addWidget(fullscreenCheckBox);
 	setLayout(programConfigLayout);
 }
 
-OpenGLPage::OpenGLPage(QWidget *parent)
-: QWidget(parent)
+OpenGLPage::OpenGLPage()
 {
+	ProgramSettings * settings = new ProgramSettings();
 	
+	QGridLayout * openglConfigLayout = new QGridLayout();
+	
+	
+	QLabel * shadingmodetitle = new QLabel(tr("Shading Mode (0-3)"));
+	QSpinBox * shadingmode = new QSpinBox();
+	shadingmode->setMaximum(3);
+	shadingmode->setMinimum(0);
+	shadingmode->setValue(settings->value("opengl/shadingmode").toInt());
+	QObject::connect(shadingmode, SIGNAL(valueChanged(int)), settings, SLOT(setShadingMode(int)));
+	
+	QLabel * ambientlighttitle = new QLabel(tr("Ambient Light Intensity"));
+	QSpinBox * ambientlight = new QSpinBox();
+	ambientlight->setMaximum(100);
+	ambientlight->setMinimum(0);
+	ambientlight->setValue(settings->value("opengl/ambientlight").toInt());
+	QObject::connect(ambientlight, SIGNAL(valueChanged(int)), settings, SLOT(setAmbientLight(int)));
+	
+	QLabel * backgroundcolortitle = new QLabel(tr("Background Color"));
+	QComboBox * backgroundcolor = new QComboBox();
+	backgroundcolor->addItem(tr("blue"));
+	backgroundcolor->addItem(tr("red"));
+	backgroundcolor->addItem(tr("green"));
+	backgroundcolor->addItem(tr("brown"));
+	QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)), settings, SLOT(QString));
+	
+	openglConfigLayout->addWidget(shadingmodetitle,1,1);
+	openglConfigLayout->addWidget(shadingmode,1,2);
+	openglConfigLayout->addWidget(ambientlighttitle,2,1);
+	openglConfigLayout->addWidget(ambientlight,2,2);
+	openglConfigLayout->addWidget(backgroundcolortitle,3,1);
+	openglConfigLayout->addWidget(backgroundcolor,3,2);
+	
+	setLayout(openglConfigLayout);
 }

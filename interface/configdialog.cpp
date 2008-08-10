@@ -25,14 +25,12 @@ ConfigDialog::ConfigDialog()
 {
 	contentsWidget = new QListWidget;
 	contentsWidget->setViewMode(QListView::IconMode);
-	contentsWidget->setIconSize(QSize(84, 73));
+	contentsWidget->setIconSize(QSize(96, 84));
 	contentsWidget->setMovement(QListView::Static);
-	contentsWidget->setMinimumHeight(380);
 	contentsWidget->setMaximumWidth(128);
 	contentsWidget->setSpacing(12);
 	
 	pagesWidget = new QStackedWidget;
-	pagesWidget->addWidget(new WorldConfigPage);
 	pagesWidget->addWidget(new ConfigurationPage);
 	pagesWidget->addWidget(new OpenGLPage);
 	
@@ -63,12 +61,6 @@ ConfigDialog::ConfigDialog()
 
 void ConfigDialog::createIcons()
 {	
-	QListWidgetItem *worldConfigButton = new QListWidgetItem(contentsWidget);
-	worldConfigButton->setIcon(QIcon(":/images/browser.png"));
-	worldConfigButton->setText(tr("World\n Configuration"));
-	worldConfigButton->setTextAlignment(Qt::AlignHCenter);
-	worldConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	
 	QListWidgetItem *programConfigButton = new QListWidgetItem(contentsWidget);
 	programConfigButton->setIcon(QIcon(":/images/systemsettings.png"));
 	programConfigButton->setText(tr("Program\n Configuration"));

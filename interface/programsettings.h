@@ -35,6 +35,9 @@ public:
 		
 public slots:
 	void setFullscreen(int fullscreen);
+	void setShadingMode(int value);
+	void setAmbientLight(int value);
+	void setBackgroundColor(QString color);
 };
 
 #endif

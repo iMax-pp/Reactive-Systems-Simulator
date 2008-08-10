@@ -26,17 +26,13 @@ ProgramSettings::ProgramSettings(){}
 QVariant ProgramSettings::value(const QString key, const QVariant defaultValue)
 {
 	QSettings settings("HS Company", "RSS");
-	QVariant returnedValue = settings.value(key, defaultValue);
-	//settings.sync();
-	
-	return returnedValue;
+	return settings.value(key, defaultValue);
 }
 
 void ProgramSettings::setValue(const QString key, const QVariant value)
 {
 	QSettings settings("HS Company", "RSS");
 	settings.setValue(key, value);
-	//settings.sync();
 }
 
 void ProgramSettings::setFullscreen(int fullscreen)
@@ -44,9 +40,25 @@ void ProgramSettings::setFullscreen(int fullscreen)
 	QSettings settings("HS Company", "RSS");
 	
 	if(fullscreen == 0)
-	{ settings.setValue("fullscreen", false); }
+	{ settings.setValue("program/fullscreen", false); }
 	else
-	{ settings.setValue("fullscreen", true); }
-	
-	//settings.sync();
+	{ settings.setValue("program/fullscreen", true); }
+}
+
+void ProgramSettings::setShadingMode(int value)
+{	
+	QSettings settings("HS Company", "RSS");
+	settings.setValue("opengl/shadingmode", value);
+}
+
+void ProgramSettings::setAmbientLight(int value)
+{	
+	QSettings settings("HS Company", "RSS");
+	settings.setValue("opengl/ambientlight", value);
+}
+
+void ProgramSettings::setBackgroundColor(QString color)
+{
+	QSettings settings("HS Company", "RSS");
+	settings.setValue("opengl/background", color);
 }

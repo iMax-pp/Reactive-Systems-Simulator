@@ -25,26 +25,19 @@
 #include <QtGui>
 #include <QWidget>
 #include "programsettings.h"
-#include "worldsettings.h"
-//#include "../lua/luaEngines.h"
 
-class WorldConfigPage : public QWidget
-{
-public:
-	WorldConfigPage(QWidget *parent = 0);
-};
 
 class ConfigurationPage : public QWidget
 {
 Q_OBJECT
 public:
-	ConfigurationPage(QWidget *parent = 0);
+	ConfigurationPage();
 };
 
 class OpenGLPage : public QWidget
 {
 public:
-	OpenGLPage(QWidget *parent = 0);
+	OpenGLPage();
 };
 
 #endif

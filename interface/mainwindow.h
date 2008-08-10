@@ -37,7 +37,6 @@
 #include "controlswidget.h"
 #include "informationsbox.h"
 #include "configdialog.h"
-#include "programsettings.h"
 #include "../simulator/GLViewer.h"
 #include "../lua/luaEngines.h"
 
