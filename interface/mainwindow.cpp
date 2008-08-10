@@ -27,7 +27,7 @@ MainWindow::MainWindow()
 	
 	setMinimumSize(800,500);
 	
-	if(settings.value("fullscreen").toBool())
+	if(settings.value("program/fullscreen").toBool())
 	{ showFullScreen(); }
 
 	
