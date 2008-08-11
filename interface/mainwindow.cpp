@@ -27,6 +27,7 @@ MainWindow::MainWindow()
 	
 	setMinimumSize(800,500);
 	
+	//J'adore ce petit bout de code...je veux ça en poster...well done max :P
 	if(settings.value("program/fullscreen").toBool())
 	{ showFullScreen(); }
 
@@ -279,45 +280,10 @@ void MainWindow::createDocks()
 	controlsDock->setWidget(controlsWidget);
 	
 	// Dock de liste des informations disponibles
-	listItemsDock = new QDockWidget(tr(""), this);
-	listItemsDock->setAllowedAreas(Qt::LeftDockWidgetArea
-								 | Qt::RightDockWidgetArea);
-	addDockWidget(Qt::RightDockWidgetArea, listItemsDock);
-	
-	listItemsDock->setFixedWidth(250);
-	
-	listItems = new QTreeWidget;
-	listItems->setHeaderLabel(tr("Items"));
-	QTreeWidgetItem *world = new QTreeWidgetItem;
-	world->setText(0,tr("World"));
-	QTreeWidgetItem *team1 = new QTreeWidgetItem;
-	team1->setText(0,tr("Team 1"));
-	QTreeWidgetItem *Entity11 = new QTreeWidgetItem(team1);
-	Entity11->setText(0,tr("Entity 1"));
-	QTreeWidgetItem *Entity12 = new QTreeWidgetItem(team1);
-	Entity12->setText(0,tr("Entity 2"));
-	QTreeWidgetItem *Entity13 = new QTreeWidgetItem(team1);
-	Entity13->setText(0,tr("Entity 3"));
-	QTreeWidgetItem *team2 = new QTreeWidgetItem();
-	team2->setText(0,tr("Team 2"));
-	QTreeWidgetItem *Entity21 = new QTreeWidgetItem(team2);
-	Entity21->setText(0,tr("Entity 1"));
-	QTreeWidgetItem *Entity22 = new QTreeWidgetItem(team2);
-	Entity22->setText(0,tr("Entity 2"));
-	QTreeWidgetItem *Entity23 = new QTreeWidgetItem(team2);
-	Entity23->setText(0,tr("Entity 3"));
-	
-	listItems->addTopLevelItem(world);
-	listItems->addTopLevelItem(team1);
-	listItems->addTopLevelItem(Entity11);
-	listItems->addTopLevelItem(Entity12);
-	listItems->addTopLevelItem(Entity13);
-	listItems->addTopLevelItem(team2);
-	listItems->addTopLevelItem(Entity21);
-	listItems->addTopLevelItem(Entity22);
-	listItems->addTopLevelItem(Entity23);
-	
-	listItemsDock->setWidget(listItems);
+	dataTreesDock = new QDockWidget(tr("Data Trees"), this);
+	addDockWidget(Qt::RightDockWidgetArea, dataTreesDock);
+	dataTrees = new DataTrees();
+	dataTreesDock->setWidget(dataTrees);
 
 	// Dock d'affichage des informations
 	infoDock = new QDockWidget(tr("Informations Dock"), this);
@@ -331,7 +297,7 @@ void MainWindow::createDocks()
 	infoDock->setWidget(infos);
 	
 	//connections
-	QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
+	//QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
 	//QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
 }
 

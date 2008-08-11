@@ -35,6 +35,7 @@
 
 #include "consolewidget.h"
 #include "controlswidget.h"
+#include "datatrees.h"
 #include "informationsbox.h"
 #include "configdialog.h"
 #include "../simulator/GLViewer.h"
@@ -83,9 +84,9 @@ private:
     QDockWidget *consoleDock;
     ConsoleWidget *consoleWidget;
     
-	//Dock liste item
-	QDockWidget *listItemsDock;
-	QTreeWidget *listItems;
+	//Dock data
+	QDockWidget *dataTreesDock;
+	DataTrees *dataTrees;
 	
 	//Dock d'infos
 	QDockWidget *infoDock;

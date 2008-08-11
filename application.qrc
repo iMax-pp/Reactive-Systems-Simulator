@@ -16,5 +16,16 @@
     <file>images/browser.png</file>
     <file>images/systemsettings.png</file>
     <file>images/x.png</file>
+    <file>images/world.png</file>
+    <file>images/bricks.png</file>
+    <file>images/lightbulb.png</file>
+    <file>images/bullet_green.png</file>
+    <file>images/bullet_red.png</file>
+    <file>images/bullet_blue.png</file>
+    <file>images/cake.png</file>
+    <file>images/eye.png</file>
+    <file>images/user_red.png</file>
+    <file>images/user_green.png</file>
+    <file>images/key.png</file>
 </qresource>
 </RCC>
