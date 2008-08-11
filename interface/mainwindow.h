@@ -109,7 +109,7 @@ private:
     QToolBar *simToolBar;
 
 	//File menu actions
-    QAction *newAct;
+    //QAction *newAct;
     QAction *openAct;
     QAction *saveAct;
     QAction *saveAsAct;

@@ -47,7 +47,7 @@ DataTrees::~DataTrees()
 MainTree::MainTree()
 {
 	setColumnCount(1);
-	setHeaderLabel(tr("Name"));
+	setHeaderLabel(tr("Data"));
 	
 	world = new QTreeWidgetItem(this);
 	world->setText(0, tr("World"));
@@ -85,7 +85,7 @@ MainTree::~MainTree()
 SimTree::SimTree()
 {
 	setColumnCount(2);
-	setHeaderLabel(tr("Namessqs"));
+	setHeaderLabel(tr("Data"));
 	
 	world = new QTreeWidgetItem(this);
 	world->setText(0, tr("World"));
