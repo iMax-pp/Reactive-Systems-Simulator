@@ -25,8 +25,11 @@
 #include <QGLViewer/qglviewer.h>
 #include <QList>
 #include <QStringList>
+
 #include "../interface/consolewidget.h"
 #include "../interface/informationsbox.h"
+
+#include "vec.h"
 
 class Viewer : public QGLViewer
 {
@@ -37,11 +40,13 @@ class Viewer : public QGLViewer
 	protected:
 		virtual void draw();
 		virtual void init();
+		virtual void drawWithNames();
+		virtual void postSelection(const QPoint& point);
 		//virtual QString helpString() const;
 		
 	private:
 		GLuint spiral;
-		bool listDone;
+		GLuint world;
 		int framenum;
 		
 		ConsoleWidget *console;
