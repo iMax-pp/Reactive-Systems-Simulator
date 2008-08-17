@@ -38,6 +38,9 @@ public slots:
 	void setShadingMode(int value);
 	void setAmbientLight(int value);
 	void setBackgroundColor(QString color);
+	
+private:
+	QSettings *settings;
 };
 
 #endif

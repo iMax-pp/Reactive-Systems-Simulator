@@ -28,7 +28,7 @@ MainWindow::MainWindow()
 	setMinimumSize(800,500);
 	
 	//J'adore ce petit bout de code...je veux ça en poster...well done max :P
-	if(settings.value("program/fullscreen").toBool())
+	if(settings.value("window/fullscreen").toBool())
 	{ showFullScreen(); }
 
 	

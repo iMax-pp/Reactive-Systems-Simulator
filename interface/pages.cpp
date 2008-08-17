@@ -20,6 +20,7 @@
  ********************************************************************************************/
 
 #include "pages.h"
+#include <iostream>
 
 ConfigurationPage::ConfigurationPage()
 {	
@@ -28,7 +29,7 @@ ConfigurationPage::ConfigurationPage()
 	QVBoxLayout * programConfigLayout = new QVBoxLayout;
 	
 	QCheckBox * fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
-	fullscreenCheckBox->setChecked(settings->value("program/fullscreen").toBool());
+	fullscreenCheckBox->setChecked(settings->value("window/fullscreen").toBool());
 	QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)), settings, SLOT(setFullscreen(int)));
 	
 	programConfigLayout->addWidget(fullscreenCheckBox);
@@ -62,6 +63,7 @@ OpenGLPage::OpenGLPage()
 	backgroundcolor->addItem(tr("red"));
 	backgroundcolor->addItem(tr("green"));
 	backgroundcolor->addItem(tr("brown"));
+	backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->value("opengl/backgroundcolor").toString()));
 	QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)), settings, SLOT(setBackgroundColor(QString)));
 	
 	openglConfigLayout->addWidget(shadingmodetitle,1,1);

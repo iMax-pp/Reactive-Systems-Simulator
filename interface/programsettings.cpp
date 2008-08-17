@@ -21,44 +21,40 @@
 
 #include "programsettings.h"
 
-ProgramSettings::ProgramSettings(){}
+ProgramSettings::ProgramSettings()
+{
+	settings = new QSettings("config/programconfig.ini", QSettings::IniFormat);
+}
 
 QVariant ProgramSettings::value(const QString key, const QVariant defaultValue)
 {
-	QSettings settings("HS Company", "RSS");
-	return settings.value(key, defaultValue);
+	return settings->value(key, defaultValue);
 }
 
 void ProgramSettings::setValue(const QString key, const QVariant value)
 {
-	QSettings settings("HS Company", "RSS");
-	settings.setValue(key, value);
+	settings->setValue(key, value);
 }
 
 void ProgramSettings::setFullscreen(int fullscreen)
-{	
-	QSettings settings("HS Company", "RSS");
-	
+{		
 	if(fullscreen == 0)
-	{ settings.setValue("program/fullscreen", false); }
+	{ settings->setValue("window/fullscreen", false); }
 	else
-	{ settings.setValue("program/fullscreen", true); }
+	{ settings->setValue("window/fullscreen", true); }
 }
 
 void ProgramSettings::setShadingMode(int value)
 {	
-	QSettings settings("HS Company", "RSS");
-	settings.setValue("opengl/shadingmode", value);
+	settings->setValue("opengl/shadingmode", value);
 }
 
 void ProgramSettings::setAmbientLight(int value)
 {	
-	QSettings settings("HS Company", "RSS");
-	settings.setValue("opengl/ambientlight", value);
+	settings->setValue("opengl/ambientlight", value);
 }
 
 void ProgramSettings::setBackgroundColor(QString color)
 {
-	QSettings settings("HS Company", "RSS");
-	settings.setValue("opengl/background", color);
+	settings->setValue("opengl/backgroundcolor", color);
 }
