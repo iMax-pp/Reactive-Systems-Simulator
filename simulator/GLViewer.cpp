@@ -20,9 +20,6 @@
 ********************************************************************************************/
 
 #include "GLViewer.h"
-#include "../interface/consolewidget.h"
-#include <QList>
-#include <QStringList>
 
 using namespace std;
 using namespace qglviewer;
@@ -57,7 +54,7 @@ void Viewer::drawWithNames()
 void Viewer::postSelection(const QPoint& point)
 {
 	//Apparently this is what happens after a selection...hmmm
-	/*
+	
 	// Compute orig and dir, used to draw a representation of the intersecting line
 	camera()->convertClickToLine(point, orig, dir);
 
@@ -68,13 +65,13 @@ void Viewer::postSelection(const QPoint& point)
 	// Note that "found" is different from (selectedObjectId()>=0) because of the size of the select region.
 
 	if (selectedName() == -1)
-	QMessageBox::information(this, "No selection",
-				 "No object selected under pixel " + QString::number(point.x()) + "," + QString::number(point.y()));
+	console->newMsg(QString("No selection\n") +
+				 QString("No object selected under pixel ") + QString::number(point.x()) + "," + QString::number(point.y()));
 	else
-	QMessageBox::information(this, "Selection",
-				 "Spiral number " + QString::number(selectedName()) + " selected under pixel " +
+	console->newMsg(QString("Selection\n") +
+				 QString("Spiral number ") + QString::number(selectedName()) + QString(" selected under pixel ") +
 				 QString::number(point.x()) + "," + QString::number(point.y()));
-	*/
+	
 }
 
 void Viewer::init()

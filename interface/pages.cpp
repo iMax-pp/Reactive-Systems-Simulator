@@ -62,7 +62,7 @@ OpenGLPage::OpenGLPage()
 	backgroundcolor->addItem(tr("red"));
 	backgroundcolor->addItem(tr("green"));
 	backgroundcolor->addItem(tr("brown"));
-	QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)), settings, SLOT(QString));
+	QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)), settings, SLOT(setBackgroundColor(QString)));
 	
 	openglConfigLayout->addWidget(shadingmodetitle,1,1);
 	openglConfigLayout->addWidget(shadingmode,1,2);

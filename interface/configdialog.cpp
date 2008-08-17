@@ -28,6 +28,7 @@ ConfigDialog::ConfigDialog()
 	contentsWidget->setIconSize(QSize(96, 84));
 	contentsWidget->setMovement(QListView::Static);
 	contentsWidget->setMaximumWidth(128);
+	contentsWidget->setMinimumHeight(300);
 	contentsWidget->setSpacing(12);
 	
 	pagesWidget = new QStackedWidget;

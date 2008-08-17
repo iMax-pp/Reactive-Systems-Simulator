@@ -29,8 +29,6 @@
 #include "../interface/consolewidget.h"
 #include "../interface/informationsbox.h"
 
-#include "vec.h"
-
 class Viewer : public QGLViewer
 {
 	public:
@@ -53,6 +51,7 @@ class Viewer : public QGLViewer
 		InformationsBox *infos;
 		
 		QStringList stringList;
+		qglviewer::Vec orig, dir, selectedPoint;
 };
 
 #endif

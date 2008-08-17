@@ -53,13 +53,11 @@ MainWindow::MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	//Si une simulation est en cours, il faut une confirmation pour quitter.
-	/*
     if (maybeSave()) {
         event->accept();
     } else {
         event->ignore();
     }
-    */
 }
 
 void MainWindow::newSim()
