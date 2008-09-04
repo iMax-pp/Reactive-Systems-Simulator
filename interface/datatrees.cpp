@@ -43,6 +43,11 @@ DataTrees::DataTrees()
 DataTrees::~DataTrees()
 {}
 
+MainTree* DataTrees::getMainTree()
+{
+	return mainTree;
+}
+
 
 MainTree::MainTree()
 {
@@ -76,6 +81,7 @@ MainTree::MainTree()
 	lights = new QTreeWidgetItem(this);
 	lights->setText(0, tr("Lights"));
 	lights->setIcon(0, QIcon(":/images/lightbulb.png"));	
+
 }
 
 MainTree::~MainTree()
@@ -86,6 +92,7 @@ SimTree::SimTree()
 {
 	setColumnCount(2);
 	setHeaderLabel(tr("Data"));
+	setColumnHidden(1, true);
 	
 	world = new QTreeWidgetItem(this);
 	world->setText(0, tr("World"));
@@ -105,6 +112,7 @@ SimTree::SimTree()
 
 	robot2 = new QTreeWidgetItem(team1);
 	robot2->setText(0, tr("Robot 2"));
+	robot2->setText(1, tr("#345678"));
 	robot2->setIcon(0, QIcon(":/images/bullet_red.png"));
 
 	robot3 = new QTreeWidgetItem(team1);

@@ -28,3 +28,9 @@ void InformationsBox::listSet(QStringList infos)
 	clear();
 	addItems(infos);
 }
+
+void InformationsBox::showEnt(QTreeWidgetItem* ent, int col)
+{
+	clear();
+	this->addItem(ent->text(0));
+}

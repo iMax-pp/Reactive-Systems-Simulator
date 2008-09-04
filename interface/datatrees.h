@@ -23,26 +23,31 @@
 #define DATATREES_H
 
 #include <QtGui>
+#include "informationsbox.h"
 
 class MainTree;
 class SimTree;
 
 class DataTrees : public QTabWidget
 {
+	Q_OBJECT
+	
 	public:
 		DataTrees();
 		~DataTrees();
 		
-	//private:
-		//MainTree *mainTree;
-		//SimTree *simTree;
+		MainTree* getMainTree();
+		
+	private:			
 		MainTree *mainTree;
-		SimTree *simTree;
+		SimTree *simTree;		
 };
 
 
 class MainTree : public QTreeWidget
 {
+	Q_OBJECT
+	
 	public:
 		MainTree();
 		~MainTree();

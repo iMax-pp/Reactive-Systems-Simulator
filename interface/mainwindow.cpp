@@ -272,25 +272,17 @@ void MainWindow::createStatusBar()
 
 void MainWindow::createDocks()
 {
+	setCorner(Qt::BottomRightCorner,Qt::RightDockWidgetArea);
+	
 	//Création de la console
 	consoleDock = new QDockWidget(tr("Console"), this);
-	consoleDock->setAllowedAreas(Qt::BottomDockWidgetArea
-	                              | Qt::TopDockWidgetArea);
+	consoleDock->setAllowedAreas(Qt::BottomDockWidgetArea);
 	addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
 	consoleWidget = new ConsoleWidget;
 	consoleDock->setWidget(consoleWidget);	
 	consoleWidget->newMsg(QString("The simulator is up and ready to roll..."));
 	
 	consoleWidget->setMaximumHeight(100);
-	
-	//Création du dock de contrôle
-	controlsDock = new QDockWidget(tr("Controls"), this);
-	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea
-	                              | Qt::RightDockWidgetArea);
-	addDockWidget(Qt::LeftDockWidgetArea, controlsDock);
-	
-	controlsWidget = new ControlsWidget;
-	controlsDock->setWidget(controlsWidget);
 	
 	// Dock de liste des informations disponibles
 	dataTreesDock = new QDockWidget(tr("Data Trees"), this);
@@ -302,12 +294,20 @@ void MainWindow::createDocks()
 	infoDock = new QDockWidget(tr("Data Dock"), this);
 	infoDock->setAllowedAreas(Qt::BottomDockWidgetArea
 								 | Qt::TopDockWidgetArea);
-	addDockWidget(Qt::BottomDockWidgetArea, infoDock);
-	
-	infoDock->setFixedWidth(250);
-	
+	addDockWidget(Qt::RightDockWidgetArea, infoDock);
+		
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
+	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));
+	
+	//Création du dock de contrôle
+	controlsDock = new QDockWidget(tr("Controls"), this);
+	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea
+	                              | Qt::RightDockWidgetArea);
+	addDockWidget(Qt::RightDockWidgetArea, controlsDock);
+	
+	controlsWidget = new ControlsWidget;
+	controlsDock->setWidget(controlsWidget);
 	
 	//connections
 	//QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));

@@ -33,6 +33,7 @@ public:
 
 public slots:
 	void listSet(QStringList infos);
+	void showEnt(QTreeWidgetItem* ent, int col);
 };
 
 #endif
