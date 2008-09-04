@@ -27,6 +27,8 @@
 #include <QWidget>
 #include <iostream>
 
+#include "programsettings.h"
+
 class QListWidget;
 class QListWidgetItem;
 class QStackedWidget;
@@ -49,7 +51,7 @@ class OpenGLPage : public QWidget
 // Partie boîte de configuration
 
 class ConfigDialog : public QDialog
-	{
+{
 		Q_OBJECT
 		
 	public:
@@ -63,6 +65,6 @@ class ConfigDialog : public QDialog
 		
 		QListWidget *contentsWidget;
 		QStackedWidget *pagesWidget;
-	};
+};
 
 #endif

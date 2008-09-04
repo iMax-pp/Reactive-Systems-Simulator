@@ -26,9 +26,6 @@
 #include <QWidget>
 #include <QToolBox>
 
-#include "cameracontrolswidget.h"
-#include "speedcontrolswidget.h"
-
 class ControlsWidget : public QToolBox
 {
 	Q_OBJECT
