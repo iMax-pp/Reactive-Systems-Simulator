@@ -24,15 +24,15 @@
 
 #include <vector>
 
-//La structure num3f parait un peu mal nommée, mais elle sert à la fois de coordonées de positions et d'angles, à la fois absolues et relatives.
+//La structure num3f parait un peu mal nommée, mais elle sert à la fois de coordonnées de positions et d'angles, à la fois absolues et relatives.
 struct num3f
 {
 	float x;
 	float y;
 	float z;
-}
+};
 
-//Class expérimentale dont le seul objectif est de facilement obtnir des primitives simples.
+//Class expérimentale dont le seul objectif est de facilement obtenir des primitives simples.
 class shape
 {
 	public:
@@ -45,6 +45,6 @@ class shape
 		vector<num3f> cylinder(float radius, float height);
 		
 		//A compléter, on verra bien si ça sert à quelque chose ;)
-}
+};
 
 #endif

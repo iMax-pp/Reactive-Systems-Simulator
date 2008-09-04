@@ -48,6 +48,10 @@ MainTree* DataTrees::getMainTree()
 	return mainTree;
 }
 
+SimTree* DataTrees::getSimTree()
+{
+	return simTree;
+}
 
 MainTree::MainTree()
 {

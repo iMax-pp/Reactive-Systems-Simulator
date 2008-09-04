@@ -37,6 +37,7 @@ class DataTrees : public QTabWidget
 		~DataTrees();
 		
 		MainTree* getMainTree();
+		SimTree* getSimTree();
 		
 	private:			
 		MainTree *mainTree;
@@ -45,9 +46,7 @@ class DataTrees : public QTabWidget
 
 
 class MainTree : public QTreeWidget
-{
-	Q_OBJECT
-	
+{	
 	public:
 		MainTree();
 		~MainTree();

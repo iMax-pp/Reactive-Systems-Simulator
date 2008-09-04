@@ -68,7 +68,7 @@ class GLLivingEntity
 							 //Une capacité serait une extention des aptitudes de l'entité
 							 // => Peut trouver un chemin par A*
 							 // => Est soumis aux collisions
-							 // => Est dotté de vision machine
+							 // => Est doté de vision machine
 							 // => Est soumis aux forces physiques classiques
 							 // => ...
 
@@ -76,7 +76,7 @@ class GLLivingEntity
 		vector<*AIRule> rules;
 		vector<*AIState> states;
 		vector<*AICapacity> capacities;
-}
+};
 
 class GLBot : public GLLivingEntity
 {
@@ -95,7 +95,7 @@ class GLBot : public GLLivingEntity
 		UseItem(); //Utiliser un objet porté?
 		
 	private:
-		//Bon chaque bot aura aussi des propriétés, des charactéristiques...compte tenu d'un idée personnelle qui se développe, on pourrait les appeler des gênes :D
+		//Bon chaque bot aura aussi des propriétés, des caractéristiques...compte tenu d'un idée personnelle qui se développe, on pourrait les appeler des gênes :D
 		float _speed;
 		float _vision_angle; //Angle du cône de vision. On suppose que c'est vraiment un cône
 		float _vision_distance; //Pas dur :)

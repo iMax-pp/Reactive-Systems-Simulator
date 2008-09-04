@@ -299,7 +299,7 @@ void MainWindow::createDocks()
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
 	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));
-	
+	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));	
 	//Création du dock de contrôle
 	controlsDock = new QDockWidget(tr("Controls"), this);
 	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea
