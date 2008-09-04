@@ -32,7 +32,6 @@ public:
 	InformationsBox();
 
 public slots:
-	void setInfoText(QTreeWidgetItem * item, int column);
 	void listSet(QStringList infos);
 };
 

@@ -21,21 +21,7 @@
 
 #include "informationsbox.h"
 
-InformationsBox::InformationsBox()
-{
-	//m_text = new QLabel(tr("No Selected Item"));
-
-	//QVBoxLayout *vbox = new QVBoxLayout;
-	//vbox->addWidget(m_text);
-	//setLayout(vbox);
-}
-
-void InformationsBox::setInfoText(QTreeWidgetItem * item, int column)
-{
-	//m_text->setText(item->text(column));
-	clear();
-	addItem(QString(item->text(column)));
-}
+InformationsBox::InformationsBox(){}
 
 void InformationsBox::listSet(QStringList infos)
 {

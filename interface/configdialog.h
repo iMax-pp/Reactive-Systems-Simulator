@@ -24,11 +24,29 @@
 
 #include <QtGui>
 #include <QDialog>
-#include "pages.h"
+#include <QWidget>
+#include <iostream>
 
 class QListWidget;
 class QListWidgetItem;
 class QStackedWidget;
+
+// Partie Pages de configuration
+
+class ConfigurationPage : public QWidget
+{
+	Q_OBJECT
+	public:
+		ConfigurationPage();
+};
+
+class OpenGLPage : public QWidget
+{
+	public:
+		OpenGLPage();
+};
+
+// Partie boîte de configuration
 
 class ConfigDialog : public QDialog
 	{

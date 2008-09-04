@@ -23,9 +23,5 @@
 
 ControlsWidget::ControlsWidget()
 {
-	cameraControlsWidget = new CameraControlsWidget;
-	addItem(cameraControlsWidget, tr("Camera Controls"));
-
-	speedControlsWidget = new SpeedControlsWidget;
-	addItem(speedControlsWidget, tr("Speed Controls"));
+	
 }

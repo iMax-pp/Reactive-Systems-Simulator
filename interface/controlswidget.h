@@ -41,8 +41,7 @@ class ControlsWidget : public QToolBox
 	public slots:
 	
 	private:
-		CameraControlsWidget *cameraControlsWidget;
-		SpeedControlsWidget *speedControlsWidget;
+		
 };
 
 #endif
