@@ -219,5 +219,7 @@ QStringList Viewer::getCamData()
 	stringList << QString("     Z=%1").arg(camera()->position().z);
 	stringList << QString("     Rot=%1").arg(rot);
 	
+	console->newMsg(QString("Cam Data Sent!"));
+	
 	return stringList;
 }

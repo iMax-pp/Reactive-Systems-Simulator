@@ -27,7 +27,7 @@
 #include <QStringList>
 
 #include "../interface/consolewidget.h"
-#include "../interface/informationsbox.h"
+//#include "../interface/informationsbox.h"
 
 class Viewer : public QGLViewer
 {

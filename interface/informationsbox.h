@@ -25,15 +25,13 @@
 #include <QtGui>
 #include "../simulator/GLViewer.h"
 
-class Viewer;
-
 class InformationsBox : public QListWidget
 {
 	Q_OBJECT
 
 	public:
 		InformationsBox();
-		void setViewerPointer(Viewer* view);
+		void setViewerPointer(Viewer* viewerPointer);
 
 	public slots:
 		void listSet(QStringList infos);

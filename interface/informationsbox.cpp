@@ -24,9 +24,9 @@
 
 InformationsBox::InformationsBox(){}
 
-void InformationsBox::setViewerPointer(Viewer* view)
+void InformationsBox::setViewerPointer(Viewer* viewerPointer)
 {
-	viewer = view;
+	viewer = viewerPointer;
 }
 
 void InformationsBox::listSet(QStringList infos)
@@ -42,11 +42,11 @@ void InformationsBox::showEnt(QTreeWidgetItem* ent, int col)
 	
 	if(temp == "Camera")
 	{		
-		viewer->getCamData();
+		addItems(viewer->getCamData());
 	}
 	else
 	{
-		this->addItem(ent->text(0));
-		this->addItem(tr("Sorry, no info on this :'("));		
+		addItem(ent->text(0));
+		addItem(tr("Sorry, no info on this :'("));		
 	}
 }

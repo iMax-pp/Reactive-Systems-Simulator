@@ -42,6 +42,7 @@ MainWindow::MainWindow()
     glViewer->setConsole(consoleWidget);
     //glViewer->setInfos(infos);
     setCentralWidget(glViewer);
+	infos->setViewerPointer(glViewer);
 
 
 	//Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
@@ -297,7 +298,6 @@ void MainWindow::createDocks()
 	addDockWidget(Qt::RightDockWidgetArea, infoDock);
 		
 	infos = new InformationsBox;
-	infos->setViewerPointer(glViewer);
 	infoDock->setWidget(infos);
 	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));
 	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));	
