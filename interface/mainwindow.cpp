@@ -42,8 +42,9 @@ MainWindow::MainWindow()
     glViewer->setConsole(consoleWidget);
     //glViewer->setInfos(infos);
     setCentralWidget(glViewer);
+	
 	infos->setViewerPointer(glViewer);
-
+	connect(glViewer, SIGNAL(sceneRefresh()), infos, SLOT(refreshBox()));
 
 	//Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
     //connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));
@@ -299,8 +300,8 @@ void MainWindow::createDocks()
 		
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
-	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));
-	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));	
+	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
+	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));	
 	//Création du dock de contrôle
 	controlsDock = new QDockWidget(tr("Controls"), this);
 	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea

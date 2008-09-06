@@ -35,18 +35,27 @@ void InformationsBox::listSet(QStringList infos)
 	addItems(infos);
 }
 
-void InformationsBox::showEnt(QTreeWidgetItem* ent, int col)
+void InformationsBox::setCurrentItem(QTreeWidgetItem* ent, int col)
 {
-	clear();
-	std::string temp = ent->text(0).toStdString();
-	
-	if(temp == "Camera")
-	{		
-		addItems(viewer->getCamData());
-	}
-	else
+	currentItem = ent;
+	refreshBox();
+}
+
+void InformationsBox::refreshBox()
+{
+	if(currentItem)
 	{
-		addItem(ent->text(0));
-		addItem(tr("Sorry, no info on this :'("));		
+		clear();
+		std::string temp = currentItem->text(0).toStdString();
+		
+		if(temp == "Camera")
+		{		
+			addItems(viewer->getCamData());
+		}
+		else
+		{
+			addItem(currentItem->text(0));
+			addItem(tr("Sorry, no info on this :'("));		
+		}		
 	}
 }

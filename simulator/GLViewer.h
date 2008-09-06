@@ -31,6 +31,8 @@
 
 class Viewer : public QGLViewer
 {
+	Q_OBJECT
+	
 	public:
 		void setConsole(ConsoleWidget* consolePointer);
 		//void setInfos(InformationsBox* infoPointer);
@@ -43,6 +45,9 @@ class Viewer : public QGLViewer
 		virtual void drawWithNames();
 		virtual void postSelection(const QPoint& point);
 		//virtual QString helpString() const;
+		
+	signals:
+		void sceneRefresh();
 		
 	private:
 		GLfloat rot;
