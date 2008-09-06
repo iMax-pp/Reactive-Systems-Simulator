@@ -45,6 +45,10 @@ MainWindow::MainWindow()
 	
 	infos->setViewerPointer(glViewer);
 	connect(glViewer, SIGNAL(sceneRefresh()), infos, SLOT(refreshBox()));
+	connect(runSimAct, SIGNAL(triggered()), glViewer, SLOT(startAnimation()));
+	connect(stopSimAct, SIGNAL(triggered()), glViewer, SLOT(stopAnimation()));
+	connect(restartSimAct, SIGNAL(triggered()), glViewer, SLOT(restart()));
+	connect(resetSimAct, SIGNAL(triggered()), glViewer, SLOT(reset()));
 
 	//Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
     //connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));

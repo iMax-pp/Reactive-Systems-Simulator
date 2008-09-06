@@ -39,13 +39,14 @@ void Viewer::setInfos(InformationsBox* infoPointer)
 void Viewer::init()
 {
 	framenum = 0;
-	rot = 0.0;
+	
+	reset();
 	
 	//Mise en liste de la spirale
 	cube = glGenLists(1);
 
 	glNewList(cube, GL_COMPILE);
-		glScalef(0.2, 0.2, 0.2);
+		glScalef(0.05, 0.05, 0.05);
 		glBegin(GL_QUADS);
 			glColor3f(0.0f,1.0f,0.0f);			// Set The Color To Green
 			glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Top)
@@ -128,12 +129,12 @@ void Viewer::init()
 
 void Viewer::drawWithNames()
 {
-	const int nb = 3;
+	const int nb = 40;
 	for (int i=0; i<nb; ++i)
     {
 		glPushMatrix();
-		glTranslatef(cos(2.0*i*M_PI/nb)/2.0, 0.2, sin(2.0*i*M_PI/nb)/2.0);
-		glRotatef(rot, 0.5, 0.2, 0.7);
+		glTranslatef(cos(2.0*i*M_PI/(nb/2.0)+step)/1.5, sin(2.0*i+step)*(sin(amp)/4.0), sin(2.0*i*M_PI/(nb/2.0)+step)/1.5);
+		glRotatef(rot, 1.0f, 1.0f, 1.0f);
 
 		glPushName(i);
 		glScalef(0.3f, 0.3f, 0.3f);
@@ -173,20 +174,18 @@ void Viewer::draw()
 	glPolygonMode( GL_FRONT, GL_FILL );
 	glPolygonMode( GL_BACK, GL_FILL );
 
-	const int nb = 5;
+	const int nb = 40;
 	for (int i=0; i<nb; ++i)
 	{
 		glPushMatrix();
-		glTranslatef(cos(2.0*i*M_PI/nb)/2.0, 0.2, sin(2.0*i*M_PI/nb)/2.0);
+		glScalef(i/30.0, i/30.0, i/30.0);
+		//glTranslatef(cos(2.0*i*M_PI/10.0+step)/1.5, sin(2.0*i+step)*(sin(amp)/4.0), sin(2.0*i*M_PI/10.0+step)/1.5);
+		glTranslatef(cos((i+step)/2.0)/1.5, sin(0.8*i+step)*(sin(amp)/4.0), sin((i+step)/2.0)/1.5);
 		glRotatef(rot, 1.0f, 1.0f, 1.0f);
 		if(i == selectedName())
 		{
-			glScalef(0.4f, 0.4f, 0.4f);
+			glScalef(1.1f, 1.1f, 1.1f);
 			drawAxis();
-		}
-		else
-		{
-			glScalef(0.3f, 0.3f, 0.3f);
 		}
 		glCallList(cube);
 		glPopMatrix();
@@ -203,9 +202,25 @@ void Viewer::draw()
 
 void Viewer::animate()
 {
-	rot+=.3f;
-	if(rot == 1.0)
-	{ rot = 0.0; }
+	rot+=0.5f;
+	step+=0.2f;
+	amp+=0.05f;
+}
+
+void Viewer::reset()
+{
+	//stopAnimation();
+	rot=0.0;
+	step=0.0;
+	amp=0.0;
+}
+
+void Viewer::restart()
+{
+	//startAnimation();
+	rot=0.0;
+	step=0.0;
+	amp=0.0;
 }
 
 QStringList Viewer::getCamData()
@@ -220,6 +235,8 @@ QStringList Viewer::getCamData()
 	stringList << QString("     Y=%1").arg(camera()->position().y);
 	stringList << QString("     Z=%1").arg(camera()->position().z);
 	stringList << QString("     Rot=%1").arg(rot);
+	stringList << QString("     Step=%1").arg(step);
+	stringList << QString("     Amp=%1").arg(amp);
 	
 	//console->newMsg(QString("Cam Data Sent!"));
 	

@@ -49,8 +49,14 @@ class Viewer : public QGLViewer
 	signals:
 		void sceneRefresh();
 		
+	public slots:
+		void reset();
+		void restart();
+		
 	private:
 		GLfloat rot;
+		GLfloat step;
+		GLfloat amp;
 		GLuint cube;
 		GLuint world;
 		int framenum;
