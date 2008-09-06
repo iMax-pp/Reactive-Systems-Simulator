@@ -44,7 +44,7 @@ MainWindow::MainWindow()
     setCentralWidget(glViewer);
 	
 	infos->setViewerPointer(glViewer);
-	connect(glViewer, SIGNAL(sceneRefresh()), infos, SLOT(refreshBox()));
+	connect(glViewer, SIGNAL(drawFinished(bool)), infos, SLOT(refreshBox(bool)));
 	connect(runSimAct, SIGNAL(triggered()), glViewer, SLOT(startAnimation()));
 	connect(stopSimAct, SIGNAL(triggered()), glViewer, SLOT(stopAnimation()));
 	connect(restartSimAct, SIGNAL(triggered()), glViewer, SLOT(restart()));

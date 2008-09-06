@@ -24,15 +24,6 @@
 
 DataTrees::DataTrees()
 {
-	//mainTree = new MainTree();
-	//simTree = new SimTree();
-	
-	//QTreeWidget *generalTree = new QTreeWidget();
-	//QTreeWidget *simTree = new QTreeWidget();
-	
-	//addTab(mainTree, tr("General"));
-	//addTab(simTree, tr("Simulation"));
-	
 	mainTree = new MainTree();
 	addTab(mainTree, tr("mainTree"));
 

@@ -133,11 +133,11 @@ void Viewer::drawWithNames()
 	for (int i=0; i<nb; ++i)
     {
 		glPushMatrix();
-		glTranslatef(cos(2.0*i*M_PI/(nb/2.0)+step)/1.5, sin(2.0*i+step)*(sin(amp)/4.0), sin(2.0*i*M_PI/(nb/2.0)+step)/1.5);
+		glScalef(i/30.0, i/30.0, i/30.0);
+		glTranslatef(cos((i+step)/2.0)/1.5, sin(0.8*i+step)*(sin(amp)/4.0), sin((i+step)/2.0)/1.5);
 		glRotatef(rot, 1.0f, 1.0f, 1.0f);
 
 		glPushName(i);
-		glScalef(0.3f, 0.3f, 0.3f);
 		glCallList(cube);
 		glPopName();
 
@@ -160,10 +160,10 @@ void Viewer::postSelection(const QPoint& point)
 
 	if (selectedName() == -1)
 	console->newMsg(QString("No selection\n") +
-				 QString("No object selected under pixel ") + QString::number(point.x()) + "," + QString::number(point.y()));
+				 QString("No object at ") + QString::number(point.x()) + "," + QString::number(point.y()));
 	else
 	console->newMsg(QString("Selection\n") +
-				 QString("Spiral number ") + QString::number(selectedName()) + QString(" selected under pixel ") +
+				 QString("Cube ") + QString::number(selectedName()) + QString(" at ") +
 				 QString::number(point.x()) + "," + QString::number(point.y()));
 	
 }
@@ -184,8 +184,9 @@ void Viewer::draw()
 		glRotatef(rot, 1.0f, 1.0f, 1.0f);
 		if(i == selectedName())
 		{
-			glScalef(1.1f, 1.1f, 1.1f);
+			glScalef(0.2f, 0.2f, 0.2f);
 			drawAxis();
+			glScalef(8.0f, 8.0f, 8.0f);
 		}
 		glCallList(cube);
 		glPopMatrix();
@@ -195,9 +196,7 @@ void Viewer::draw()
 	glPolygonMode( GL_BACK, GL_LINE );
 	glCallList(world);
 
-	framenum++;
-	
-	emit sceneRefresh();
+	//framenum++;	
 }
 
 void Viewer::animate()
@@ -228,15 +227,15 @@ QStringList Viewer::getCamData()
 	QStringList stringList;
 
 	stringList.clear();
-	stringList << QString("Viewer info");
-	stringList << QString("  Frame number: %1").arg(framenum);
-	stringList << QString("  Camera Position:");
+	stringList << QString("Camera data");
+	//stringList << QString("  Frame number: %1").arg(framenum);
+	stringList << QString("  Position:");
 	stringList << QString("     X=%1").arg(camera()->position().x);
 	stringList << QString("     Y=%1").arg(camera()->position().y);
 	stringList << QString("     Z=%1").arg(camera()->position().z);
-	stringList << QString("     Rot=%1").arg(rot);
-	stringList << QString("     Step=%1").arg(step);
-	stringList << QString("     Amp=%1").arg(amp);
+	//stringList << QString("     Rot=%1").arg(rot);
+	//stringList << QString("     Step=%1").arg(step);
+	//stringList << QString("     Amp=%1").arg(amp);
 	
 	//console->newMsg(QString("Cam Data Sent!"));
 	

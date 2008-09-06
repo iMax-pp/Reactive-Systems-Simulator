@@ -46,9 +46,6 @@ class Viewer : public QGLViewer
 		virtual void postSelection(const QPoint& point);
 		//virtual QString helpString() const;
 		
-	signals:
-		void sceneRefresh();
-		
 	public slots:
 		void reset();
 		void restart();

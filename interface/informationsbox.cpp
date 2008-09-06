@@ -22,7 +22,10 @@
 #include "informationsbox.h"
 #include <string>
 
-InformationsBox::InformationsBox(){}
+InformationsBox::InformationsBox()
+{
+	currentItem = 0;
+}
 
 void InformationsBox::setViewerPointer(Viewer* viewerPointer)
 {
@@ -38,12 +41,12 @@ void InformationsBox::listSet(QStringList infos)
 void InformationsBox::setCurrentItem(QTreeWidgetItem* ent, int col)
 {
 	currentItem = ent;
-	refreshBox();
+	refreshBox(true);
 }
 
-void InformationsBox::refreshBox()
+void InformationsBox::refreshBox(bool auto)
 {
-	if(currentItem)
+	if(currentItem != 0)
 	{
 		clear();
 		std::string temp = currentItem->text(0).toStdString();
