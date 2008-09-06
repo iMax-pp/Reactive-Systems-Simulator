@@ -25,14 +25,11 @@
 #include <iostream>
 #include <string>
 #include <lua.hpp>
-#include <QObject>
 
 using namespace std;
 
-class LuaSimpleEngine : public QObject
+class LuaSimpleEngine
 {
-	Q_OBJECT
-	
 	public:
 		LuaSimpleEngine();
 		~LuaSimpleEngine();
@@ -41,9 +38,6 @@ class LuaSimpleEngine : public QObject
 		float getFloat(const char *varName);
 		const char *getString(const char *varName);
 		bool getBool(const char *varName);
-	
-	public slots:
-		void setInt(int value);
 
 	private:
 		lua_State *luaState;

@@ -83,9 +83,3 @@ const char *LuaSimpleEngine::getString(const char *varName)
 	}
 	else return NULL;
 }
-
-void LuaSimpleEngine::setInt(int value)
-{
-	lua_pushnumber(luaState, value);
-	lua_setglobal(luaState, "numbersofteams");
-}
