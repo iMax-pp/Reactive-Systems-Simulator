@@ -33,9 +33,11 @@ class Viewer : public QGLViewer
 {
 	public:
 		void setConsole(ConsoleWidget* consolePointer);
-		void setInfos(InformationsBox* infoPointer);
-	
+		//void setInfos(InformationsBox* infoPointer);
+		QStringList getCamData();
+		
 	protected:
+		virtual void animate();
 		virtual void draw();
 		virtual void init();
 		virtual void drawWithNames();
@@ -43,14 +45,14 @@ class Viewer : public QGLViewer
 		//virtual QString helpString() const;
 		
 	private:
-		GLuint spiral;
+		GLfloat rot;
+		GLuint cube;
 		GLuint world;
 		int framenum;
 		
 		ConsoleWidget *console;
-		InformationsBox *infos;
+		//InformationsBox *infos;
 		
-		QStringList stringList;
 		qglviewer::Vec orig, dir, selectedPoint;
 };
 

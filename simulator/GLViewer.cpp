@@ -29,78 +29,59 @@ void Viewer::setConsole(ConsoleWidget *consolePointer)
 	console = consolePointer;
 }
 
+/*
 void Viewer::setInfos(InformationsBox* infoPointer)
 {
 	infos = infoPointer;
 }
-
-void Viewer::drawWithNames()
-{
-	const int nb = 3;
-	for (int i=0; i<nb; ++i)
-    {
-		glPushMatrix();
-		glTranslatef(cos(2.0*i*M_PI/nb)/2.0, 0.2, sin(2.0*i*M_PI/nb)/2.0);
-
-		glPushName(i);
-		glScalef(0.3f, 0.3f, 0.3f);
-		glCallList(spiral);
-		glPopName();
-
-		glPopMatrix();
-    }
-}
-
-void Viewer::postSelection(const QPoint& point)
-{
-	//Apparently this is what happens after a selection...hmmm
-	
-	// Compute orig and dir, used to draw a representation of the intersecting line
-	camera()->convertClickToLine(point, orig, dir);
-
-	// Find the selectedPoint coordinates, using camera()->pointUnderPixel().
-	bool found;
-	selectedPoint = camera()->pointUnderPixel(point, found);
-	selectedPoint -= 0.01f*dir; // Small offset to make point clearly visible.
-	// Note that "found" is different from (selectedObjectId()>=0) because of the size of the select region.
-
-	if (selectedName() == -1)
-	console->newMsg(QString("No selection\n") +
-				 QString("No object selected under pixel ") + QString::number(point.x()) + "," + QString::number(point.y()));
-	else
-	console->newMsg(QString("Selection\n") +
-				 QString("Spiral number ") + QString::number(selectedName()) + QString(" selected under pixel ") +
-				 QString::number(point.x()) + "," + QString::number(point.y()));
-	
-}
+*/
 
 void Viewer::init()
 {
 	framenum = 0;
+	rot = 0.0;
 	
 	//Mise en liste de la spirale
-	spiral = glGenLists(1);
+	cube = glGenLists(1);
 
-	const float nbSteps = 200.0;
-	
-	glNewList(spiral, GL_COMPILE);
-		glBegin(GL_QUAD_STRIP);
-		for (int i=0; i<nbSteps; ++i)
-		{
-			const float ratio = i/nbSteps;
-			const float angle = 21.0f*ratio;
-			const float c = cos(angle);
-			const float s = sin(angle);
-			const float r1 = 1.0f - 0.8f*ratio;
-			const float r2 = 0.8f - 0.8f*ratio;
-			const float alt = ratio - 0.5f;
-			const float nor = 0.5f;
-			const float up = sqrt(1.0f-nor*nor);
-			glColor3f(1.0f-ratio, 0.2f , ratio);
-			glNormal3f(nor*c, up, nor*s);
-			glVertex3f(r1*c, alt, r1*s);
-			glVertex3f(r2*c, alt+0.05f, r2*s);
-		}
+	glNewList(cube, GL_COMPILE);
+		glScalef(0.2, 0.2, 0.2);
+		glBegin(GL_QUADS);
+			glColor3f(0.0f,1.0f,0.0f);			// Set The Color To Green
+			glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Top)
+			glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Top)
+			glVertex3f(-1.0f, 1.0f, 1.0f);			// Bottom Left Of The Quad (Top)
+			glVertex3f( 1.0f, 1.0f, 1.0f);			// Bottom Right Of The Quad (Top)
+
+			glColor3f(1.0f,0.5f,0.0f);			// Set The Color To Orange
+			glVertex3f( 1.0f,-1.0f, 1.0f);			// Top Right Of The Quad (Bottom)
+			glVertex3f(-1.0f,-1.0f, 1.0f);			// Top Left Of The Quad (Bottom)
+			glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Bottom)
+			glVertex3f( 1.0f,-1.0f,-1.0f);			// Bottom Right Of The Quad (Bottom)
+
+			glColor3f(1.0f,0.0f,0.0f);			// Set The Color To Red
+			glVertex3f( 1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Front)
+			glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Front)
+			glVertex3f(-1.0f,-1.0f, 1.0f);			// Bottom Left Of The Quad (Front)
+			glVertex3f( 1.0f,-1.0f, 1.0f);			// Bottom Right Of The Quad (Front)
+
+			glColor3f(1.0f,1.0f,0.0f);			// Set The Color To Yellow
+			glVertex3f( 1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Back)
+			glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Right Of The Quad (Back)
+			glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Back)
+			glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Back)
+
+			glColor3f(0.0f,0.0f,1.0f);			// Set The Color To Blue
+			glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Left)
+			glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Left)
+			glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Left)
+			glVertex3f(-1.0f,-1.0f, 1.0f);			// Bottom Right Of The Quad (Left)
+
+			glColor3f(1.0f,0.0f,1.0f);			// Set The Color To Violet
+			glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Right)
+			glVertex3f( 1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Right)
+			glVertex3f( 1.0f,-1.0f, 1.0f);			// Bottom Left Of The Quad (Right)
+			glVertex3f( 1.0f,-1.0f,-1.0f);			// Bottom Right Of The Quad (Right)
 		glEnd();
 	glEndList();
 
@@ -145,17 +126,59 @@ void Viewer::init()
 	console->newMsg(QString("Viewer initiated"));	
 }
 
+void Viewer::drawWithNames()
+{
+	const int nb = 3;
+	for (int i=0; i<nb; ++i)
+    {
+		glPushMatrix();
+		glTranslatef(cos(2.0*i*M_PI/nb)/2.0, 0.2, sin(2.0*i*M_PI/nb)/2.0);
+		glRotatef(rot, 0.5, 0.2, 0.7);
+
+		glPushName(i);
+		glScalef(0.3f, 0.3f, 0.3f);
+		glCallList(cube);
+		glPopName();
+
+		glPopMatrix();
+    }
+}
+
+void Viewer::postSelection(const QPoint& point)
+{
+	//Apparently this is what happens after a selection...hmmm
+	
+	// Compute orig and dir, used to draw a representation of the intersecting line
+	camera()->convertClickToLine(point, orig, dir);
+
+	// Find the selectedPoint coordinates, using camera()->pointUnderPixel().
+	bool found;
+	selectedPoint = camera()->pointUnderPixel(point, found);
+	selectedPoint -= 0.01f*dir; // Small offset to make point clearly visible.
+	// Note that "found" is different from (selectedObjectId()>=0) because of the size of the select region.
+
+	if (selectedName() == -1)
+	console->newMsg(QString("No selection\n") +
+				 QString("No object selected under pixel ") + QString::number(point.x()) + "," + QString::number(point.y()));
+	else
+	console->newMsg(QString("Selection\n") +
+				 QString("Spiral number ") + QString::number(selectedName()) + QString(" selected under pixel ") +
+				 QString::number(point.x()) + "," + QString::number(point.y()));
+	
+}
+
 // Draws a spiral
 void Viewer::draw()
 {
 	glPolygonMode( GL_FRONT, GL_FILL );
 	glPolygonMode( GL_BACK, GL_FILL );
 
-	const int nb = 3;
+	const int nb = 5;
 	for (int i=0; i<nb; ++i)
 	{
 		glPushMatrix();
 		glTranslatef(cos(2.0*i*M_PI/nb)/2.0, 0.2, sin(2.0*i*M_PI/nb)/2.0);
+		glRotatef(rot, 1.0f, 1.0f, 1.0f);
 		if(i == selectedName())
 		{
 			glScalef(0.4f, 0.4f, 0.4f);
@@ -165,7 +188,7 @@ void Viewer::draw()
 		{
 			glScalef(0.3f, 0.3f, 0.3f);
 		}
-		glCallList(spiral);
+		glCallList(cube);
 		glPopMatrix();
 	}
 
@@ -174,8 +197,19 @@ void Viewer::draw()
 	glCallList(world);
 
 	framenum++;
-	
-	//console->newMsg(QString("Frame %1").arg(framenum));
+}
+
+void Viewer::animate()
+{
+	rot+=.3f;
+	if(rot == 1.0)
+	{ rot = 0.0; }
+}
+
+QStringList Viewer::getCamData()
+{
+	QStringList stringList;
+
 	stringList.clear();
 	stringList << QString("Viewer info");
 	stringList << QString("  Frame number: %1").arg(framenum);
@@ -183,5 +217,7 @@ void Viewer::draw()
 	stringList << QString("     X=%1").arg(camera()->position().x);
 	stringList << QString("     Y=%1").arg(camera()->position().y);
 	stringList << QString("     Z=%1").arg(camera()->position().z);
-	infos->listSet(stringList);
+	stringList << QString("     Rot=%1").arg(rot);
+	
+	return stringList;
 }
