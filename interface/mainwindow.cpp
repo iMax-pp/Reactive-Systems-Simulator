@@ -40,7 +40,7 @@ MainWindow::MainWindow()
 
     glViewer = new Viewer;
     glViewer->setConsole(consoleWidget);
-    glViewer->setInfos(infos);
+    //glViewer->setInfos(infos);
     setCentralWidget(glViewer);
 
 
@@ -297,6 +297,7 @@ void MainWindow::createDocks()
 	addDockWidget(Qt::RightDockWidgetArea, infoDock);
 		
 	infos = new InformationsBox;
+	infos->setViewerPointer(glViewer);
 	infoDock->setWidget(infos);
 	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));
 	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(showEnt(QTreeWidgetItem*, int)));	

@@ -23,17 +23,24 @@
 #define INFORMATIONSBOX_H
 
 #include <QtGui>
+#include "../simulator/GLViewer.h"
+
+class Viewer;
 
 class InformationsBox : public QListWidget
 {
 	Q_OBJECT
 
-public:
-	InformationsBox();
+	public:
+		InformationsBox();
+		void setViewerPointer(Viewer* view);
 
-public slots:
-	void listSet(QStringList infos);
-	void showEnt(QTreeWidgetItem* ent, int col);
+	public slots:
+		void listSet(QStringList infos);
+		void showEnt(QTreeWidgetItem* ent, int col);
+	
+	private:
+		Viewer *viewer;
 };
 
 #endif

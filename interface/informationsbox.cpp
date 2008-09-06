@@ -20,8 +20,14 @@
  ********************************************************************************************/
 
 #include "informationsbox.h"
+#include <string>
 
 InformationsBox::InformationsBox(){}
+
+void InformationsBox::setViewerPointer(Viewer* view)
+{
+	viewer = view;
+}
 
 void InformationsBox::listSet(QStringList infos)
 {
@@ -32,5 +38,15 @@ void InformationsBox::listSet(QStringList infos)
 void InformationsBox::showEnt(QTreeWidgetItem* ent, int col)
 {
 	clear();
-	this->addItem(ent->text(0));
+	std::string temp = ent->text(0).toStdString();
+	
+	if(temp == "Camera")
+	{		
+		viewer->getCamData();
+	}
+	else
+	{
+		this->addItem(ent->text(0));
+		this->addItem(tr("Sorry, no info on this :'("));		
+	}
 }
