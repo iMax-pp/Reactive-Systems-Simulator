@@ -27,16 +27,12 @@ const char StaticEntity::className[] = "StaticEntity";
 #define method(class, name) {#name, &class::name}
 Lunar<StaticEntity>::RegType StaticEntity::methods[] = {
 	method(StaticEntity, setPosition),
-	method(StaticEntity, setRotation),
+	method(StaticEntity, setAngle),
 	{0,0}
 };
 
 // Constructeur x 3
-StaticEntity::StaticEntity()
-{
-	position = new Vec();
-	angle = new Vec();
-}
+StaticEntity::StaticEntity(){}
 
 StaticEntity::StaticEntity(Vec pos, Vec ang)
 {
@@ -51,14 +47,11 @@ StaticEntity::StaticEntity(lua_State* L)
 		lua_isnumber(L,2) && lua_isnumber(L,3) &&
 		lua_isnumber(L,4) && lua_isnumber(L,5) && lua_isnumber(L,6))
 	{
-		position = new Vec(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-		angle = new Vec(lua_tonumber(L,4), lua_tonumber(L,5), lua_tonumber(L,6));
+		position.setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
+		angle.setValue(lua_tonumber(L,4), lua_tonumber(L,5), lua_tonumber(L,6));
 	}
 	else if (nbArgs == 0)
-	{
-		position = new Vec();
-		angle = new Vec();
-	}
+	{}
 	else
 	{
 		std::cout << "StaticEntity : mauvais parametres" << std::endl;

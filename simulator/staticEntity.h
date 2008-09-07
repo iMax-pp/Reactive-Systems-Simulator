@@ -22,9 +22,11 @@
 #ifndef STATICENTITY_H
 #define STATICENTITY_H
 
-#include <Vec>
-#include <QStringList>
+#include <QGLViewer/vec.h>
+//#include <QStringList>
 #include "lunar.h"
+
+using namespace qglviewer;
 
 class StaticEntity
 {
@@ -36,13 +38,13 @@ public:
 
 	void setPosition (Vec pos);				// Sert à spécifier une position absolument
 	int setPosition (lua_State* L);
-	void setRotation (Vec ang);				// Sert à spécifier un angle absolu
-	int setRotation (lua_State* L);
+	void setAngle (Vec ang);				// Sert à spécifier un angle absolu
+	int setAngle (lua_State* L);
 	
 	Vec getPosition (void);						// Accesseurs toujours pratique
 	Vec getAngle (void);
 
-	virtual QStringList getProperties ();		//Renvoit les propriétés de l'entité.
+	//virtual QStringList getProperties ();		//Renvoit les propriétés de l'entité.
 												//Sert à être utilisé directement par l'afficheur d'infos, doù le QStringList.
 
 private:
