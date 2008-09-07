@@ -22,28 +22,24 @@ INCLUDEPATH += . \
 HEADERS += interface/configdialog.h \
            interface/consolewidget.h \
            interface/controlswidget.h \
-           interface/globwidget.h \
-           interface/glwidget.h \
            interface/informationsbox.h \
            interface/mainwindow.h \
 		   interface/programsettings.h \
 		   interface/datatrees.h \
            simulator/GLViewer.h \
-           lua/luaEngines.h \
+           lua/luaEngine.h \
 		   lua/lunar.h
            
 SOURCES += main.cpp \
            interface/configdialog.cpp \
            interface/consolewidget.cpp \
            interface/controlswidget.cpp \
-           interface/globwidget.cpp \
-           interface/glwidget.cpp \
            interface/informationsbox.cpp \
            interface/mainwindow.cpp \
 		   interface/programsettings.cpp \
 		   interface/datatrees.cpp \
            simulator/GLViewer.cpp \
-           lua/luaEngines.cpp
+           lua/luaEngine.cpp
            
 RESOURCES += application.qrc
 
