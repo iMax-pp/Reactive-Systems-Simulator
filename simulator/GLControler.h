@@ -24,34 +24,39 @@
 
 #include <vector>
 
-#include <QObject>
-#include <QStringList>
+#include "staticEntity.h"
 
-#include "GLEntity.h"
-
-class GLControler : public QObject
+class GLControler
 {
-	Q_OBJECT
-	
 	public:
 		GLControler();
 		~GLControler();
 	
-		//Ces deux fontions se chargent d'ajouter et d'enlever les entitées au monde.
-		//On passe par le controleur pour que celui-ci ait un controle total sur le monde.
-		*GLEntity addEntity(); //Constructeur d'entitées.
-							   //pas sur de comment concevoir son constructeur encore. Renvoit un pointeur pour pouvoir utiliser l'entité.
-		void delEntity(GLEntity ent); //Destructeur.
-									  //Pas sur de comment spécifier l'entitée: instance ou pointeur?
+		//void setWorld(World *world);
+		void addStatEnt(StaticEntity* ent);
+		//void addDynEnt(dynamicEntity* ent);
+		//void addVoidEnt(voidEntity* ent);
+		//void addLight(Light* light);
+		
+		void runAll();
+		void runWorld();
+		void runStatEnts();
+		void runDynEnts();
+		void runVoidEnts();
+		void runLights();
+		
+		void drawAll();
+		void drawWorld();
+		void drawStatEnts();
+		void drawDynEnts();
+		void drawLights();
 		
 	private:
-		vector<*GLEntity> _Entities; //Un vecteur c'est une sorte de de tableau/pile/file hybride qui peut être itérée, utilisée avec des indices, et a des méthode push/pop. 
-
-	signals:
-		void newEntity(Entity *ent);
-
-	public slots:
-		
+		//World *world;
+		std::vector <StaticEntity*> statEnts;
+		//std::vector<*dynamicEntity> dynEnts;
+		//std::vector<*voidEntity> voidEnts;
+		//std::vector<*Light> lights;		
 };
 
 #endif

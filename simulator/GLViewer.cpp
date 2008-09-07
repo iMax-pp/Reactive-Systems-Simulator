@@ -38,6 +38,8 @@ void Viewer::setInfos(InformationsBox* infoPointer)
 
 void Viewer::init()
 {
+	controler = new GLControler();
+	
 	framenum = 0;
 	
 	reset();

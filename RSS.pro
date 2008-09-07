@@ -23,6 +23,7 @@ HEADERS += interface/configdialog.h \
 		   interface/programsettings.h \
 		   interface/datatrees.h \
            simulator/GLViewer.h \
+           simulator/GLControler.h \
 		   simulator/staticEntity.h \
            lua/luaEngine.h \
 		   lua/lunar.h
@@ -36,6 +37,7 @@ SOURCES += main.cpp \
 		   interface/programsettings.cpp \
 		   interface/datatrees.cpp \
            simulator/GLViewer.cpp \
+           simulator/GLControler.cpp \
 		   simulator/staticEntity.cpp \
            lua/luaEngine.cpp
            

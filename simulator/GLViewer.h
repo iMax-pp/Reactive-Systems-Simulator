@@ -26,6 +26,7 @@
 #include <QList>
 #include <QStringList>
 
+#include "GLControler.h"
 #include "../interface/consolewidget.h"
 //#include "../interface/informationsbox.h"
 
@@ -58,6 +59,7 @@ class Viewer : public QGLViewer
 		GLuint world;
 		int framenum;
 		
+		GLControler *controler;
 		ConsoleWidget *console;
 		//InformationsBox *infos;
 		
