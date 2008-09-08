@@ -24,7 +24,7 @@
 
 #include <QGLViewer/vec.h>
 //#include <QStringList>
-#include "lunar.h"
+#include "../lua/lunar.h"
 
 using namespace qglviewer;
 

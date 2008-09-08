@@ -29,7 +29,7 @@ Controler::~Controler()
 
 
 //Méthodes pour ajouter une entité
-
+/*
 void Controler::setWorld(World *world)
 {}
 
@@ -110,3 +110,4 @@ void Controler::drawDynEnts()
 
 void Controler::drawLights()
 {}
+*/

@@ -1,7 +1,7 @@
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-}
+#ifndef LUNAR_H
+#define LUNAR_H
+
+#include <lua.hpp>
 
 template <typename T> class Lunar {
 	typedef struct { T *pT; } userdataType;
@@ -206,3 +206,5 @@ private:
 		return ud;
 	}
 };
+
+#endif

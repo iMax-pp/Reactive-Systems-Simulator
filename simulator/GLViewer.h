@@ -59,7 +59,7 @@ class Viewer : public QGLViewer
 		GLuint world;
 		int framenum;
 		
-		GLControler *controler;
+		Controler *controler;
 		ConsoleWidget *console;
 		//InformationsBox *infos;
 		
