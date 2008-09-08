@@ -26,11 +26,11 @@
 
 #include "staticEntity.h"
 
-class GLControler
+class Controler
 {
 	public:
-		GLControler();
-		~GLControler();
+		Controler();
+		~Controler();
 	
 		//void setWorld(World *world);
 		void addStatEnt(StaticEntity* ent);
