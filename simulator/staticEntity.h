@@ -23,7 +23,7 @@
 #define STATICENTITY_H
 
 #include <QGLViewer/vec.h>
-//#include <QStringList>
+#include <QStringList>
 #include "../lua/lunar.h"
 
 using namespace qglviewer;
@@ -31,27 +31,28 @@ using namespace qglviewer;
 class StaticEntity
 {
 	public:
-		StaticEntity ();
-		StaticEntity (Vec pos, Vec ang);		// On surdéfinit le constructeur parce que pouvoir définir une position initiale c'est pratique
-		StaticEntity (lua_State* L);				// La surdéfinition pour Lunar
-		~StaticEntity ();
+		StaticEntity (lua_State* L);					// La définition du constructeur pour Lua
+		~StaticEntity (){}
 
-		void setPosition (Vec pos);				// Sert à spécifier une position absolument
-		int setPosition (lua_State* L);
-		void setAngle (Vec ang);				// Sert à spécifier un angle absolu
-		int setAngle (lua_State* L);
+		void setPosition (Vec pos);						// Sert à spécifier une position absolument avec un vecteur
+		void setPosition(float x, float y, float z);	// avec des float
+		int setPosition (lua_State* L);					// avec Lua
+	
+		void setAngle (Vec ang);						// Sert à spécifier un angle absolu avec un vecteur
+		void setAngle(float x, float y, float z);		// avec des float
+		int setAngle (lua_State* L);					// avec Lua
 		
-		Vec getPosition (void);						// Accesseurs toujours pratique
-		Vec getAngle (void);
+		Vec* getPosition (void);						// Accesseurs toujours pratique
+		Vec* getAngle (void);
 
-		QStringList getProperties ();		//Renvoit les propriétés de l'entité.
-													//Sert à être utilisé directement par l'afficheur d'infos, doù le QStringList.
+		QStringList getProperties ();					//Renvoit les propriétés de l'entité.
+														//Sert à être utilisé directement par l'afficheur d'infos, doù le QStringList.
 
 	private:
-		Vec position;
-		Vec angle;
+		Vec *position;
+		Vec *angle;
 
-		friend class Lunar<StaticEntity>;			// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
+		friend class Lunar<StaticEntity>;				// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
 		static const char className[];
 		static Lunar<StaticEntity>::RegType methods[];
 };

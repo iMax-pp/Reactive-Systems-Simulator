@@ -31,27 +31,36 @@ Lunar<StaticEntity>::RegType StaticEntity::methods[] = {
 	{0,0}
 };
 
-// Constructeur x 3
-StaticEntity::StaticEntity(){}
-
-StaticEntity::StaticEntity(Vec pos, Vec ang)
-{
-	position = pos;
-	angle = ang;
-}
-
+// Constructeur
 StaticEntity::StaticEntity(lua_State* L)
 {
 	int nbArgs = lua_gettop(L);
+
+	// 6 arguments donnés -> on rempli position puis angle
 	if (nbArgs == 6 && lua_isnumber(L,1) &&
 		lua_isnumber(L,2) && lua_isnumber(L,3) &&
 		lua_isnumber(L,4) && lua_isnumber(L,5) && lua_isnumber(L,6))
 	{
-		position.setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-		angle.setValue(lua_tonumber(L,4), lua_tonumber(L,5), lua_tonumber(L,6));
+		position = new Vec(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
+		angle = new Vec(lua_tonumber(L,4), lua_tonumber(L,5), lua_tonumber(L,6));
 	}
+	
+	// 3 arguments donnés -> on rempli position et on laisse angle vide
+	else if (nbArgs == 3 && lua_isnumber(L,1) &&
+			 lua_isnumber(L,2) && lua_isnumber(L,3))
+	{
+		position = new Vec(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
+		angle = new Vec();
+	}
+	
+	// aucun argument donné -> on laisse position et angle vides
 	else if (nbArgs == 0)
-	{}
+	{
+		position = new Vec();
+		angle = new Vec();
+	}
+	
+	// si nombre d'arguments mauvais, message d'erreur
 	else
 	{
 		std::cout << "StaticEntity : mauvais parametres" << std::endl;
@@ -59,55 +68,75 @@ StaticEntity::StaticEntity(lua_State* L)
 }
 
 // setPosition
+// avec un vecteur
 void StaticEntity::setPosition(Vec pos)
-	{ position = pos; }
+{ position = &pos; }
 
+// avec des float
+void StaticEntity::setPosition(float x, float y, float z)
+{
+	position->setValue(x, y, z);
+}
+
+// avec Lua
 int StaticEntity::setPosition(lua_State* L)
 {
 	int nbArgs = lua_gettop(L);
+	
 	if (nbArgs == 3 && lua_isnumber(L,1) &&
 		lua_isnumber(L,2) && lua_isnumber(L,3))
 	{
-		position.setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
+		position->setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
 	}
 	else if (nbArgs == 0)
 	{
-		position.setValue(0, 0, 0);
+		position->setValue(0, 0, 0);
 	}
 	else
 	{
 		std::cout << "StaticEntity:setPosition() : mauvais parametres" << std::endl;
 	}
+	
 	return 0;
 }
 
 // setAngle
+// avec un vecteur
 void StaticEntity::setAngle(Vec ang)
-	{ angle = ang; }
+{ angle = &ang; }
 
+// avec des float
+void StaticEntity::setAngle(float x, float y, float z)
+{
+	angle->setValue(x, y, z);
+}
+
+//avec Lua
 int StaticEntity::setAngle(lua_State* L)
 {
 	int nbArgs = lua_gettop(L);
+	
 	if (nbArgs == 3 && lua_isnumber(L,1) &&
 		lua_isnumber(L,2) && lua_isnumber(L,3))
 	{
-		angle.setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
+		angle->setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
 	}
 	else if (nbArgs == 0)
 	{
-		angle.setValue(0, 0, 0);
+		angle->setValue(0, 0, 0);
 	}
 	else
 	{
 		std::cout << "StaticEntity:setAngle() : mauvais parametres" << std::endl;
 	}
+	
 	return 0;
 }
 
 // getPosition
-Vec StaticEntity::getPosition(void)
-	{ return position; }
+Vec* StaticEntity::getPosition(void)
+{ return position; }
 
 // getAngle
-Vec StaticEntity::getAngle(void)
-	{ return angle; }
+Vec* StaticEntity::getAngle(void)
+{ return angle; }

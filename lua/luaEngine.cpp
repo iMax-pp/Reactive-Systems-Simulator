@@ -21,8 +21,6 @@
 
 #include "luaEngine.h"
 
-using namespace std;
-
 LuaEngine::LuaEngine()
 {
 	// initialisation de l'environnement d'exécution de lua
@@ -38,12 +36,13 @@ LuaEngine::~LuaEngine()
 
 bool LuaEngine::loadFile(const char *fileName)
 {
-	// on charge le fichier,
-	// le chargement rend un booléen qui vaut vrai si le chargement a échoué
+	// on exécute le fichier,
+	// l'exécution rend un booléen qui vaut vrai si elle a échoué
 	bool result = luaL_dofile(luaState, fileName);
 	if(result)
 	{
-		std::cout << "Cannot load the file" << std::endl;
+		std::cout << "Cannot correctly execute the file." << std::endl;
+		std::cout << stderr << lua_tostring(luaState,-1) << std::endl;
 	}
 	return !result;
 }
@@ -119,3 +118,6 @@ const char *LuaEngine::readString(const char *varName)
 	lua_pop(luaState, 1);
 	return result;
 }
+
+lua_State *LuaEngine::getLink(void)
+{ return luaState; }
