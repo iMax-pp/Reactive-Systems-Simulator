@@ -25,7 +25,6 @@ HEADERS += interface/configdialog.h \
            simulator/GLViewer.h \
            simulator/GLControler.h \
 		   simulator/staticEntity.h \
-           lua/luaEngine.h \
 		   lua/lunar.h
            
 SOURCES += main.cpp \
@@ -38,8 +37,7 @@ SOURCES += main.cpp \
 		   interface/datatrees.cpp \
            simulator/GLViewer.cpp \
            simulator/GLControler.cpp \
-		   simulator/staticEntity.cpp \
-           lua/luaEngine.cpp
+		   simulator/staticEntity.cpp
            
 RESOURCES += application.qrc
 

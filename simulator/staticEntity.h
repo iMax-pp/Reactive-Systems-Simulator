@@ -31,8 +31,10 @@ using namespace qglviewer;
 class StaticEntity
 {
 	public:
-		StaticEntity (lua_State* L);					// La définition du constructeur pour Lua
-		~StaticEntity (){}
+		StaticEntity(void);								// Constructeurs
+		StaticEntity(Vec pos, Vec ang);
+		StaticEntity (lua_State* L){}					// La surdéfinition du constructeur obligatoire pour Lunar
+		~StaticEntity (){}								// idem pour le destructeur
 
 		void setPosition (Vec pos);						// Sert à spécifier une position absolument avec un vecteur
 		void setPosition(float x, float y, float z);	// avec des float

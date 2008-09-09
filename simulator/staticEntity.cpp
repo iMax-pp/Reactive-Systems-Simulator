@@ -32,39 +32,16 @@ Lunar<StaticEntity>::RegType StaticEntity::methods[] = {
 };
 
 // Constructeur
-StaticEntity::StaticEntity(lua_State* L)
+StaticEntity::StaticEntity(void)
 {
-	int nbArgs = lua_gettop(L);
+	position = new Vec();
+	angle = new Vec();
+}
 
-	// 6 arguments donnés -> on rempli position puis angle
-	if (nbArgs == 6 && lua_isnumber(L,1) &&
-		lua_isnumber(L,2) && lua_isnumber(L,3) &&
-		lua_isnumber(L,4) && lua_isnumber(L,5) && lua_isnumber(L,6))
-	{
-		position = new Vec(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-		angle = new Vec(lua_tonumber(L,4), lua_tonumber(L,5), lua_tonumber(L,6));
-	}
-	
-	// 3 arguments donnés -> on rempli position et on laisse angle vide
-	else if (nbArgs == 3 && lua_isnumber(L,1) &&
-			 lua_isnumber(L,2) && lua_isnumber(L,3))
-	{
-		position = new Vec(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-		angle = new Vec();
-	}
-	
-	// aucun argument donné -> on laisse position et angle vides
-	else if (nbArgs == 0)
-	{
-		position = new Vec();
-		angle = new Vec();
-	}
-	
-	// si nombre d'arguments mauvais, message d'erreur
-	else
-	{
-		std::cout << "StaticEntity : mauvais parametres" << std::endl;
-	}
+StaticEntity::StaticEntity(Vec pos, Vec ang)
+{
+	position = &pos;
+	angle = &ang;
 }
 
 // setPosition

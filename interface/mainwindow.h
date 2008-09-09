@@ -39,7 +39,6 @@
 #include "informationsbox.h"
 #include "configdialog.h"
 #include "../simulator/GLViewer.h"
-//#include "../lua/luaEngines.h"
 
 class QAction;
 class QMenu;
