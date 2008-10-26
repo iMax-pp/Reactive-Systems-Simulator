@@ -36,14 +36,21 @@ void Viewer::setInfos(InformationsBox* infoPointer)
 }
 */
 
+bool Viewer::isStarted()
+{
+	return started;
+}
+
 void Viewer::init()
 {
 	controler = new Controler();
-	
+
 	framenum = 0;
-	
-	reset();
-	
+
+	rot=0.0;
+	step=0.0;
+	amp=0.0;
+
 	//Mise en liste de la spirale
 	cube = glGenLists(1);
 
@@ -88,7 +95,7 @@ void Viewer::init()
 		glEnd();
 	glEndList();
 
-	
+
 	//Mise en liste du monde
 	world = glGenLists(1);
 
@@ -119,14 +126,14 @@ void Viewer::init()
 	//setGridIsDrawn();
 	//setTextIsEnabled();
 	setFPSIsDisplayed();
-	
+
 	camera()->setPosition(Vec(0.0, 0.5, 2.0));
 	camera()->lookAt(Vec(0.0, 0.0, 0.0));
-	
+
 	//glPolygonMode( GL_FRONT, GL_FILL );
 	//glPolygonMode( GL_BACK, GL_LINE );
-	
-	console->newMsg(QString("Viewer initiated"));	
+
+	console->newMsg(QString(tr("Simulation initiated")));
 }
 
 void Viewer::drawWithNames()
@@ -150,7 +157,7 @@ void Viewer::drawWithNames()
 void Viewer::postSelection(const QPoint& point)
 {
 	//Apparently this is what happens after a selection...hmmm
-	
+
 	// Compute orig and dir, used to draw a representation of the intersecting line
 	camera()->convertClickToLine(point, orig, dir);
 
@@ -161,13 +168,13 @@ void Viewer::postSelection(const QPoint& point)
 	// Note that "found" is different from (selectedObjectId()>=0) because of the size of the select region.
 
 	if (selectedName() == -1)
-	console->newMsg(QString("No selection\n") +
-				 QString("No object at ") + QString::number(point.x()) + "," + QString::number(point.y()));
+	console->newMsg(QString(tr("No selection\n")) +
+				 QString(tr("No object at ")) + QString::number(point.x()) + "," + QString::number(point.y()));
 	else
 	console->newMsg(QString("Selection\n") +
-				 QString("Cube ") + QString::number(selectedName()) + QString(" at ") +
+				 QString(tr("Cube ")) + QString::number(selectedName()) + QString(tr(" at ")) +
 				 QString::number(point.x()) + "," + QString::number(point.y()));
-	
+
 }
 
 // Draws a spiral
@@ -198,7 +205,7 @@ void Viewer::draw()
 	glPolygonMode( GL_BACK, GL_LINE );
 	glCallList(world);
 
-	//framenum++;	
+	//framenum++;
 }
 
 void Viewer::animate()
@@ -208,20 +215,31 @@ void Viewer::animate()
 	amp+=0.05f;
 }
 
+void Viewer::start()
+{
+	startAnimation();
+	started = true;
+	console->newMsg(tr("Simulation started."));
+}
+
+void Viewer::stop()
+{
+	stopAnimation();
+	started = false;
+	console->newMsg(tr("Simulation stopped."));
+}
+
 void Viewer::reset()
 {
-	//stopAnimation();
-	rot=0.0;
-	step=0.0;
-	amp=0.0;
+	console->newMsg(tr("Simulation reset."));
+	init();
+	stopAnimation();
 }
 
 void Viewer::restart()
 {
-	//startAnimation();
-	rot=0.0;
-	step=0.0;
-	amp=0.0;
+	reset();
+	startAnimation();
 }
 
 QStringList Viewer::getCamData()
@@ -229,17 +247,17 @@ QStringList Viewer::getCamData()
 	QStringList stringList;
 
 	stringList.clear();
-	stringList << QString("Camera data");
+	stringList << QString(tr("Camera data"));
 	//stringList << QString("  Frame number: %1").arg(framenum);
-	stringList << QString("  Position:");
+	stringList << QString(tr("  Position:"));
 	stringList << QString("     X=%1").arg(camera()->position().x);
 	stringList << QString("     Y=%1").arg(camera()->position().y);
 	stringList << QString("     Z=%1").arg(camera()->position().z);
 	//stringList << QString("     Rot=%1").arg(rot);
 	//stringList << QString("     Step=%1").arg(step);
 	//stringList << QString("     Amp=%1").arg(amp);
-	
-	//console->newMsg(QString("Cam Data Sent!"));
-	
+
+	//console->newMsg(QString(tr("Cam Data Sent!")));
+
 	return stringList;
 }

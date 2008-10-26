@@ -24,14 +24,16 @@
 MainWindow::MainWindow()
 {
 	ProgramSettings settings;
-	
+
 	setMinimumSize(800,500);
-	
+
 	//J'adore ce petit bout de code...je veux ça en poster...well done max :P
 	if(settings.value("window/fullscreen").toBool())
-	{ showFullScreen(); }
+	{
+		showFullScreen();
+	}
 
-	
+
     createActions();
     createMenus();
     createToolBars();
@@ -42,11 +44,11 @@ MainWindow::MainWindow()
     glViewer->setConsole(consoleWidget);
     //glViewer->setInfos(infos);
     setCentralWidget(glViewer);
-	
+
 	infos->setViewerPointer(glViewer);
 	connect(glViewer, SIGNAL(drawFinished(bool)), infos, SLOT(refreshBox(bool)));
-	connect(runSimAct, SIGNAL(triggered()), glViewer, SLOT(startAnimation()));
-	connect(stopSimAct, SIGNAL(triggered()), glViewer, SLOT(stopAnimation()));
+	connect(runSimAct, SIGNAL(triggered()), glViewer, SLOT(start()));
+	connect(stopSimAct, SIGNAL(triggered()), glViewer, SLOT(stop()));
 	connect(restartSimAct, SIGNAL(triggered()), glViewer, SLOT(restart()));
 	connect(resetSimAct, SIGNAL(triggered()), glViewer, SLOT(reset()));
 
@@ -59,10 +61,22 @@ MainWindow::MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	//Si une simulation est en cours, il faut une confirmation pour quitter.
-    if (maybeSave()) {
+    if (glViewer->isStarted())
+	{
+		int quit = QMessageBox::warning(this, QString(tr("Error")), QString(tr("You may have to stop the simulation before quitting.\n Do you want to quit ?")), QMessageBox::Yes | QMessageBox::No);
+		if(quit == QMessageBox::Yes)
+		{
+			glViewer->stop();
+			event->accept();
+		}
+		else
+		{
+			event->ignore();
+		}
+    }
+	else
+	{
         event->accept();
-    } else {
-        event->ignore();
     }
 }
 
@@ -167,36 +181,36 @@ void MainWindow::createActions()
     exitAct->setShortcut(tr("Ctrl+Q"));
     exitAct->setStatusTip(tr("Leave the simulator"));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
-    
+
 	//Mise en place provisoire des nouvelles actions, SLOTs et SIGNALs à faire.
-	
+
 		//Actions menu Sim
 	    runSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("&Run"), this);
 	    runSimAct->setShortcut(tr("Ctrl+R"));
 	    runSimAct->setStatusTip(tr("Run the simulation"));
-	
+
 	    restartSimAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("R&estart"), this);
 	    restartSimAct->setStatusTip(tr("Restart the simulation"));
-	
+
 	    resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
 	    resetSimAct->setStatusTip(tr("Reset the simulation"));
-	
+
 	    stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
 	    stopSimAct->setShortcut(tr("Ctrl+T"));
 	    stopSimAct->setStatusTip(tr("Stop the simulation"));
-	
+
 		//Actions menu Options
 	    fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
 	    fullscreenAct->setShortcut(tr("Ctrl+F"));
 	    fullscreenAct->setStatusTip(tr("Switch to fullscreen mode"));
 		connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
-	
+
 	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Program Settings"), this);
 		programConfigAct->setShortcut(tr("Ctrl+P"));
 	    programConfigAct->setStatusTip(tr("Configure program settings"));
 		connect(programConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
 
-	
+
 //	    simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
 //	    simConfigAct->setStatusTip(tr("Configure the simulation files"));
 //		connect(simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
@@ -279,42 +293,40 @@ void MainWindow::createStatusBar()
 void MainWindow::createDocks()
 {
 	setCorner(Qt::BottomRightCorner,Qt::RightDockWidgetArea);
-	
+
 	//Création de la console
 	consoleDock = new QDockWidget(tr("Console"), this);
-	consoleDock->setAllowedAreas(Qt::BottomDockWidgetArea);
 	addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
+
 	consoleWidget = new ConsoleWidget;
-	consoleDock->setWidget(consoleWidget);	
+	consoleDock->setWidget(consoleWidget);
 	consoleWidget->newMsg(QString("The simulator is up and ready to roll..."));
-	
+
 	consoleWidget->setMaximumHeight(100);
-	
+
 	// Dock de liste des informations disponibles
 	dataTreesDock = new QDockWidget(tr("Data Trees"), this);
 	addDockWidget(Qt::RightDockWidgetArea, dataTreesDock);
+
 	dataTrees = new DataTrees();
 	dataTreesDock->setWidget(dataTrees);
 
 	// Dock d'affichage des informations
 	infoDock = new QDockWidget(tr("Data Dock"), this);
-	infoDock->setAllowedAreas(Qt::BottomDockWidgetArea
-								 | Qt::TopDockWidgetArea);
 	addDockWidget(Qt::RightDockWidgetArea, infoDock);
-		
+
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
 	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
-	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));	
+	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
+
 	//Création du dock de contrôle
 	controlsDock = new QDockWidget(tr("Controls"), this);
-	controlsDock->setAllowedAreas(Qt::LeftDockWidgetArea
-	                              | Qt::RightDockWidgetArea);
 	addDockWidget(Qt::RightDockWidgetArea, controlsDock);
-	
+
 	controlsWidget = new ControlsWidget;
 	controlsDock->setWidget(controlsWidget);
-	
+
 	//connections
 	//QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
 	//QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));

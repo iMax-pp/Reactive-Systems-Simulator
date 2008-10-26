@@ -33,12 +33,13 @@
 class Viewer : public QGLViewer
 {
 	Q_OBJECT
-	
+
 	public:
 		void setConsole(ConsoleWidget* consolePointer);
 		//void setInfos(InformationsBox* infoPointer);
 		QStringList getCamData();
-		
+		bool isStarted();
+
 	protected:
 		virtual void animate();
 		virtual void draw();
@@ -46,11 +47,13 @@ class Viewer : public QGLViewer
 		virtual void drawWithNames();
 		virtual void postSelection(const QPoint& point);
 		//virtual QString helpString() const;
-		
+
 	public slots:
+		void start();
+		void stop();
 		void reset();
 		void restart();
-		
+
 	private:
 		GLfloat rot;
 		GLfloat step;
@@ -58,11 +61,12 @@ class Viewer : public QGLViewer
 		GLuint cube;
 		GLuint world;
 		int framenum;
-		
+		bool started;
+
 		Controler *controler;
 		ConsoleWidget *console;
 		//InformationsBox *infos;
-		
+
 		qglviewer::Vec orig, dir, selectedPoint;
 };
 
