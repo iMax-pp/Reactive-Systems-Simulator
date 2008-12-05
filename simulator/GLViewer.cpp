@@ -219,19 +219,19 @@ void Viewer::start()
 {
 	startAnimation();
 	started = true;
-	console->newMsg(tr("Simulation started."));
+	//console->newMsg(tr("Simulation started."));
 }
 
 void Viewer::stop()
 {
 	stopAnimation();
 	started = false;
-	console->newMsg(tr("Simulation stopped."));
+	//console->newMsg(tr("Simulation stopped."));
 }
 
 void Viewer::reset()
 {
-	console->newMsg(tr("Simulation reset."));
+	//console->newMsg(tr("Simulation reset."));
 	init();
 	stopAnimation();
 }

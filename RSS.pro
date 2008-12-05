@@ -41,9 +41,9 @@ SOURCES += main.cpp \
            
 RESOURCES += application.qrc
 
-linux-g++:LIBS *= -Llib/linux -lQGLViewer -llua
+linux-g++:LIBS += -lQGLViewer -llua
 macx {
-	QMAKE_LFLAGS += -Flib/macx/
-	LIBS += -framework QGLViewer -Llib/macx -llua
+	#QMAKE_LFLAGS += -Flib/macx/
+	LIBS += -framework QGLViewer -llua
 }
 win32:LIBS *= -Llib/windows -lQGLViewer2 -llua
