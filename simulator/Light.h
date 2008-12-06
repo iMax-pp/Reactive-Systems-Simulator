@@ -19,8 +19,8 @@
  **
  ********************************************************************************************/
 
-#ifndef STATICENTITY_H
-#define STATICENTITY_H
+#ifndef LIGHT_H
+#define LIGHT_H
 
 #include <QGLViewer/vec.h>
 #include <QStringList>
@@ -28,13 +28,13 @@
 
 using namespace qglviewer;
 
-class StaticEntity
+class Light
 {
 	public:
-		StaticEntity(void);									// Constructeurs
-		StaticEntity(Vec pos, Vec ang);
-		StaticEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
-		~StaticEntity (){}									// Destructeur
+		Light(void);										// Constructeurs
+		Light(Vec pos, Vec ang);
+		Light (lua_State* L){}								// La surdéfinition du constructeur obligatoire pour Lunar
+		~Light (){}											// Destructeur
 
 		void setPosition (Vec pos);							// Sert à spécifier une position absolument avec un vecteur
 		void setPosition(float x, float y, float z);		// avec des float
@@ -54,9 +54,9 @@ class StaticEntity
 		Vec *position;
 		Vec *angle;
 
-		friend class Lunar<StaticEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
+		friend class Lunar<Light>;							// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
 		static const char className[];
-		static Lunar<StaticEntity>::RegType methods[];
+		static Lunar<Light>::RegType methods[];
 };
 
 #endif

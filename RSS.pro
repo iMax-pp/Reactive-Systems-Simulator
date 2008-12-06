@@ -24,7 +24,12 @@ HEADERS += interface/configdialog.h \
 		   interface/datatrees.h \
            simulator/GLViewer.h \
            simulator/GLControler.h \
+		   simulator/Entities.h \
+		   simulator/World.h \
 		   simulator/staticEntity.h \
+		   simulator/dynamicEntity.h \
+		   simulator/voidEntity.h \
+		   simulator/Light.h \
 		   lua/lunar.h
            
 SOURCES += main.cpp \

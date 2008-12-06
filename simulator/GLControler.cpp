@@ -31,26 +31,32 @@ Controler::~Controler()
 //Méthodes pour ajouter une entité
 /*
 void Controler::setWorld(World *world)
-{}
-
+{
+	// Ici par contre je vois bien une boucle qui récupère les entités dans les différents vecteurs
+	// et les ajoute dans le monde
+	// sauf si on décide que les entités ne font pas parti du monde, ce qui n'est pas faux.
+}
+*/
 void Controler::addStatEnt(StaticEntity* ent)
 {
-	vector<int>::iterator it;
-	
-	for(it=statEnts.begin() ; it < statEnts.end(); it++)
-    {
-    	//Do stuff here
-	}	
+	// On ajoute notre entité dans le vecteur, il me semble qu'ajoute une entitée n'est que ça...
+	statEnts.push_back(ent);
+}
+/*
+void Controler::addDynEnt(dynamicEntity* ent)
+{
+	dynEnts.push_back(ent);
 }
 
-void Controler::addDynEnt(dynamicEntity* ent)
-{}
-
 void Controler::addVoidEnt(voidEntity* ent)
-{}
+{
+	voidEnts.push_back(ent);
+}
 
 void Controler::addLight(Light* light)
-{}
+{
+	lights.push_back(light);
+}
 
 
 //Méthodes pour appliquer un cycle à un groupe ou toutes les entitées
@@ -69,9 +75,19 @@ void Controler::runWorld()
 
 void Controler::runStatEnts()
 {
-	vector<int>::iterator it;
-	
-	for(it=statEnts.begin() ; it < statEnts.end(); it++)
+	// l'utilisation d'un itérateur fait que l'on n'a pas besoin d'utiliser un for
+	// donc au choix, là j'ai juste mis un for.
+	// pour l'utilisation d'un itérateur, voilà l'exemple de 'man std::insert_iterator'
+	// (c'est un itérateur pour insérer comme son nom l'indique) :
+		*	// vector v contains A and Z
+		*
+		*	insert_iterator i (v, ++v.begin());
+		*	i = 1;
+		*	i = 2;
+		*	i = 3;
+		*	// vector v contains A, 1, 2, 3, and Z
+	// à la vue de l'exemple j'ai envie de dire que dans notre cas, pour un parcours simple, nul besoin
+	for(i = 0 ; i < statEnts.size(); i++)
     {
     	//Do stuff here
 	}

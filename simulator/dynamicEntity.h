@@ -19,8 +19,8 @@
  **
  ********************************************************************************************/
 
-#ifndef STATICENTITY_H
-#define STATICENTITY_H
+#ifndef DYNAMICENTITY_H
+#define DYNAMICENTITY_H
 
 #include <QGLViewer/vec.h>
 #include <QStringList>
@@ -28,13 +28,13 @@
 
 using namespace qglviewer;
 
-class StaticEntity
+class DynamicEntity
 {
 	public:
-		StaticEntity(void);									// Constructeurs
-		StaticEntity(Vec pos, Vec ang);
-		StaticEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
-		~StaticEntity (){}									// Destructeur
+		DynamicEntity(void);								// Constructeurs
+		DynamicEntity(Vec pos, Vec ang);
+		DynamicEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
+		~DynamicEntity (){}									// Destructeur
 
 		void setPosition (Vec pos);							// Sert à spécifier une position absolument avec un vecteur
 		void setPosition(float x, float y, float z);		// avec des float
@@ -54,9 +54,9 @@ class StaticEntity
 		Vec *position;
 		Vec *angle;
 
-		friend class Lunar<StaticEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
+		friend class Lunar<DynamicEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
 		static const char className[];
-		static Lunar<StaticEntity>::RegType methods[];
+		static Lunar<DynamicEntity>::RegType methods[];
 };
 
 #endif

@@ -24,7 +24,7 @@
 
 #include <vector>
 
-#include "staticEntity.h"
+#include "Entities.h"
 
 class Controler
 {
@@ -32,11 +32,11 @@ class Controler
 		Controler();
 		~Controler();
 	
-		//void setWorld(World *world);
+		void setWorld(World* world);
 		void addStatEnt(StaticEntity* ent);
-		//void addDynEnt(dynamicEntity* ent);
-		//void addVoidEnt(voidEntity* ent);
-		//void addLight(Light* light);
+		void addDynEnt(DynamicEntity* ent);
+		void addVoidEnt(VoidEntity* ent);
+		void addLight(Light* light);
 		
 		void runAll();
 		void runWorld();
@@ -52,11 +52,11 @@ class Controler
 		void drawLights();
 		
 	private:
-		//World *world;
+		World* world;
 		std::vector <StaticEntity*> statEnts;
-		//std::vector<*dynamicEntity> dynEnts;
-		//std::vector<*voidEntity> voidEnts;
-		//std::vector<*Light> lights;		
+		std::vector <DynamicEntity*> dynEnts;
+		std::vector <VoidEntity*> voidEnts;
+		std::vector <Light*> lights;		
 };
 
 #endif
