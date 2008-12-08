@@ -25,6 +25,7 @@ HEADERS += interface/configdialog.h \
            simulator/GLViewer.h \
            simulator/GLControler.h \
 		   simulator/Entities.h \
+		   simulator/Entity.h \
 		   simulator/World.h \
 		   simulator/staticEntity.h \
 		   simulator/dynamicEntity.h \
@@ -42,6 +43,7 @@ SOURCES += main.cpp \
 		   interface/datatrees.cpp \
            simulator/GLViewer.cpp \
            simulator/GLControler.cpp \
+		   simulator/Entity.cpp \
 		   simulator/staticEntity.cpp
            
 RESOURCES += application.qrc

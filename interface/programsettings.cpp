@@ -26,16 +26,6 @@ ProgramSettings::ProgramSettings()
 	settings = new QSettings("config/programconfig.ini", QSettings::IniFormat);
 }
 
-QVariant ProgramSettings::value(const QString key, const QVariant defaultValue)
-{
-	return settings->value(key, defaultValue);
-}
-
-void ProgramSettings::setValue(const QString key, const QVariant value)
-{
-	settings->setValue(key, value);
-}
-
 void ProgramSettings::setFullscreen(int fullscreen)
 {		
 	if(fullscreen == 0)

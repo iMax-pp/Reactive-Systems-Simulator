@@ -30,8 +30,6 @@ Q_OBJECT
 	
 public:
 	ProgramSettings();
-	QVariant value(const QString key, const QVariant defaultValue = QVariant());
-	void setValue(const QString key, const QVariant value);
 		
 public slots:
 	void setFullscreen(int fullscreen);

@@ -22,22 +22,17 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <QGLViewer/vec.h>
-#include <QStringList>
-#include "../lua/lunar.h"
+#include "Entity.h"
 
 using namespace qglviewer;
 
-class World
+class World : public Entity
 {
 	public:
 		World(void);									// Constructeurs
 		World(Vec pos, Vec ang);
 		World (lua_State* L){}							// La surdéfinition du constructeur obligatoire pour Lunar
 		~World (){}										// Destructeur
-
-		QStringList getProperties ();					// Renvoit les propriétés de l'entité.
-														// Sert à être utilisé directement par l'afficheur d'infos, d'où le QStringList.
 
 	private:
 		friend class Lunar<World>;						// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)

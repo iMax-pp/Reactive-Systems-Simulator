@@ -19,71 +19,55 @@
  **
  ********************************************************************************************/
 
-#include "staticEntity.h"
+#include "Entity.h"
 
 // Pour que Lunar comprenne quelque chose à ma classe :
-const char StaticEntity::className[] = "StaticEntity";
+const char Entity::className[] = "Entity";
 
 #define method(class, name) {#name, &class::name}
-Lunar<StaticEntity>::RegType StaticEntity::methods[] = {
-	method(StaticEntity, setPosition),
-	method(StaticEntity, setAngle),
+Lunar<Entity>::RegType Entity::methods[] = {
 	{0,0}
 };
 
 // Constructeur
-StaticEntity::StaticEntity(void)
+Entity::Entity(void)
 {
-	new Entity();
+	position = new Vec();
+	angle = new Vec();
 }
 
-StaticEntity::StaticEntity(Vec pos, Vec ang)
+Entity::Entity(Vec pos, Vec ang)
 {
-	new Entity(pos, ang);
+	position = &pos;
+	angle = &ang;
 }
 
 // setPosition
-// avec Lua
-int StaticEntity::setPosition(lua_State* L)
+// avec un vecteur
+void Entity::setPosition(Vec pos)
+{ position = &pos; }
+
+// avec des float
+void Entity::setPosition(float x, float y, float z)
 {
-	int nbArgs = lua_gettop(L);
-	
-	if (nbArgs == 3 && lua_isnumber(L,1) &&
-		lua_isnumber(L,2) && lua_isnumber(L,3))
-	{
-		position->setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-	}
-	else if (nbArgs == 0)
-	{
-		position->setValue(0, 0, 0);
-	}
-	else
-	{
-		std::cout << "StaticEntity:setPosition() : mauvais parametres" << std::endl;
-	}
-	
-	return 0;
+	position->setValue(x, y, z);
 }
 
 // setAngle
-//avec Lua
-int StaticEntity::setAngle(lua_State* L)
+// avec un vecteur
+void Entity::setAngle(Vec ang)
+{ angle = &ang; }
+
+// avec des float
+void Entity::setAngle(float x, float y, float z)
 {
-	int nbArgs = lua_gettop(L);
-	
-	if (nbArgs == 3 && lua_isnumber(L,1) &&
-		lua_isnumber(L,2) && lua_isnumber(L,3))
-	{
-		angle->setValue(lua_tonumber(L,1), lua_tonumber(L,2), lua_tonumber(L,3));
-	}
-	else if (nbArgs == 0)
-	{
-		angle->setValue(0, 0, 0);
-	}
-	else
-	{
-		std::cout << "StaticEntity:setAngle() : mauvais parametres" << std::endl;
-	}
-	
-	return 0;
+	angle->setValue(x, y, z);
 }
+
+// getPosition
+Vec* Entity::getPosition(void)
+{ return position; }
+
+// getAngle
+Vec* Entity::getAngle(void)
+{ return angle; }
