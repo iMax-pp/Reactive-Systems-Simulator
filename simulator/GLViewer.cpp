@@ -29,12 +29,14 @@ void Viewer::setConsole(ConsoleWidget *consolePointer)
 	console = consolePointer;
 }
 
+
 /*
 void Viewer::setInfos(InformationsBox* infoPointer)
 {
 	infos = infoPointer;
 }
 */
+
 
 bool Viewer::isStarted()
 {
@@ -95,7 +97,6 @@ void Viewer::init()
 		glEnd();
 	glEndList();
 
-
 	//Mise en liste du monde
 	world = glGenLists(1);
 
@@ -114,8 +115,6 @@ void Viewer::init()
 			}
 		glEnd();
 	glEndList();
-
-
 
 	setHandlerKeyboardModifiers(QGLViewer::CAMERA, Qt::NoModifier);
 	setHandlerKeyboardModifiers(QGLViewer::FRAME,  Qt::ControlModifier);
@@ -136,10 +135,11 @@ void Viewer::init()
 	console->newMsg(QString(tr("Simulation initiated")));
 }
 
+
 void Viewer::drawWithNames()
 {
 	const int nb = 40;
-	for (int i=0; i<nb; ++i)
+	for (int i = 0; i < nb; ++i)
     {
 		glPushMatrix();
 		glScalef(i/30.0, i/30.0, i/30.0);
@@ -153,6 +153,7 @@ void Viewer::drawWithNames()
 		glPopMatrix();
     }
 }
+
 
 void Viewer::postSelection(const QPoint& point)
 {
@@ -168,14 +169,15 @@ void Viewer::postSelection(const QPoint& point)
 	// Note that "found" is different from (selectedObjectId()>=0) because of the size of the select region.
 
 	if (selectedName() == -1)
-	console->newMsg(QString(tr("No selection\n")) +
+		console->newMsg(QString(tr("No selection\n")) +
 				 QString(tr("No object at ")) + QString::number(point.x()) + "," + QString::number(point.y()));
 	else
-	console->newMsg(QString("Selection\n") +
+		console->newMsg(QString("Selection\n") +
 				 QString(tr("Cube ")) + QString::number(selectedName()) + QString(tr(" at ")) +
 				 QString::number(point.x()) + "," + QString::number(point.y()));
 
 }
+
 
 // Draws a spiral
 void Viewer::draw()
@@ -184,7 +186,7 @@ void Viewer::draw()
 	glPolygonMode( GL_BACK, GL_FILL );
 
 	const int nb = 40;
-	for (int i=0; i<nb; ++i)
+	for (int i = 0; i < nb; ++i)
 	{
 		glPushMatrix();
 		glScalef(i/30.0, i/30.0, i/30.0);
@@ -208,12 +210,14 @@ void Viewer::draw()
 	//framenum++;
 }
 
+
 void Viewer::animate()
 {
 	rot+=0.5f;
 	step+=0.2f;
 	amp+=0.05f;
 }
+
 
 void Viewer::start()
 {
@@ -222,12 +226,14 @@ void Viewer::start()
 	//console->newMsg(tr("Simulation started."));
 }
 
+
 void Viewer::stop()
 {
 	stopAnimation();
 	started = false;
 	//console->newMsg(tr("Simulation stopped."));
 }
+
 
 void Viewer::reset()
 {
@@ -236,11 +242,13 @@ void Viewer::reset()
 	stopAnimation();
 }
 
+
 void Viewer::restart()
 {
 	reset();
 	startAnimation();
 }
+
 
 QStringList Viewer::getCamData()
 {

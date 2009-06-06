@@ -26,8 +26,7 @@
 
 using namespace qglviewer;
 
-class World : public Entity
-{
+class World : public Entity {
 	public:
 		World(void);									// Constructeurs
 		World(Vec pos, Vec ang);

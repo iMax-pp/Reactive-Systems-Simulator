@@ -30,8 +30,7 @@
 #include "../interface/consolewidget.h"
 //#include "../interface/informationsbox.h"
 
-class Viewer : public QGLViewer
-{
+class Viewer : public QGLViewer {
 	Q_OBJECT
 
 	public:

@@ -27,10 +27,12 @@ InformationsBox::InformationsBox()
 	currentItem = 0;
 }
 
+
 void InformationsBox::setViewerPointer(Viewer* viewerPointer)
 {
 	viewer = viewerPointer;
 }
+
 
 void InformationsBox::listSet(QStringList infos)
 {
@@ -38,11 +40,13 @@ void InformationsBox::listSet(QStringList infos)
 	addItems(infos);
 }
 
+
 void InformationsBox::setCurrentItem(QTreeWidgetItem* ent, int col)
 {
 	currentItem = ent;
 	refreshBox(true);
 }
+
 
 void InformationsBox::refreshBox(bool auto)
 {
@@ -54,9 +58,7 @@ void InformationsBox::refreshBox(bool auto)
 		if(temp == "Camera")
 		{		
 			addItems(viewer->getCamData());
-		}
-		else
-		{
+		} else {
 			addItem(currentItem->text(0));
 			addItem(tr("Sorry, no info on this :'("));		
 		}		

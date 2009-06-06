@@ -26,16 +26,15 @@
 
 using namespace qglviewer;
 
-class VoidEntity : public Entity
-{
+class VoidEntity : public Entity {
 	public:
 		VoidEntity(void);									// Constructeurs
 		VoidEntity(Vec pos, Vec ang);
 		VoidEntity (lua_State* L){}							// La surdéfinition du constructeur obligatoire pour Lunar
 		~VoidEntity (){}									// Destructeur
-	
+
 		int setPosition (lua_State* L);						// avec Lua
-	
+
 		int setAngle (lua_State* L);						// avec Lua
 
 	private:

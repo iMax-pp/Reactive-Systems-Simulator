@@ -31,24 +31,29 @@ DataTrees::DataTrees()
 	addTab(simTree, tr("simTree"));
 }
 
+
 DataTrees::~DataTrees()
-{}
+{
+}
+
 
 MainTree* DataTrees::getMainTree()
 {
 	return mainTree;
 }
 
+
 SimTree* DataTrees::getSimTree()
 {
 	return simTree;
 }
 
+
 MainTree::MainTree()
 {
 	setColumnCount(1);
 	setHeaderLabel(tr("Data"));
-	
+
 	world = new QTreeWidgetItem(this);
 	world->setText(0, tr("World"));
 	world->setIcon(0, QIcon(":/images/world.png"));
@@ -60,7 +65,7 @@ MainTree::MainTree()
 	dynamicEnts = new QTreeWidgetItem(entities);
 	dynamicEnts->setText(0, tr("Dynamic"));
 	dynamicEnts->setIcon(0, QIcon(":/images/bullet_green.png"));
-	
+
 	staticEnts = new QTreeWidgetItem(entities);
 	staticEnts->setText(0, tr("Static"));
 	staticEnts->setIcon(0, QIcon(":/images/bullet_red.png"));
@@ -71,24 +76,27 @@ MainTree::MainTree()
 
 	camera = new QTreeWidgetItem(this);
 	camera->setText(0, tr("Camera"));
-	camera->setIcon(0, QIcon(":/images/eye.png"));	
+	camera->setIcon(0, QIcon(":/images/eye.png"));
 
 	lights = new QTreeWidgetItem(this);
 	lights->setText(0, tr("Lights"));
-	lights->setIcon(0, QIcon(":/images/lightbulb.png"));	
-
+	lights->setIcon(0, QIcon(":/images/lightbulb.png"));
 }
 
-MainTree::~MainTree()
-{}
 
+MainTree::~MainTree()
+{
+}
+
+
+#pragma mark -
 
 SimTree::SimTree()
 {
 	setColumnCount(2);
 	setHeaderLabel(tr("Data"));
 	setColumnHidden(1, true);
-	
+
 	world = new QTreeWidgetItem(this);
 	world->setText(0, tr("World"));
 	world->setIcon(0, QIcon(":/images/world.png"));
@@ -135,5 +143,7 @@ SimTree::SimTree()
 	keys->setIcon(0, QIcon(":/images/key.png"));
 }
 
+
 SimTree::~SimTree()
-{}
+{
+}

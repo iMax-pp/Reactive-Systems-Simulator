@@ -23,5 +23,4 @@
 
 ControlsWidget::ControlsWidget()
 {
-	
 }

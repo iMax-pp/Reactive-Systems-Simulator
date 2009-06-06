@@ -25,8 +25,7 @@
 #include <QtGui>
 #include "../simulator/GLViewer.h"
 
-class InformationsBox : public QListWidget
-{
+class InformationsBox : public QListWidget {
 	Q_OBJECT
 
 	public:
@@ -37,7 +36,7 @@ class InformationsBox : public QListWidget
 		void listSet(QStringList infos);
 		void setCurrentItem(QTreeWidgetItem* ent, int col);
 		void refreshBox(bool auto);
-	
+
 	private:
 		Viewer *viewer;
 		QTreeWidgetItem *currentItem;

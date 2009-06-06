@@ -26,8 +26,7 @@
 
 using namespace qglviewer;
 
-class StaticEntity : public Entity
-{
+class StaticEntity : public Entity {
 	public:
 		StaticEntity(void);									// Constructeurs
 		StaticEntity(Vec pos, Vec ang);

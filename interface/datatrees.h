@@ -28,29 +28,27 @@
 class MainTree;
 class SimTree;
 
-class DataTrees : public QTabWidget
-{
+class DataTrees : public QTabWidget {
 	Q_OBJECT
-	
+
 	public:
 		DataTrees();
 		~DataTrees();
-		
+
 		MainTree* getMainTree();
 		SimTree* getSimTree();
-		
+
 	private:			
 		MainTree *mainTree;
 		SimTree *simTree;		
 };
 
 
-class MainTree : public QTreeWidget
-{	
+class MainTree : public QTreeWidget {	
 	public:
 		MainTree();
 		~MainTree();
-		
+
 	private:
 		QTreeWidgetItem *world;
 		QTreeWidgetItem *entities;
@@ -62,8 +60,7 @@ class MainTree : public QTreeWidget
 		QTreeWidgetItem *lights;
 };
 
-class SimTree : public QTreeWidget
-{
+class SimTree : public QTreeWidget {
 	public:
 		SimTree();
 		~SimTree();

@@ -26,19 +26,18 @@
 #include <QWidget>
 #include <QToolBox>
 
-class ControlsWidget : public QToolBox
-{
+class ControlsWidget : public QToolBox {
 	Q_OBJECT
-	
+
 	public:
 		ControlsWidget();
 
 	signals:
-	
+
 	public slots:
-	
+
 	private:
-		
+
 };
 
 #endif

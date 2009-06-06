@@ -28,28 +28,28 @@
 
 using namespace qglviewer;
 
-class Entity
-{
+class Entity {
 	public:
 		Entity(void);										// Constructeurs
  		Entity(Vec pos, Vec ang);
 		Entity (lua_State* L){}								// La surdéfinition du constructeur obligatoire pour Lunar
 		~Entity (){}										// Destructeur
-	
+
 		Vec* getPosition (void);							// Accesseurs toujours pratique
 		Vec* getAngle (void);
-	
+
 		void setPosition (Vec pos);							// Sert à spécifier une position absolument avec un vecteur
 		void setPosition(float x, float y, float z);		// avec des float
-		
+
 		void setAngle (Vec ang);							// Sert à spécifier un angle absolu avec un vecteur
 		void setAngle(float x, float y, float z);			// avec des float
-	
+
 		QStringList getProperties ();						// Renvoit les propriétés de l'entité.
-	
+
 	protected:
 		Vec *position;
 		Vec *angle;
+
 	private:
 		friend class Lunar<Entity>;							// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
 		static const char className[];

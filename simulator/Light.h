@@ -26,8 +26,7 @@
 
 using namespace qglviewer;
 
-class Light : public Entity
-{
+class Light : public Entity {
 	public:
 		Light(void);										// Constructeurs
 		Light(Vec pos, Vec ang);

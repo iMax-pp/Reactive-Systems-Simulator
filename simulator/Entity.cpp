@@ -29,12 +29,13 @@ Lunar<Entity>::RegType Entity::methods[] = {
 	{0,0}
 };
 
-// Constructeur
+
 Entity::Entity(void)
 {
 	position = new Vec();
 	angle = new Vec();
 }
+
 
 Entity::Entity(Vec pos, Vec ang)
 {
@@ -42,32 +43,38 @@ Entity::Entity(Vec pos, Vec ang)
 	angle = &ang;
 }
 
-// setPosition
-// avec un vecteur
-void Entity::setPosition(Vec pos)
-{ position = &pos; }
 
-// avec des float
+void Entity::setPosition(Vec pos)
+{
+	position = &pos;
+}
+
+
 void Entity::setPosition(float x, float y, float z)
 {
 	position->setValue(x, y, z);
 }
 
-// setAngle
-// avec un vecteur
-void Entity::setAngle(Vec ang)
-{ angle = &ang; }
 
-// avec des float
+void Entity::setAngle(Vec ang)
+{
+	angle = &ang;
+}
+
+
 void Entity::setAngle(float x, float y, float z)
 {
 	angle->setValue(x, y, z);
 }
 
-// getPosition
-Vec* Entity::getPosition(void)
-{ return position; }
 
-// getAngle
+Vec* Entity::getPosition(void)
+{
+	return position;
+}
+
+
 Vec* Entity::getAngle(void)
-{ return angle; }
+{
+	return angle;
+}

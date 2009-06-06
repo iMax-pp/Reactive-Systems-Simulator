@@ -21,7 +21,10 @@
 
 #include "consolewidget.h"
 
-ConsoleWidget::ConsoleWidget(){}
+ConsoleWidget::ConsoleWidget()
+{
+}
+
 
 void ConsoleWidget::newMsg(QString message)
 {
@@ -31,6 +34,7 @@ void ConsoleWidget::newMsg(QString message)
 	addItem(newItem);
 	scrollToItem(newItem);
 }
+
 
 void ConsoleWidget::sendMsg(const QString message)
 {

@@ -44,90 +44,89 @@ class QAction;
 class QMenu;
 //class GLViewer;
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
-public:
-    MainWindow();
+	public:
+		MainWindow();
 
-protected:
-    void closeEvent(QCloseEvent *event);
+	protected:
+		void closeEvent(QCloseEvent *event);
 
-private slots:
-    void newSim();
-    void open();
-    bool save();
-    bool saveAs();
-    void about();
-    void documentWasModified();
-	void openConfigBox();
-	void toggleFullScreen();
+	private slots:
+		void newSim();
+		void open();
+		bool save();
+		bool saveAs();
+		void about();
+		void documentWasModified();
+		void openConfigBox();
+		void toggleFullScreen();
 
-private:
-    void createActions();
-    void createMenus();
-    void createToolBars();
-    void createStatusBar();
-    void createDocks(); //Ajoute les parties docks
-    bool maybeSave();
-    void loadFile(const QString &fileName);
-    bool saveFile(const QString &fileName);
-    void setCurrentFile(const QString &fileName);
-    QString strippedName(const QString &fullFileName);
+	private:
+		void createActions();
+		void createMenus();
+		void createToolBars();
+		void createStatusBar();
+		void createDocks(); //Ajoute les parties docks
+		bool maybeSave();
+		void loadFile(const QString &fileName);
+		bool saveFile(const QString &fileName);
+		void setCurrentFile(const QString &fileName);
+		QString strippedName(const QString &fullFileName);
 
-    //Le widget OpenGL
-    Viewer *glViewer;
-    
-    //Widget, dock et fonctions de la console
-    QDockWidget *consoleDock;
-    ConsoleWidget *consoleWidget;
-    
-	//Dock data
-	QDockWidget *dataTreesDock;
-	DataTrees *dataTrees;
-	
-	//Dock d'infos
-	QDockWidget *infoDock;
-	InformationsBox *infos;
-    
-	//Dock et widget du contrôleur
-    QDockWidget *controlsDock;
-    ControlsWidget *controlsWidget;
+		//Le widget OpenGL
+		Viewer *glViewer;
 
-    QString curFile;
+		//Widget, dock et fonctions de la console
+		QDockWidget *consoleDock;
+		ConsoleWidget *consoleWidget;
 
-	//Menus
-    QMenu *fileMenu;
-    QMenu *simMenu;
-    QMenu *optionsMenu;
-    QMenu *helpMenu;
-    
-    //Toolbars
-    QToolBar *fileToolBar;
-    QToolBar *simToolBar;
+		//Dock data
+		QDockWidget *dataTreesDock;
+		DataTrees *dataTrees;
 
-	//File menu actions
-    //QAction *newAct;
-    QAction *openAct;
-    QAction *saveAct;
-    QAction *saveAsAct;
-    QAction *exitAct;
-    
-    //Sim menu actions
-    QAction *runSimAct;
-	QAction *restartSimAct;
-    QAction *resetSimAct;
-    QAction *stopSimAct;
+		//Dock d'infos
+		QDockWidget *infoDock;
+		InformationsBox *infos;
 
-    //Options menu actions
-    QAction *fullscreenAct;
-    QAction *programConfigAct;
-    //QAction *simConfigAct;
-    
-    //Help menu actions
-    QAction *aboutAct;
-    QAction *aboutQtAct;
+		//Dock et widget du contrôleur
+		QDockWidget *controlsDock;
+		ControlsWidget *controlsWidget;
+
+		QString curFile;
+
+		//Menus
+		QMenu *fileMenu;
+		QMenu *simMenu;
+		QMenu *optionsMenu;
+		QMenu *helpMenu;
+
+		//Toolbars
+		QToolBar *fileToolBar;
+		QToolBar *simToolBar;
+
+		//File menu actions
+		//QAction *newAct;
+		QAction *openAct;
+		QAction *saveAct;
+		QAction *saveAsAct;
+		QAction *exitAct;
+
+		//Sim menu actions
+		QAction *runSimAct;
+		QAction *restartSimAct;
+		QAction *resetSimAct;
+		QAction *stopSimAct;
+
+		//Options menu actions
+		QAction *fullscreenAct;
+		QAction *programConfigAct;
+		//QAction *simConfigAct;
+
+		//Help menu actions
+		QAction *aboutAct;
+		QAction *aboutQtAct;
 };
 
 #endif

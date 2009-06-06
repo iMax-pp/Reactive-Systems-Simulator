@@ -24,21 +24,19 @@
 
 #include <QSettings>
 
-class ProgramSettings : public QSettings
-{
-Q_OBJECT
-	
-public:
-	ProgramSettings();
-		
-public slots:
-	void setFullscreen(int fullscreen);
-	void setShadingMode(int value);
-	void setAmbientLight(int value);
-	void setBackgroundColor(QString color);
-	
-private:
-	QSettings *settings;
+class ProgramSettings : public QSettings {
+	Q_OBJECT	
+	public:
+		ProgramSettings();
+
+	public slots:
+		void setFullscreen(int fullscreen);
+		void setShadingMode(int value);
+		void setAmbientLight(int value);
+		void setBackgroundColor(QString color);
+
+	private:
+		QSettings *settings;
 };
 
 #endif

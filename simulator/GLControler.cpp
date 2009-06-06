@@ -22,10 +22,13 @@
 #include "GLControler.h"
 
 Controler::Controler()
-{}
+{
+}
+
 
 Controler::~Controler()
-{}
+{
+}
 
 
 //Méthodes pour ajouter une entité
@@ -37,21 +40,27 @@ void Controler::setWorld(World *world)
 	// sauf si on décide que les entités ne font pas parti du monde, ce qui n'est pas faux.
 }
 */
+
+
 void Controler::addStatEnt(StaticEntity* ent)
 {
 	// On ajoute notre entité dans le vecteur, il me semble qu'ajoute une entitée n'est que ça...
 	statEnts.push_back(ent);
 }
+
+
 /*
 void Controler::addDynEnt(dynamicEntity* ent)
 {
 	dynEnts.push_back(ent);
 }
 
+
 void Controler::addVoidEnt(voidEntity* ent)
 {
 	voidEnts.push_back(ent);
 }
+
 
 void Controler::addLight(Light* light)
 {
@@ -70,8 +79,11 @@ void Controler::runAll()
 	runLights();
 }
 
+
 void Controler::runWorld()
-{}
+{
+}
+
 
 void Controler::runStatEnts()
 {
@@ -93,14 +105,20 @@ void Controler::runStatEnts()
 	}
 }
 
+
 void Controler::runDynEnts()
-{}
+{
+}
+
 
 void Controler::runVoidEnts()
-{}
+{
+}
+
 
 void Controler::runLights()
-{}
+{
+}
 
 
 //Méthodes pour dessiner un groupe ou toutes les entitées
@@ -114,16 +132,22 @@ void Controler::drawAll()
 }
 
 
-
 void Controler::drawWorld()
-{}
+{
+}
+
 
 void Controler::drawStatEnts()
-{}
+{
+}
+
 
 void Controler::drawDynEnts()
-{}
+{
+}
+
 
 void Controler::drawLights()
-{}
+{
+}
 */

@@ -26,23 +26,27 @@ ProgramSettings::ProgramSettings()
 	settings = new QSettings("config/programconfig.ini", QSettings::IniFormat);
 }
 
+
 void ProgramSettings::setFullscreen(int fullscreen)
 {		
 	if(fullscreen == 0)
-	{ settings->setValue("window/fullscreen", false); }
+		settings->setValue("window/fullscreen", false);
 	else
-	{ settings->setValue("window/fullscreen", true); }
+		settings->setValue("window/fullscreen", true);
 }
+
 
 void ProgramSettings::setShadingMode(int value)
 {	
 	settings->setValue("opengl/shadingmode", value);
 }
 
+
 void ProgramSettings::setAmbientLight(int value)
 {	
 	settings->setValue("opengl/ambientlight", value);
 }
+
 
 void ProgramSettings::setBackgroundColor(QString color)
 {

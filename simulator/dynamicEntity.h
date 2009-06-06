@@ -26,8 +26,7 @@
 
 using namespace qglviewer;
 
-class DynamicEntity : public Entity
-{
+class DynamicEntity : public Entity {
 	public:
 		DynamicEntity(void);								// Constructeurs
 		DynamicEntity(Vec pos, Vec ang);
@@ -35,7 +34,7 @@ class DynamicEntity : public Entity
 		~DynamicEntity (){}									// Destructeur
 
 		int setPosition (lua_State* L);						// avec Lua
-	
+
 		int setAngle (lua_State* L);						// avec Lua
 
 	private:

@@ -29,16 +29,13 @@ MainWindow::MainWindow()
 
 	//J'adore ce petit bout de code...je veux ça en poster...well done max :P
 	if(settings.value("window/fullscreen").toBool())
-	{
 		showFullScreen();
-	}
-
 
     createActions();
     createMenus();
     createToolBars();
     createStatusBar();
-    createDocks(); //Ajoute les parties docks
+    createDocks();
 
     glViewer = new Viewer;
     glViewer->setConsole(consoleWidget);
@@ -63,22 +60,22 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	//Si une simulation est en cours, il faut une confirmation pour quitter.
     if (glViewer->isStarted())
 	{
-		int quit = QMessageBox::warning(this, QString(tr("Error")), QString(tr("You may have to stop the simulation before quitting.\n Do you want to quit ?")), QMessageBox::Yes | QMessageBox::No);
+		int quit = QMessageBox::warning(this, QString(tr("Error")),
+										QString(tr("You may have to stop the simulation before quitting.\n Do you want to quit ?")),
+										QMessageBox::Yes | QMessageBox::No);
+
 		if(quit == QMessageBox::Yes)
 		{
 			glViewer->stop();
 			event->accept();
-		}
-		else
-		{
+		} else {
 			event->ignore();
 		}
-    }
-	else
-	{
+    } else {
         event->accept();
     }
 }
+
 
 void MainWindow::newSim()
 {
@@ -91,6 +88,7 @@ void MainWindow::newSim()
     */
 }
 
+
 void MainWindow::open()
 {
 	//De novo Idem, sauf que cette version servira surement.
@@ -102,6 +100,7 @@ void MainWindow::open()
     }
     */
 }
+
 
 bool MainWindow::save()
 {
@@ -116,6 +115,7 @@ bool MainWindow::save()
     */
 }
 
+
 bool MainWindow::saveAs()
 {
 	// cf MainWindow::save()
@@ -128,6 +128,7 @@ bool MainWindow::saveAs()
     */
 }
 
+
 void MainWindow::about()
 {
    QMessageBox::about(this, tr("About Application"),
@@ -138,6 +139,7 @@ void MainWindow::about()
                "<p>For more info visit <a href='http://code.google.com/p/projet-csr-cpp/'>http://code.google.com/p/projet-csr-cpp</a>.</p>"));
 }
 
+
 void MainWindow::documentWasModified()
 {
 	// A remplacer...par une sorte de bool pour l'état de marche de la simulation.
@@ -146,11 +148,13 @@ void MainWindow::documentWasModified()
     */
 }
 
+
 void MainWindow::openConfigBox()
 {
 	ConfigDialog dialog;
 	dialog.exec();
 }
+
 
 void MainWindow::createActions()
 {
@@ -184,37 +188,35 @@ void MainWindow::createActions()
 
 	//Mise en place provisoire des nouvelles actions, SLOTs et SIGNALs à faire.
 
-		//Actions menu Sim
-	    runSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("&Run"), this);
-	    runSimAct->setShortcut(tr("Ctrl+R"));
-	    runSimAct->setStatusTip(tr("Run the simulation"));
+	//Actions menu Sim
+	runSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("&Run"), this);
+	runSimAct->setShortcut(tr("Ctrl+R"));
+	runSimAct->setStatusTip(tr("Run the simulation"));
 
-	    restartSimAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("R&estart"), this);
-	    restartSimAct->setStatusTip(tr("Restart the simulation"));
+	restartSimAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("R&estart"), this);
+	restartSimAct->setStatusTip(tr("Restart the simulation"));
 
-	    resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
-	    resetSimAct->setStatusTip(tr("Reset the simulation"));
+	resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
+	resetSimAct->setStatusTip(tr("Reset the simulation"));
 
-	    stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
-	    stopSimAct->setShortcut(tr("Ctrl+T"));
-	    stopSimAct->setStatusTip(tr("Stop the simulation"));
+	stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
+	stopSimAct->setShortcut(tr("Ctrl+T"));
+	stopSimAct->setStatusTip(tr("Stop the simulation"));
 
-		//Actions menu Options
-	    fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
-	    fullscreenAct->setShortcut(tr("Ctrl+F"));
-	    fullscreenAct->setStatusTip(tr("Switch to fullscreen mode"));
-		connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
+	//Actions menu Options
+	fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
+	fullscreenAct->setShortcut(tr("Ctrl+F"));
+	fullscreenAct->setStatusTip(tr("Switch to fullscreen mode"));
+	connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
 
-	    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Program Settings"), this);
-		programConfigAct->setShortcut(tr("Ctrl+P"));
-	    programConfigAct->setStatusTip(tr("Configure program settings"));
-		connect(programConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
+	programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Program Settings"), this);
+	programConfigAct->setShortcut(tr("Ctrl+P"));
+	programConfigAct->setStatusTip(tr("Configure program settings"));
+	connect(programConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
 
-
-//	    simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
-//	    simConfigAct->setStatusTip(tr("Configure the simulation files"));
-//		connect(simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
-
+//	simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
+//	simConfigAct->setStatusTip(tr("Configure the simulation files"));
+//	connect(simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
 
 	//Action menu Help
     aboutAct = new QAction(QIcon(":/images/comment.png"), tr("&About"), this);
@@ -236,6 +238,7 @@ void MainWindow::createActions()
             copyAct, SLOT(setEnabled(bool)));
     */
 }
+
 
 void MainWindow::createMenus()
 {
@@ -270,6 +273,7 @@ void MainWindow::createMenus()
     helpMenu->addAction(aboutQtAct);
 }
 
+
 void MainWindow::createToolBars()
 {
 	//Creation des toolbars
@@ -285,10 +289,12 @@ void MainWindow::createToolBars()
     simToolBar->addAction(stopSimAct);
 }
 
+
 void MainWindow::createStatusBar()
 {
     statusBar()->showMessage(tr("Ready to roll"));
 }
+
 
 void MainWindow::createDocks()
 {
@@ -317,8 +323,10 @@ void MainWindow::createDocks()
 
 	infos = new InformationsBox;
 	infoDock->setWidget(infos);
-	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
-	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)), infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
+	QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+					 infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
+	QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+					 infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
 
 	//Création du dock de contrôle
 	controlsDock = new QDockWidget(tr("Controls"), this);
@@ -331,6 +339,7 @@ void MainWindow::createDocks()
 	//QObject::connect(listItems, SIGNAL(itemClicked(QTreeWidgetItem*,int)),infos,SLOT(setInfoText(QTreeWidgetItem*,int)));
 	//QObject::connect(glWidget, SIGNAL(consoleMsg(QString)), consoleWidget, SLOT(sendMsg(QString)));
 }
+
 
 bool MainWindow::maybeSave()
 {
@@ -351,6 +360,7 @@ bool MainWindow::maybeSave()
     */
     return true;
 }
+
 
 void MainWindow::loadFile(const QString &fileName)
 {
@@ -374,6 +384,7 @@ void MainWindow::loadFile(const QString &fileName)
     statusBar()->showMessage(tr("File loaded"), 2000);
     */
 }
+
 
 bool MainWindow::saveFile(const QString &fileName)
 {
@@ -400,6 +411,7 @@ bool MainWindow::saveFile(const QString &fileName)
     return true;
 }
 
+
 void MainWindow::setCurrentFile(const QString &fileName)
 {
 	// Fonctionalité change pas, elle garde en mémoire le nom de fichier de la simulation en cours.
@@ -418,17 +430,19 @@ void MainWindow::setCurrentFile(const QString &fileName)
     */
 }
 
+
 QString MainWindow::strippedName(const QString &fullFileName)
 {
 	//Apparement cette partie donne uniquement le nom du ficher. Utile pour la barre de status et le titre.
     return QFileInfo(fullFileName).fileName();
 }
 
+
 void MainWindow::toggleFullScreen()
 {
 	// C'est toi qui as codé ça Max?
 	if(!isFullScreen())
-		{showFullScreen();}
+		showFullScreen();
 	else
-		{showNormal();}
+		showNormal();
 }

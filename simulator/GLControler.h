@@ -26,31 +26,30 @@
 
 #include "Entities.h"
 
-class Controler
-{
+class Controler {
 	public:
 		Controler();
 		~Controler();
-	
+
 		void setWorld(World* world);
 		void addStatEnt(StaticEntity* ent);
 		void addDynEnt(DynamicEntity* ent);
 		void addVoidEnt(VoidEntity* ent);
 		void addLight(Light* light);
-		
+
 		void runAll();
 		void runWorld();
 		void runStatEnts();
 		void runDynEnts();
 		void runVoidEnts();
 		void runLights();
-		
+
 		void drawAll();
 		void drawWorld();
 		void drawStatEnts();
 		void drawDynEnts();
 		void drawLights();
-		
+
 	private:
 		World* world;
 		std::vector <StaticEntity*> statEnts;

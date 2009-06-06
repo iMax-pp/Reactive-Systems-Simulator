@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = RSS
-CONFIG  += qt opengl warn_on release thread
+CONFIG  += qt opengl warn_on debug thread
 QT += xml opengl
 DESTDIR = release
 
