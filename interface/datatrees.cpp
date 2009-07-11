@@ -24,11 +24,11 @@
 
 DataTrees::DataTrees()
 {
-	mainTree = new MainTree();
-	addTab(mainTree, tr("mainTree"));
+    mainTree = new MainTree();
+    addTab(mainTree, tr("mainTree"));
 
-	simTree = new SimTree();
-	addTab(simTree, tr("simTree"));
+    simTree = new SimTree();
+    addTab(simTree, tr("simTree"));
 }
 
 
@@ -39,48 +39,48 @@ DataTrees::~DataTrees()
 
 MainTree* DataTrees::getMainTree()
 {
-	return mainTree;
+    return mainTree;
 }
 
 
 SimTree* DataTrees::getSimTree()
 {
-	return simTree;
+    return simTree;
 }
 
 
 MainTree::MainTree()
 {
-	setColumnCount(1);
-	setHeaderLabel(tr("Data"));
+    setColumnCount(1);
+    setHeaderLabel(tr("Data"));
 
-	world = new QTreeWidgetItem(this);
-	world->setText(0, tr("World"));
-	world->setIcon(0, QIcon(":/images/world.png"));
-	
-	entities = new QTreeWidgetItem(this);
-	entities->setText(0, tr("Entities"));
-	entities->setIcon(0, QIcon(":/images/bricks.png"));
+    world = new QTreeWidgetItem(this);
+    world->setText(0, tr("World"));
+    world->setIcon(0, QIcon(":/images/world.png"));
 
-	dynamicEnts = new QTreeWidgetItem(entities);
-	dynamicEnts->setText(0, tr("Dynamic"));
-	dynamicEnts->setIcon(0, QIcon(":/images/bullet_green.png"));
+    entities = new QTreeWidgetItem(this);
+    entities->setText(0, tr("Entities"));
+    entities->setIcon(0, QIcon(":/images/bricks.png"));
 
-	staticEnts = new QTreeWidgetItem(entities);
-	staticEnts->setText(0, tr("Static"));
-	staticEnts->setIcon(0, QIcon(":/images/bullet_red.png"));
+    dynamicEnts = new QTreeWidgetItem(entities);
+    dynamicEnts->setText(0, tr("Dynamic"));
+    dynamicEnts->setIcon(0, QIcon(":/images/bullet_green.png"));
 
-	voidEnts = new QTreeWidgetItem(entities);
-	voidEnts->setText(0, tr("Void"));
-	voidEnts->setIcon(0, QIcon(":/images/bullet_blue.png"));
+    staticEnts = new QTreeWidgetItem(entities);
+    staticEnts->setText(0, tr("Static"));
+    staticEnts->setIcon(0, QIcon(":/images/bullet_red.png"));
 
-	camera = new QTreeWidgetItem(this);
-	camera->setText(0, tr("Camera"));
-	camera->setIcon(0, QIcon(":/images/eye.png"));
+    voidEnts = new QTreeWidgetItem(entities);
+    voidEnts->setText(0, tr("Void"));
+    voidEnts->setIcon(0, QIcon(":/images/bullet_blue.png"));
 
-	lights = new QTreeWidgetItem(this);
-	lights->setText(0, tr("Lights"));
-	lights->setIcon(0, QIcon(":/images/lightbulb.png"));
+    camera = new QTreeWidgetItem(this);
+    camera->setText(0, tr("Camera"));
+    camera->setIcon(0, QIcon(":/images/eye.png"));
+
+    lights = new QTreeWidgetItem(this);
+    lights->setText(0, tr("Lights"));
+    lights->setIcon(0, QIcon(":/images/lightbulb.png"));
 }
 
 
@@ -88,59 +88,56 @@ MainTree::~MainTree()
 {
 }
 
-
-#pragma mark -
-
 SimTree::SimTree()
 {
-	setColumnCount(2);
-	setHeaderLabel(tr("Data"));
-	setColumnHidden(1, true);
+    setColumnCount(2);
+    setHeaderLabel(tr("Data"));
+    setColumnHidden(1, true);
 
-	world = new QTreeWidgetItem(this);
-	world->setText(0, tr("World"));
-	world->setIcon(0, QIcon(":/images/world.png"));
+    world = new QTreeWidgetItem(this);
+    world->setText(0, tr("World"));
+    world->setIcon(0, QIcon(":/images/world.png"));
 
-	team1 = new QTreeWidgetItem(this);
-	team1->setText(0, tr("Team 1"));
-	team1->setIcon(0, QIcon(":/images/user_red.png"));
+    team1 = new QTreeWidgetItem(this);
+    team1->setText(0, tr("Team 1"));
+    team1->setIcon(0, QIcon(":/images/user_red.png"));
 
-	team2 = new QTreeWidgetItem(this);
-	team2->setText(0, tr("Team 2"));
-	team2->setIcon(0, QIcon(":/images/user_green.png"));
+    team2 = new QTreeWidgetItem(this);
+    team2->setText(0, tr("Team 2"));
+    team2->setIcon(0, QIcon(":/images/user_green.png"));
 
-	robot1 = new QTreeWidgetItem(team1);
-	robot1->setText(0, tr("Robot 1"));
-	robot1->setIcon(0, QIcon(":/images/bullet_red.png"));
+    robot1 = new QTreeWidgetItem(team1);
+    robot1->setText(0, tr("Robot 1"));
+    robot1->setIcon(0, QIcon(":/images/bullet_red.png"));
 
-	robot2 = new QTreeWidgetItem(team1);
-	robot2->setText(0, tr("Robot 2"));
-	robot2->setText(1, tr("#345678"));
-	robot2->setIcon(0, QIcon(":/images/bullet_red.png"));
+    robot2 = new QTreeWidgetItem(team1);
+    robot2->setText(0, tr("Robot 2"));
+    robot2->setText(1, tr("#345678"));
+    robot2->setIcon(0, QIcon(":/images/bullet_red.png"));
 
-	robot3 = new QTreeWidgetItem(team1);
-	robot3->setText(0, tr("Robot 3"));
-	robot3->setIcon(0, QIcon(":/images/bullet_red.png"));
+    robot3 = new QTreeWidgetItem(team1);
+    robot3->setText(0, tr("Robot 3"));
+    robot3->setIcon(0, QIcon(":/images/bullet_red.png"));
 
-	robot4 = new QTreeWidgetItem(team2);
-	robot4->setText(0, tr("Robot 4"));
-	robot4->setIcon(0, QIcon(":/images/bullet_green.png"));
+    robot4 = new QTreeWidgetItem(team2);
+    robot4->setText(0, tr("Robot 4"));
+    robot4->setIcon(0, QIcon(":/images/bullet_green.png"));
 
-	robot5 = new QTreeWidgetItem(team2);
-	robot5->setText(0, tr("Robot 5"));
-	robot5->setIcon(0, QIcon(":/images/bullet_green.png"));
+    robot5 = new QTreeWidgetItem(team2);
+    robot5->setText(0, tr("Robot 5"));
+    robot5->setIcon(0, QIcon(":/images/bullet_green.png"));
 
-	robot6 = new QTreeWidgetItem(team2);
-	robot6->setText(0, tr("Robot 6"));
-	robot6->setIcon(0, QIcon(":/images/bullet_green.png"));
+    robot6 = new QTreeWidgetItem(team2);
+    robot6->setText(0, tr("Robot 6"));
+    robot6->setIcon(0, QIcon(":/images/bullet_green.png"));
 
-	stargate = new QTreeWidgetItem(this);
-	stargate->setText(0, tr("Stargate"));
-	stargate->setIcon(0, QIcon(":/images/cake.png"));
+    stargate = new QTreeWidgetItem(this);
+    stargate->setText(0, tr("Stargate"));
+    stargate->setIcon(0, QIcon(":/images/cake.png"));
 
-	keys = new QTreeWidgetItem(this);
-	keys->setText(0, tr("Keys"));
-	keys->setIcon(0, QIcon(":/images/key.png"));
+    keys = new QTreeWidgetItem(this);
+    keys->setText(0, tr("Keys"));
+    keys->setIcon(0, QIcon(":/images/key.png"));
 }
 
 

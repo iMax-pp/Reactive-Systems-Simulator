@@ -16,7 +16,7 @@ INCLUDEPATH += . \
 
 # Input
 HEADERS += interface/configdialog.h \
-           interface/consolewidget.h \
+           interface/logwidget.h \
            interface/controlswidget.h \
            interface/informationsbox.h \
            interface/mainwindow.h \
@@ -35,7 +35,7 @@ HEADERS += interface/configdialog.h \
            
 SOURCES += main.cpp \
            interface/configdialog.cpp \
-           interface/consolewidget.cpp \
+           interface/logwidget.cpp \
            interface/controlswidget.cpp \
            interface/informationsbox.cpp \
            interface/mainwindow.cpp \

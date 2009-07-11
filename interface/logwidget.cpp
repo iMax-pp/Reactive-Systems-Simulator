@@ -19,32 +19,24 @@
  **
  ********************************************************************************************/
 
-#ifndef STATICENTITY_H
-#define STATICENTITY_H
+#include "logwidget.h"
 
-#include "Entity.h"
+LogWidget::LogWidget()
+{
+}
 
-using namespace qglviewer;
 
-class StaticEntity : public Entity {
-	public:
-		StaticEntity(void);									// Constructeurs
-		StaticEntity(Vec pos, Vec ang);
-		StaticEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
-		~StaticEntity (){}									// Destructeur
+void LogWidget::newMsg(QString message)
+{
+    QTime t;
+    t.start();
+    QListWidgetItem * newItem = new QListWidgetItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
+    addItem(newItem);
+    scrollToItem(newItem);
+}
 
-		void setDisplayList(uint id);
 
-		int setPosition (lua_State* L);						// avec Lua
-
-		int setAngle (lua_State* L);						// avec Lua
-
-	private:
-		uint displayListId;
-
-		friend class Lunar<StaticEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<StaticEntity>::RegType methods[];
-};
-
-#endif
+void LogWidget::slotMsg(const QString message)
+{
+    newMsg(message);
+}

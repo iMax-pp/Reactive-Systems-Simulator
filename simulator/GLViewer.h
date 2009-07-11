@@ -26,47 +26,49 @@
 #include <QList>
 #include <QStringList>
 
-#include "GLControler.h"
-#include "../interface/consolewidget.h"
+//#include "GLControler.h"
+//#include "../interface/logwidget.h"
 //#include "../interface/informationsbox.h"
 
 class Viewer : public QGLViewer {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		void setConsole(ConsoleWidget* consolePointer);
-		//void setInfos(InformationsBox* infoPointer);
-		QStringList getCamData();
-		bool isStarted();
+    public:
+        //void setInfos(InformationsBox* infoPointer);
+        QStringList getCamData();
+        bool isStarted();
 
-	protected:
-		virtual void animate();
-		virtual void draw();
-		virtual void init();
-		virtual void drawWithNames();
-		virtual void postSelection(const QPoint& point);
-		//virtual QString helpString() const;
+    protected:
+        virtual void animate();
+        virtual void draw();
+        virtual void init();
+        virtual void drawWithNames();
+        virtual void postSelection(const QPoint& point);
+        //virtual QString helpString() const;
 
-	public slots:
-		void start();
-		void stop();
-		void reset();
-		void restart();
+    signals:
+        void sigMsg( QString msg );
 
-	private:
-		GLfloat rot;
-		GLfloat step;
-		GLfloat amp;
-		GLuint cube;
-		GLuint world;
-		int framenum;
-		bool started;
+    public slots:
+        void start();
+        void stop();
+        void reset();
+        void restart();
 
-		Controler *controler;
-		ConsoleWidget *console;
-		//InformationsBox *infos;
+    private:
+        GLfloat rot;
+        GLfloat step;
+        GLfloat amp;
+        GLuint cube;
+        GLuint world;
+        int framenum;
+        bool started;
 
-		qglviewer::Vec orig, dir, selectedPoint;
+        //Controler *controler;
+        //LogWidget *console;
+        //InformationsBox *infos;
+
+        qglviewer::Vec orig, dir, selectedPoint;
 };
 
 #endif
