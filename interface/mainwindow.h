@@ -42,16 +42,16 @@
 
 class QAction;
 class QMenu;
-//class GLViewer;
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+        Q_OBJECT
 
     public:
         MainWindow();
+        ~MainWindow();
 
     protected:
-        void closeEvent(QCloseEvent *event);
+        void closeEvent(QCloseEvent* event);
 
     private slots:
         void slotLoadSim();
@@ -71,54 +71,54 @@ class MainWindow : public QMainWindow {
         QString strippedName(const QString &fullFileName);
 
         //Le widget OpenGL
-        Viewer *glViewer;
+        Viewer*             m_glViewer;
 
         //Widget, dock et fonctions de la console
-        QDockWidget *logDock;
-        LogWidget *logWidget;
+        QDockWidget*        m_logDock;
+        LogWidget*          m_logWidget;
 
         //Dock data
-        QDockWidget *dataTreesDock;
-        DataTrees *dataTrees;
+        QDockWidget*        m_dataTreesDock;
+        DataTrees*          m_dataTrees;
 
         //Dock d'infos
-        QDockWidget *infoDock;
-        InformationsBox *infos;
+        QDockWidget*        m_infoDock;
+        InformationsBox*    m_infos;
 
         //Dock et widget du contrôleur
-        QDockWidget *controlsDock;
-        ControlsWidget *controlsWidget;
+        QDockWidget*        m_controlsDock;
+        ControlsWidget*     m_controlsWidget;
 
-        QString curFile;
+        QString             m_currentFile;
 
         //Menus
-        QMenu *systemMenu;
-        QMenu *simMenu;
-        QMenu *optionsMenu;
-        QMenu *helpMenu;
+        QMenu*              m_systemMenu;
+        QMenu*              m_simMenu;
+        QMenu*              m_optionsMenu;
+        QMenu*              m_helpMenu;
 
         //Toolbars
-        QToolBar *simToolBar;
+        QToolBar*           m_simToolBar;
 
         //File menu actions
-        QAction *resetAct;
-        QAction *exitAct;
+        QAction*            m_resetAct;
+        QAction*            m_exitAct;
 
         //Sim menu actions
-        QAction *loadSimAct;
-        QAction *runSimAct;
-        QAction *restartSimAct;
-        QAction *resetSimAct;
-        QAction *stopSimAct;
+        QAction*            m_loadSimAct;
+        QAction*            m_runSimAct;
+        QAction*            m_restartSimAct;
+        QAction*            m_resetSimAct;
+        QAction*            m_stopSimAct;
 
         //Options menu actions
-        QAction *fullscreenAct;
-        QAction *programConfigAct;
-        //QAction *simConfigAct;
+        QAction*            m_fullscreenAct;
+        QAction*            m_programConfigAct;
+        //QAction*          m_simConfigAct;
 
         //Help menu actions
-        QAction *aboutAct;
-        QAction *aboutQtAct;
+        QAction*            m_aboutAct;
+        QAction*            m_aboutQtAct;
 };
 
 #endif

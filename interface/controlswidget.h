@@ -27,17 +27,10 @@
 #include <QToolBox>
 
 class ControlsWidget : public QToolBox {
-	Q_OBJECT
+        Q_OBJECT
 
-	public:
-		ControlsWidget();
-
-	signals:
-
-	public slots:
-
-	private:
-
+    public:
+        ControlsWidget();
 };
 
 #endif

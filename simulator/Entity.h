@@ -24,36 +24,37 @@
 
 #include <QGLViewer/vec.h>
 #include <QStringList>
+
 #include "../lua/lunar.h"
 
 using namespace qglviewer;
 
 class Entity {
-	public:
-		Entity(void);										// Constructeurs
- 		Entity(Vec pos, Vec ang);
-		Entity (lua_State* L){}								// La surdéfinition du constructeur obligatoire pour Lunar
-		~Entity (){}										// Destructeur
+    public:
+        Entity(void);
+        Entity(Vec position, Vec angle);
+        Entity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~Entity() { }
 
-		Vec* getPosition (void);							// Accesseurs toujours pratique
-		Vec* getAngle (void);
+        Vec* position(void);
+        Vec* angle(void);
 
-		void setPosition (Vec pos);							// Sert à spécifier une position absolument avec un vecteur
-		void setPosition(float x, float y, float z);		// avec des float
+        void setPosition(Vec position);
+        void setPosition(float x, float y, float z);
 
-		void setAngle (Vec ang);							// Sert à spécifier un angle absolu avec un vecteur
-		void setAngle(float x, float y, float z);			// avec des float
+        void setAngle(Vec angle);
+        void setAngle(float x, float y, float z);
 
-		QStringList getProperties ();						// Renvoit les propriétés de l'entité.
+        // QStringList properties();
 
-	protected:
-		Vec *position;
-		Vec *angle;
+    protected:
+        Vec* m_position;
+        Vec* m_angle;
 
-	private:
-		friend class Lunar<Entity>;							// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<Entity>::RegType methods[];
+    private:
+        friend class Lunar<Entity>;
+        static const char className[];
+        static Lunar<Entity>::RegType methods[];
 };
 
 #endif

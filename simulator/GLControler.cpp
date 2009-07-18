@@ -44,27 +44,27 @@ void Controler::setWorld(World *world)
 
 void Controler::addStatEnt(StaticEntity* ent)
 {
-	// On ajoute notre entité dans le vecteur, il me semble qu'ajoute une entitée n'est que ça...
-	statEnts.push_back(ent);
+    // On ajoute notre entité dans le vecteur, il me semble qu'ajoute une entitée n'est que ça...
+    m_statEnts.push_back(ent);
 }
 
 
 /*
 void Controler::addDynEnt(dynamicEntity* ent)
 {
-	dynEnts.push_back(ent);
+	m_dynEnts.push_back(ent);
 }
 
 
 void Controler::addVoidEnt(voidEntity* ent)
 {
-	voidEnts.push_back(ent);
+	m_voidEnts.push_back(ent);
 }
 
 
 void Controler::addLight(Light* light)
 {
-	lights.push_back(light);
+	m_lights.push_back(light);
 }
 
 
@@ -87,20 +87,7 @@ void Controler::runWorld()
 
 void Controler::runStatEnts()
 {
-	// l'utilisation d'un itérateur fait que l'on n'a pas besoin d'utiliser un for
-	// donc au choix, là j'ai juste mis un for.
-	// pour l'utilisation d'un itérateur, voilà l'exemple de 'man std::insert_iterator'
-	// (c'est un itérateur pour insérer comme son nom l'indique) :
-		*	// vector v contains A and Z
-		*
-		*	insert_iterator i (v, ++v.begin());
-		*	i = 1;
-		*	i = 2;
-		*	i = 3;
-		*	// vector v contains A, 1, 2, 3, and Z
-	// à la vue de l'exemple j'ai envie de dire que dans notre cas, pour un parcours simple, nul besoin
-	for(i = 0 ; i < statEnts.size(); i++)
-    {
+	for(i = 0 ; i < statEnts.size(); i++) {
     	//Do stuff here
 	}
 }

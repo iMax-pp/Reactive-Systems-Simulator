@@ -26,55 +26,55 @@ const char Entity::className[] = "Entity";
 
 #define method(class, name) {#name, &class::name}
 Lunar<Entity>::RegType Entity::methods[] = {
-	{0,0}
+    {0, 0}
 };
 
 
-Entity::Entity(void)
+Entity::Entity()
+    : m_position(new Vec())
+    , m_angle(new Vec())
 {
-	position = new Vec();
-	angle = new Vec();
 }
 
 
-Entity::Entity(Vec pos, Vec ang)
+Entity::Entity(Vec position, Vec angle)
+    : m_position(&position)
+    , m_angle(&angle)
 {
-	position = &pos;
-	angle = &ang;
 }
 
 
-void Entity::setPosition(Vec pos)
+void Entity::setPosition(Vec position)
 {
-	position = &pos;
+    m_position = &position;
 }
 
 
 void Entity::setPosition(float x, float y, float z)
 {
-	position->setValue(x, y, z);
+    m_position->setValue(x, y, z);
 }
 
 
-void Entity::setAngle(Vec ang)
+void Entity::setAngle(Vec angle)
 {
-	angle = &ang;
+    m_angle = &angle;
 }
 
 
 void Entity::setAngle(float x, float y, float z)
 {
-	angle->setValue(x, y, z);
+    m_angle->setValue(x, y, z);
 }
 
 
-Vec* Entity::getPosition(void)
+Vec* Entity::position()
 {
-	return position;
+    return m_position;
 }
 
 
-Vec* Entity::getAngle(void)
+Vec* Entity::angle()
 {
-	return angle;
+    return m_angle;
 }

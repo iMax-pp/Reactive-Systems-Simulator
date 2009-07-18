@@ -20,47 +20,51 @@
  ********************************************************************************************/
 
 #include "informationsbox.h"
+
 #include <string>
 
 InformationsBox::InformationsBox()
+    : m_currentItem(0)
 {
-	currentItem = 0;
+}
+
+
+InformationsBox::~InformationsBox()
+{
 }
 
 
 void InformationsBox::setViewerPointer(Viewer* viewerPointer)
 {
-	viewer = viewerPointer;
+    m_viewer = viewerPointer;
 }
 
 
 void InformationsBox::listSet(QStringList infos)
 {
-	clear();
-	addItems(infos);
+    clear();
+    addItems(infos);
 }
 
 
 void InformationsBox::setCurrentItem(QTreeWidgetItem* ent, int col)
 {
-	currentItem = ent;
-	refreshBox(true);
+    m_currentItem = ent;
+    refreshBox(true);
 }
 
 
 void InformationsBox::refreshBox(bool auto)
 {
-	if(currentItem != 0)
-	{
-		clear();
-		std::string temp = currentItem->text(0).toStdString();
-		
-		if(temp == "Camera")
-		{		
-			addItems(viewer->getCamData());
-		} else {
-			addItem(currentItem->text(0));
-			addItem(tr("Sorry, no info on this :'("));		
-		}		
-	}
+    if (m_currentItem != 0) {
+        clear();
+        std::string temp = m_currentItem->text(0).toStdString();
+
+        if (temp == "Camera") {
+            addItems(m_viewer->camData());
+        } else {
+            addItem(m_currentItem->text(0));
+            addItem(tr("Sorry, no info on this :'("));
+        }
+    }
 }

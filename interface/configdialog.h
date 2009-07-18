@@ -36,32 +36,34 @@ class QStackedWidget;
 // Partie Pages de configuration
 
 class ConfigurationPage : public QWidget {
-	Q_OBJECT
-	public:
-		ConfigurationPage();
+        Q_OBJECT
+
+    public:
+        ConfigurationPage();
 };
 
 class OpenGLPage : public QWidget {
-	public:
-		OpenGLPage();
+    public:
+        OpenGLPage();
 };
+
 
 // Partie boîte de configuration
 
 class ConfigDialog : public QDialog {
-	Q_OBJECT
+        Q_OBJECT
 
-	public:
-		ConfigDialog();
+    public:
+        ConfigDialog();
 
-	public slots:
-		void changePage(QListWidgetItem *current, QListWidgetItem *previous);
+    public slots:
+        void changePage(QListWidgetItem* current, QListWidgetItem* previous);
 
-	private:
-		void createIcons();
+    private:
+        void createIcons();
 
-		QListWidget *contentsWidget;
-		QStackedWidget *pagesWidget;
+        QListWidget* m_contentsWidget;
+        QStackedWidget* m_pagesWidget;
 };
 
 #endif

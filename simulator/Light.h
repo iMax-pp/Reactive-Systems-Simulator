@@ -27,20 +27,19 @@
 using namespace qglviewer;
 
 class Light : public Entity {
-	public:
-		Light(void);										// Constructeurs
-		Light(Vec pos, Vec ang);
-		Light (lua_State* L){}								// La surdéfinition du constructeur obligatoire pour Lunar
-		~Light (){}											// Destructeur
+    public:
+        Light();
+        Light(Vec position, Vec angle);
+        Light(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~Light() { }
 
-		void setPosition (lua_State* L);					// avec Lua
+        void setPosition(lua_State* L);
+        int setAngle(lua_State* L);
 
-		int setAngle (lua_State* L);						// avec Lua
-
-	private:
-		friend class Lunar<Light>;							// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<Light>::RegType methods[];
+    private:
+        friend class Lunar<Light>;
+        static const char className[];
+        static Lunar<Light>::RegType methods[];
 };
 
 #endif

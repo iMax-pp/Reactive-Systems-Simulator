@@ -27,20 +27,19 @@
 using namespace qglviewer;
 
 class VoidEntity : public Entity {
-	public:
-		VoidEntity(void);									// Constructeurs
-		VoidEntity(Vec pos, Vec ang);
-		VoidEntity (lua_State* L){}							// La surdéfinition du constructeur obligatoire pour Lunar
-		~VoidEntity (){}									// Destructeur
+    public:
+        VoidEntity();
+        VoidEntity(Vec position, Vec angle);
+        VoidEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~VoidEntity() { }
 
-		int setPosition (lua_State* L);						// avec Lua
+        int setPosition(lua_State* L);
+        int setAngle(lua_State* L);
 
-		int setAngle (lua_State* L);						// avec Lua
-
-	private:
-		friend class Lunar<VoidEntity>;						// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<VoidEntity>::RegType methods[];
+    private:
+        friend class Lunar<VoidEntity>;
+        static const char className[];
+        static Lunar<VoidEntity>::RegType methods[];
 };
 
 #endif

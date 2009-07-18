@@ -27,20 +27,19 @@
 using namespace qglviewer;
 
 class DynamicEntity : public Entity {
-	public:
-		DynamicEntity(void);								// Constructeurs
-		DynamicEntity(Vec pos, Vec ang);
-		DynamicEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
-		~DynamicEntity (){}									// Destructeur
+    public:
+        DynamicEntity();
+        DynamicEntity(Vec position, Vec angle);
+        DynamicEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~DynamicEntity() { }
 
-		int setPosition (lua_State* L);						// avec Lua
+        int setPosition(lua_State* L);
+        int setAngle(lua_State* L);
 
-		int setAngle (lua_State* L);						// avec Lua
-
-	private:
-		friend class Lunar<DynamicEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<DynamicEntity>::RegType methods[];
+    private:
+        friend class Lunar<DynamicEntity>;
+        static const char className[];
+        static Lunar<DynamicEntity>::RegType methods[];
 };
 
 #endif

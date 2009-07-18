@@ -26,11 +26,18 @@ LogWidget::LogWidget()
 }
 
 
+LogWidget::~LogWidget()
+{
+}
+
+
 void LogWidget::newMsg(QString message)
 {
     QTime t;
     t.start();
-    QListWidgetItem * newItem = new QListWidgetItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
+
+    QListWidgetItem* newItem = new QListWidgetItem(message.prepend(t.toString(QString("[hh.mm.ss] "))));
+
     addItem(newItem);
     scrollToItem(newItem);
 }

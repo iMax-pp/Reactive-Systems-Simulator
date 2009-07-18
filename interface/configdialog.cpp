@@ -24,57 +24,61 @@
 // Partie pages de configuration
 
 ConfigurationPage::ConfigurationPage()
-{	
-	ProgramSettings * settings = new ProgramSettings();
+{
+    ProgramSettings* settings = new ProgramSettings();
+    QVBoxLayout* programConfigLayout = new QVBoxLayout;
+    QCheckBox* fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
 
-	QVBoxLayout * programConfigLayout = new QVBoxLayout;
+    fullscreenCheckBox->setChecked(settings->value("window/fullscreen").toBool());
+    QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)),
+                     settings, SLOT(setFullscreen(int)));
+    programConfigLayout->addWidget(fullscreenCheckBox);
 
-	QCheckBox * fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
-	fullscreenCheckBox->setChecked(settings->value("window/fullscreen").toBool());
-	QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)), settings, SLOT(setFullscreen(int)));
-
-	programConfigLayout->addWidget(fullscreenCheckBox);
-	setLayout(programConfigLayout);
+    setLayout(programConfigLayout);
 }
 
 
 OpenGLPage::OpenGLPage()
 {
-	ProgramSettings * settings = new ProgramSettings();
+    ProgramSettings* settings = new ProgramSettings();
+    QGridLayout* openglConfigLayout = new QGridLayout();
+    QLabel* shadingmodetitle = new QLabel(tr("Shading Mode (0-3)"));
+    QSpinBox* shadingmode = new QSpinBox();
 
-	QGridLayout * openglConfigLayout = new QGridLayout();
+    shadingmode->setMaximum(3);
+    shadingmode->setMinimum(0);
+    shadingmode->setValue(settings->value("opengl/shadingmode").toInt());
+    QObject::connect(shadingmode, SIGNAL(valueChanged(int)),
+                     settings, SLOT(setShadingMode(int)));
 
-	QLabel * shadingmodetitle = new QLabel(tr("Shading Mode (0-3)"));
-	QSpinBox * shadingmode = new QSpinBox();
-	shadingmode->setMaximum(3);
-	shadingmode->setMinimum(0);
-	shadingmode->setValue(settings->value("opengl/shadingmode").toInt());
-	QObject::connect(shadingmode, SIGNAL(valueChanged(int)), settings, SLOT(setShadingMode(int)));
+    QLabel* ambientlighttitle = new QLabel(tr("Ambient Light Intensity"));
+    QSpinBox* ambientlight = new QSpinBox();
 
-	QLabel * ambientlighttitle = new QLabel(tr("Ambient Light Intensity"));
-	QSpinBox * ambientlight = new QSpinBox();
-	ambientlight->setMaximum(100);
-	ambientlight->setMinimum(0);
-	ambientlight->setValue(settings->value("opengl/ambientlight").toInt());
-	QObject::connect(ambientlight, SIGNAL(valueChanged(int)), settings, SLOT(setAmbientLight(int)));
+    ambientlight->setMaximum(100);
+    ambientlight->setMinimum(0);
+    ambientlight->setValue(settings->value("opengl/ambientlight").toInt());
+    QObject::connect(ambientlight, SIGNAL(valueChanged(int)),
+                     settings, SLOT(setAmbientLight(int)));
 
-	QLabel * backgroundcolortitle = new QLabel(tr("Background Color"));
-	QComboBox * backgroundcolor = new QComboBox();
-	backgroundcolor->addItem(tr("blue"));
-	backgroundcolor->addItem(tr("red"));
-	backgroundcolor->addItem(tr("green"));
-	backgroundcolor->addItem(tr("brown"));
-	backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->value("opengl/backgroundcolor").toString()));
-	QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)), settings, SLOT(setBackgroundColor(QString)));
+    QLabel* backgroundcolortitle = new QLabel(tr("Background Color"));
+    QComboBox* backgroundcolor = new QComboBox();
 
-	openglConfigLayout->addWidget(shadingmodetitle,1,1);
-	openglConfigLayout->addWidget(shadingmode,1,2);
-	openglConfigLayout->addWidget(ambientlighttitle,2,1);
-	openglConfigLayout->addWidget(ambientlight,2,2);
-	openglConfigLayout->addWidget(backgroundcolortitle,3,1);
-	openglConfigLayout->addWidget(backgroundcolor,3,2);
+    backgroundcolor->addItem(tr("blue"));
+    backgroundcolor->addItem(tr("red"));
+    backgroundcolor->addItem(tr("green"));
+    backgroundcolor->addItem(tr("brown"));
+    backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->value("opengl/backgroundcolor").toString()));
+    QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)),
+                     settings, SLOT(setBackgroundColor(QString)));
 
-	setLayout(openglConfigLayout);
+    openglConfigLayout->addWidget(shadingmodetitle, 1, 1);
+    openglConfigLayout->addWidget(shadingmode, 1, 2);
+    openglConfigLayout->addWidget(ambientlighttitle, 2, 1);
+    openglConfigLayout->addWidget(ambientlight, 2, 2);
+    openglConfigLayout->addWidget(backgroundcolortitle, 3, 1);
+    openglConfigLayout->addWidget(backgroundcolor, 3, 2);
+
+    setLayout(openglConfigLayout);
 }
 
 
@@ -83,69 +87,69 @@ OpenGLPage::OpenGLPage()
 // Partie boîte de configuration
 
 ConfigDialog::ConfigDialog()
+    : m_contentsWidget(new QListWidget)
+    , m_pagesWidget(new QStackedWidget)
 {
-	contentsWidget = new QListWidget;
-	contentsWidget->setViewMode(QListView::IconMode);
-	contentsWidget->setIconSize(QSize(96, 84));
-	contentsWidget->setMovement(QListView::Static);
-	contentsWidget->setMaximumWidth(128);
-	contentsWidget->setMinimumHeight(300);
-	contentsWidget->setSpacing(12);
+    m_contentsWidget->setViewMode(QListView::IconMode);
+    m_contentsWidget->setIconSize(QSize(96, 84));
+    m_contentsWidget->setMovement(QListView::Static);
+    m_contentsWidget->setMaximumWidth(128);
+    m_contentsWidget->setMinimumHeight(300);
+    m_contentsWidget->setSpacing(12);
 
-	pagesWidget = new QStackedWidget;
-	pagesWidget->addWidget(new ConfigurationPage);
-	pagesWidget->addWidget(new OpenGLPage);
+    m_pagesWidget->addWidget(new ConfigurationPage);
+    m_pagesWidget->addWidget(new OpenGLPage);
 
-	QPushButton *closeButton = new QPushButton(tr("Close"));
+    QPushButton* closeButton = new QPushButton(tr("Close"));
 
-	createIcons();
-	contentsWidget->setCurrentRow(0);
+    createIcons();
+    m_contentsWidget->setCurrentRow(0);
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+    horizontalLayout->addWidget(m_contentsWidget);
+    horizontalLayout->addWidget(m_pagesWidget, 1);
 
-	QHBoxLayout *horizontalLayout = new QHBoxLayout;
-	horizontalLayout->addWidget(contentsWidget);
-	horizontalLayout->addWidget(pagesWidget, 1);
+    QHBoxLayout* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addStretch(1);
+    buttonsLayout->addWidget(closeButton);
 
-	QHBoxLayout *buttonsLayout = new QHBoxLayout;
-	buttonsLayout->addStretch(1);
-	buttonsLayout->addWidget(closeButton);
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->addLayout(horizontalLayout);
+    mainLayout->addStretch(1);
+    mainLayout->addSpacing(12);
+    mainLayout->addLayout(buttonsLayout);
 
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addLayout(horizontalLayout);
-	mainLayout->addStretch(1);
-	mainLayout->addSpacing(12);
-	mainLayout->addLayout(buttonsLayout);
-	setLayout(mainLayout);
+    setLayout(mainLayout);
+    setWindowTitle(tr("Configuration"));
+}
 
-	setWindowTitle(tr("Config Dialog"));
+
+void ConfigDialog::changePage(QListWidgetItem* current, QListWidgetItem* previous)
+{
+    if (!current)
+        current = previous;
+
+    m_pagesWidget->setCurrentIndex(m_contentsWidget->row(current));
 }
 
 
 void ConfigDialog::createIcons()
-{	
-	QListWidgetItem *programConfigButton = new QListWidgetItem(contentsWidget);
-	programConfigButton->setIcon(QIcon(":/images/systemsettings.png"));
-	programConfigButton->setText(tr("Program\n Configuration"));
-	programConfigButton->setTextAlignment(Qt::AlignHCenter);
-	programConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-	QListWidgetItem *openGLConfigButton = new QListWidgetItem(contentsWidget);
-	openGLConfigButton->setIcon(QIcon(":/images/x.png"));
-	openGLConfigButton->setText(tr("OpenGL\n Configuration"));
-	openGLConfigButton->setTextAlignment(Qt::AlignHCenter);
-	openGLConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-	connect(contentsWidget,
-			SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-			this, SLOT(changePage(QListWidgetItem *, QListWidgetItem*)));
-}
-
-
-void ConfigDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 {
-	if (!current)
-		current = previous;
+    QListWidgetItem* programConfigButton = new QListWidgetItem(m_contentsWidget);
 
-	pagesWidget->setCurrentIndex(contentsWidget->row(current));
+    programConfigButton->setIcon(QIcon(":/images/systemsettings.png"));
+    programConfigButton->setText(tr("Program\n Configuration"));
+    programConfigButton->setTextAlignment(Qt::AlignHCenter);
+    programConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    QListWidgetItem* openGLConfigButton = new QListWidgetItem(m_contentsWidget);
+
+    openGLConfigButton->setIcon(QIcon(":/images/x.png"));
+    openGLConfigButton->setText(tr("OpenGL\n Configuration"));
+    openGLConfigButton->setTextAlignment(Qt::AlignHCenter);
+    openGLConfigButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    connect(m_contentsWidget, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+            this, SLOT(changePage(QListWidgetItem*, QListWidgetItem*)));
 }

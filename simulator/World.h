@@ -27,16 +27,16 @@
 using namespace qglviewer;
 
 class World : public Entity {
-	public:
-		World(void);									// Constructeurs
-		World(Vec pos, Vec ang);
-		World (lua_State* L){}							// La surdéfinition du constructeur obligatoire pour Lunar
-		~World (){}										// Destructeur
+    public:
+        World();
+        World(Vec position, Vec angle);
+        World(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~World() { }
 
-	private:
-		friend class Lunar<World>;						// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<World>::RegType methods[];
+    private:
+        friend class Lunar<World>;
+        static const char className[];
+        static Lunar<World>::RegType methods[];
 };
 
 #endif

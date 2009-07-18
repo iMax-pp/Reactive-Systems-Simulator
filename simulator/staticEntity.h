@@ -27,24 +27,23 @@
 using namespace qglviewer;
 
 class StaticEntity : public Entity {
-	public:
-		StaticEntity(void);									// Constructeurs
-		StaticEntity(Vec pos, Vec ang);
-		StaticEntity (lua_State* L){}						// La surdéfinition du constructeur obligatoire pour Lunar
-		~StaticEntity (){}									// Destructeur
+    public:
+        StaticEntity();
+        StaticEntity(Vec position, Vec angle);
+        StaticEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        ~StaticEntity() { }
 
-		void setDisplayList(uint id);
+        void setDisplayList(uint id);
 
-		int setPosition (lua_State* L);						// avec Lua
+        int setPosition(lua_State* L);
+        int setAngle(lua_State* L);
 
-		int setAngle (lua_State* L);						// avec Lua
+    private:
+        uint displayListId;
 
-	private:
-		uint displayListId;
-
-		friend class Lunar<StaticEntity>;					// 3 choses obligatoires pour Lunar (nom de la classe, et liste des méthodes)
-		static const char className[];
-		static Lunar<StaticEntity>::RegType methods[];
+        friend class Lunar<StaticEntity>;
+        static const char className[];
+        static Lunar<StaticEntity>::RegType methods[];
 };
 
 #endif

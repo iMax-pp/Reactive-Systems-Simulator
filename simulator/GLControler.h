@@ -27,35 +27,35 @@
 #include "Entities.h"
 
 class Controler {
-	public:
-		Controler();
-		~Controler();
+    public:
+        Controler();
+        ~Controler();
 
-		void setWorld(World* world);
-		void addStatEnt(StaticEntity* ent);
-		void addDynEnt(DynamicEntity* ent);
-		void addVoidEnt(VoidEntity* ent);
-		void addLight(Light* light);
+        void setWorld(World* world);
+        void addStatEnt(StaticEntity* ent);
+        void addDynEnt(DynamicEntity* ent);
+        void addVoidEnt(VoidEntity* ent);
+        void addLight(Light* light);
 
-		void runAll();
-		void runWorld();
-		void runStatEnts();
-		void runDynEnts();
-		void runVoidEnts();
-		void runLights();
+        void runAll();
+        void runWorld();
+        void runStatEnts();
+        void runDynEnts();
+        void runVoidEnts();
+        void runLights();
 
-		void drawAll();
-		void drawWorld();
-		void drawStatEnts();
-		void drawDynEnts();
-		void drawLights();
+        void drawAll();
+        void drawWorld();
+        void drawStatEnts();
+        void drawDynEnts();
+        void drawLights();
 
-	private:
-		World* world;
-		std::vector <StaticEntity*> statEnts;
-		std::vector <DynamicEntity*> dynEnts;
-		std::vector <VoidEntity*> voidEnts;
-		std::vector <Light*> lights;		
+    private:
+        World*      m_world;
+        std::vector <StaticEntity*>m_statEnts;
+        std::vector <DynamicEntity*>m_dynEnts;
+        std::vector <VoidEntity*>m_voidEnts;
+        std::vector <Light*>m_lights;
 };
 
 #endif

@@ -29,10 +29,12 @@
 #include <QTime>
 
 class LogWidget : public QListWidget {
-    Q_OBJECT
+        Q_OBJECT
 
     public:
         LogWidget();
+        ~LogWidget();
+
         void newMsg(QString message);
 
     signals:
@@ -42,7 +44,7 @@ class LogWidget : public QListWidget {
         void slotMsg(const QString message);
 
     private:
-        //QListWidget *console;
+        //QListWidget* m_console;
 };
 
 #endif

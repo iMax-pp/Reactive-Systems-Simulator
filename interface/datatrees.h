@@ -29,55 +29,54 @@ class MainTree;
 class SimTree;
 
 class DataTrees : public QTabWidget {
-	Q_OBJECT
+        Q_OBJECT
 
-	public:
-		DataTrees();
-		~DataTrees();
+    public:
+        DataTrees();
+        ~DataTrees();
 
-		MainTree* getMainTree();
-		SimTree* getSimTree();
+        MainTree* mainTree();
+        SimTree* simTree();
 
-	private:			
-		MainTree *mainTree;
-		SimTree *simTree;		
+    private:
+        MainTree* m_mainTree;
+        SimTree* m_simTree;
 };
 
 
-class MainTree : public QTreeWidget {	
-	public:
-		MainTree();
-		~MainTree();
+class MainTree : public QTreeWidget {
+    public:
+        MainTree();
+        ~MainTree();
 
-	private:
-		QTreeWidgetItem *world;
-		QTreeWidgetItem *entities;
-		QTreeWidgetItem *dynamicEnts;
-		QTreeWidgetItem *staticEnts;
-		QTreeWidgetItem *voidEnts;
-		//Au secours! Des ents!
-		QTreeWidgetItem *camera;
-		QTreeWidgetItem *lights;
+    private:
+        QTreeWidgetItem* m_world;
+        QTreeWidgetItem* m_entities;
+        QTreeWidgetItem* m_dynamicEnts;
+        QTreeWidgetItem* m_staticEnts;
+        QTreeWidgetItem* m_voidEnts;
+        //Au secours! Des ents!
+        QTreeWidgetItem* m_camera;
+        QTreeWidgetItem* m_lights;
 };
 
 class SimTree : public QTreeWidget {
-	public:
-		SimTree();
-		~SimTree();
+    public:
+        SimTree();
+        ~SimTree();
 
-	private:
-		QTreeWidgetItem *world;
-		QTreeWidgetItem *team1;
-		QTreeWidgetItem *team2;
-		QTreeWidgetItem *robot1;
-		QTreeWidgetItem *robot2;
-		QTreeWidgetItem *robot3;
-		QTreeWidgetItem *robot4;
-		QTreeWidgetItem *robot5;
-		QTreeWidgetItem *robot6;
-		QTreeWidgetItem *stargate;
-		QTreeWidgetItem *keys;
+    private:
+        QTreeWidgetItem* m_world;
+        QTreeWidgetItem* m_team1;
+        QTreeWidgetItem* m_team2;
+        QTreeWidgetItem* m_robot1;
+        QTreeWidgetItem* m_robot2;
+        QTreeWidgetItem* m_robot3;
+        QTreeWidgetItem* m_robot4;
+        QTreeWidgetItem* m_robot5;
+        QTreeWidgetItem* m_robot6;
+        QTreeWidgetItem* m_stargate;
+        QTreeWidgetItem* m_keys;
 };
-
 
 #endif

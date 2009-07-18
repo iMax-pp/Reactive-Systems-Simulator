@@ -23,17 +23,16 @@
 #define TODOMSG QMessageBox::information( this, tr("ToDo"), tr("This actions has yet to be implemented"), QMessageBox::Ok );
 
 MainWindow::MainWindow()
+    : m_glViewer(new Viewer)
 {
     ProgramSettings settings;
-
-    setMinimumSize(800,500);
+    setMinimumSize(800, 500);
 
     //J'adore ce petit bout de code...je veux ca en poster...well done max :P
-    if(settings.value("window/fullscreen").toBool())
+    if (settings.value("window/fullscreen").toBool())
         showFullScreen();
 
-    glViewer = new Viewer;
-    setCentralWidget(glViewer);
+    setCentralWidget(m_glViewer);
 
     createActions();
     createMenus();
@@ -41,66 +40,64 @@ MainWindow::MainWindow()
     createStatusBar();
     createDocks();
 
-    connect( glViewer, SIGNAL( sigMsg(QString) ), logWidget, SLOT( slotMsg(QString) ) );
+    connect(m_glViewer, SIGNAL(sigMsg(QString)), m_logWidget, SLOT(slotMsg(QString)));
 
-    infos->setViewerPointer(glViewer);
-    connect(glViewer, SIGNAL(drawFinished(bool)), infos, SLOT(refreshBox(bool)));
+    m_infos->setViewerPointer(m_glViewer);
+    connect(m_glViewer, SIGNAL(drawFinished(bool)), m_infos, SLOT(refreshBox(bool)));
 
-    //Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
-    //connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));
-
+    // Originalement pour savoir si un document a été modifié. Changer pour voir si simulation en cours.
+    // connect(textEdit->document(), SIGNAL(contentsChanged()), this, SLOT(documentWasModified()));
     setCurrentFile("");
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+
+MainWindow::~MainWindow()
+{
+}
+
+
+void MainWindow::closeEvent(QCloseEvent* event)
 {
     //Si une simulation est en cours, il faut une confirmation pour quitter.
-    if( glViewer->isStarted() )
-    {
+    if (m_glViewer->isStarted()) {
         int quit = QMessageBox::warning(this, QString(tr("Error")),
                                         QString(tr("A simulation is running.\n Do you really want to quit ?")),
                                         QMessageBox::Yes | QMessageBox::No);
 
-        if(quit == QMessageBox::Yes)
-        {
-            glViewer->stop();
+        if (quit == QMessageBox::Yes) {
+            m_glViewer->stop();
             event->accept();
-        }
-        else
-        {
+        } else
             event->ignore();
-        }
-    }
-    else
-    {
+    } else
         event->accept();
-    }
 }
 
 
 void MainWindow::slotLoadSim()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                            tr("Load Simulation"), ".", tr("Lua Files (*.lua)"));
-    if( !fileName.isEmpty() )
-    {
-        loadFile( fileName );
-    }
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Load Simulation"),
+                                                    ".", tr("Lua Files (*.lua)"));
+
+    if (!fileName.isEmpty())
+        loadFile(fileName);
 }
+
 
 void MainWindow::slotReset()
 {
     TODOMSG
 }
 
+
 void MainWindow::slotAbout()
 {
-   QMessageBox::about(this, tr("About Application"),
-            tr("<p>The <b>Reactive Systems Simulator</b>: a total recoding of the CSR Project, with ameliorated GUI and environment, functionality, speed and more.</p>"
-               "<p>Compatible with Linux, MacOS and Windows, and any other system capable of compiling C++ code with Qt4, OpenGL and Lua.</p>"
-               "<p>This program is open source and released under the GNU General Public License.</p>"
-               "<p>The icons used are from the FamFamFam `Silk' icons collection: <a href='http://www.famfamfam.com/lab/icons/silk/'>http://www.famfamfam.com/lab/icons/silk/</a></p>"
-               "<p>For more info visit <a href='http://code.google.com/p/projet-csr-cpp/'>http://code.google.com/p/projet-csr-cpp</a>.</p>"));
+    QMessageBox::about(this, tr("About Application"),
+                       tr("<p>The <b>Reactive Systems Simulator</b>: a total recoding of the CSR Project, with ameliorated GUI and environment, functionality, speed and more.</p>"
+                          "<p>Compatible with Linux, MacOS and Windows, and any other system capable of compiling C++ code with Qt4, OpenGL and Lua.</p>"
+                          "<p>This program is open source and released under the GNU General Public License.</p>"
+                          "<p>The icons used are from the FamFamFam `Silk' icons collection: <a href='http://www.famfamfam.com/lab/icons/silk/'>http://www.famfamfam.com/lab/icons/silk/</a></p>"
+                          "<p>For more info visit <a href='http://code.google.com/p/projet-csr-cpp/'>http://code.google.com/p/projet-csr-cpp</a>.</p>"));
 }
 
 
@@ -113,99 +110,99 @@ void MainWindow::slotOpenConfigBox()
 
 void MainWindow::createActions()
 {
-    resetAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("&Reset"), this);
-    resetAct->setShortcut(tr("Ctrl+R"));
-    resetAct->setStatusTip(tr("Reset the program."));
-    connect(resetAct, SIGNAL(triggered()), this, SLOT(slotReset()));
+    m_resetAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("&Reset"), this);
+    m_resetAct->setShortcut(tr("Ctrl+R"));
+    m_resetAct->setStatusTip(tr("Reset the program."));
+    connect(m_resetAct, SIGNAL(triggered()), this, SLOT(slotReset()));
 
-    exitAct = new QAction(QIcon(":/images/door_in.png"), tr("E&xit"), this);
-    exitAct->setShortcut(tr("Ctrl+Q"));
-    exitAct->setStatusTip(tr("Leave the simulator"));
-    connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+    m_exitAct = new QAction(QIcon(":/images/door_in.png"), tr("E&xit"), this);
+    m_exitAct->setShortcut(tr("Ctrl+Q"));
+    m_exitAct->setStatusTip(tr("Leave the simulator"));
+    connect(m_exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-    loadSimAct = new QAction(QIcon(":/images/folder_page_white.png"), tr("&Load..."), this);
-    loadSimAct->setShortcut(tr("Ctrl+L"));
-    loadSimAct->setStatusTip(tr("Load a simulation"));
-    connect(loadSimAct, SIGNAL(triggered()), this, SLOT(slotLoadSim()));
+    m_loadSimAct = new QAction(QIcon(":/images/folder_page_white.png"), tr("&Load..."), this);
+    m_loadSimAct->setShortcut(tr("Ctrl+L"));
+    m_loadSimAct->setStatusTip(tr("Load a simulation"));
+    connect(m_loadSimAct, SIGNAL(triggered()), this, SLOT(slotLoadSim()));
 
-    runSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("&Run"), this);
-    runSimAct->setShortcut(tr("Ctrl+R"));
-    runSimAct->setStatusTip(tr("Run the simulation"));
-    connect(runSimAct, SIGNAL(triggered()), glViewer, SLOT(start()));
+    m_runSimAct = new QAction(QIcon(":/images/control_play_blue.png"), tr("&Run"), this);
+    m_runSimAct->setShortcut(tr("Ctrl+R"));
+    m_runSimAct->setStatusTip(tr("Run the simulation"));
+    connect(m_runSimAct, SIGNAL(triggered()), m_glViewer, SLOT(start()));
 
-    restartSimAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("R&estart"), this);
-    restartSimAct->setStatusTip(tr("Restart the simulation"));
-    //connect(restartSimAct, SIGNAL(triggered()), glViewer, SLOT(restart()));
+    m_restartSimAct = new QAction(QIcon(":/images/control_repeat_blue.png"), tr("R&estart"), this);
+    m_restartSimAct->setStatusTip(tr("Restart the simulation"));
+    connect(m_restartSimAct, SIGNAL(triggered()), m_glViewer, SLOT(restart()));
 
-    resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
-    resetSimAct->setStatusTip(tr("Reset the simulation"));
-    //connect(resetSimAct, SIGNAL(triggered()), glViewer, SLOT(reset()));
+    m_resetSimAct = new QAction(QIcon(":/images/control_start_blue.png"), tr("Re&set"), this);
+    m_resetSimAct->setStatusTip(tr("Reset the simulation"));
+    connect(m_resetSimAct, SIGNAL(triggered()), m_glViewer, SLOT(reset()));
 
-    stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
-    stopSimAct->setShortcut(tr("Ctrl+T"));
-    stopSimAct->setStatusTip(tr("Stop the simulation"));
-    //connect(stopSimAct, SIGNAL(triggered()), glViewer, SLOT(stop()));
+    m_stopSimAct = new QAction(QIcon(":/images/control_stop_blue.png"), tr("S&top"), this);
+    m_stopSimAct->setShortcut(tr("Ctrl+T"));
+    m_stopSimAct->setStatusTip(tr("Stop the simulation"));
+    connect(m_stopSimAct, SIGNAL(triggered()), m_glViewer, SLOT(stop()));
 
-    //Actions menu Options
-    fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
-    fullscreenAct->setShortcut(tr("Ctrl+F"));
-    fullscreenAct->setStatusTip(tr("Switch to fullscreen mode"));
-    connect(fullscreenAct, SIGNAL(triggered()), this, SLOT(slotToggleFullScreen()));
+    // Actions menu Options
+    m_fullscreenAct = new QAction(QIcon(":/images/monitor.png"), tr("&Fullscreen"), this);
+    m_fullscreenAct->setShortcut(tr("Ctrl+F"));
+    m_fullscreenAct->setStatusTip(tr("Switch to fullscreen mode"));
+    connect(m_fullscreenAct, SIGNAL(triggered()), this, SLOT(slotToggleFullScreen()));
 
-    programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Program Settings"), this);
-    programConfigAct->setShortcut(tr("Ctrl+P"));
-    programConfigAct->setStatusTip(tr("Configure program settings"));
-    connect(programConfigAct, SIGNAL(triggered()), this, SLOT(slotOpenConfigBox()));
+    m_programConfigAct = new QAction(QIcon(":/images/cog.png"), tr("Program Settings"), this);
+    m_programConfigAct->setShortcut(tr("Ctrl+P"));
+    m_programConfigAct->setStatusTip(tr("Configure program settings"));
+    connect(m_programConfigAct, SIGNAL(triggered()), this, SLOT(slotOpenConfigBox()));
 
-//	simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
-//	simConfigAct->setStatusTip(tr("Configure the simulation files"));
-//	connect(simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
+    // m_simConfigAct = new QAction(QIcon(":/images/script_gear.png"), tr("Configure simulation"), this);
+    // m_simConfigAct->setStatusTip(tr("Configure the simulation files"));
+    // connect(m_simConfigAct, SIGNAL(triggered()), this, SLOT(openConfigBox()));
 
-    aboutAct = new QAction(QIcon(":/images/comment.png"), tr("&About"), this);
-    aboutAct->setStatusTip(tr("About the simulator"));
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(slotAbout()));
+    m_aboutAct = new QAction(QIcon(":/images/comment.png"), tr("&About"), this);
+    m_aboutAct->setStatusTip(tr("About the simulator"));
+    connect(m_aboutAct, SIGNAL(triggered()), this, SLOT(slotAbout()));
 
-    aboutQtAct = new QAction(tr("About &Qt"), this);
-    aboutQtAct->setStatusTip(tr("About Qt"));
-    connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    m_aboutQtAct = new QAction(tr("About &Qt"), this);
+    m_aboutQtAct->setStatusTip(tr("About Qt"));
+    connect(m_aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 
 void MainWindow::createMenus()
 {
-    systemMenu = menuBar()->addMenu(tr("&System"));
-    systemMenu->addAction(resetAct);
-    systemMenu->addSeparator();
-    systemMenu->addAction(exitAct);
+    m_systemMenu = menuBar()->addMenu(tr("&System"));
+    m_systemMenu->addAction(m_resetAct);
+    m_systemMenu->addSeparator();
+    m_systemMenu->addAction(m_exitAct);
 
-    simMenu = menuBar()->addMenu(tr("S&imulation"));
-    simMenu->addAction(loadSimAct);
-    simMenu->addAction(runSimAct);
-    simMenu->addAction(restartSimAct);
-    simMenu->addAction(resetSimAct);
-    simMenu->addAction(stopSimAct);
+    m_simMenu = menuBar()->addMenu(tr("S&imulation"));
+    m_simMenu->addAction(m_loadSimAct);
+    m_simMenu->addAction(m_runSimAct);
+    m_simMenu->addAction(m_restartSimAct);
+    m_simMenu->addAction(m_resetSimAct);
+    m_simMenu->addAction(m_stopSimAct);
 
-    simMenu = menuBar()->addMenu(tr("&Options"));
-    simMenu->addAction(fullscreenAct);
-    simMenu->addAction(programConfigAct);
-    //simMenu->addAction(simConfigAct);
+    m_simMenu = menuBar()->addMenu(tr("&Options"));
+    m_simMenu->addAction(m_fullscreenAct);
+    m_simMenu->addAction(m_programConfigAct);
+    // m_simMenu->addAction(m_simConfigAct);
 
     menuBar()->addSeparator();
 
-    helpMenu = menuBar()->addMenu(tr("&Help"));
-    helpMenu->addAction(aboutAct);
-    helpMenu->addAction(aboutQtAct);
+    m_helpMenu = menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAct);
+    m_helpMenu->addAction(m_aboutQtAct);
 }
 
 
 void MainWindow::createToolBars()
 {
-    simToolBar = addToolBar(tr("Simulation"));
-    simToolBar->addAction(loadSimAct);
-    simToolBar->addAction(runSimAct);
-    simToolBar->addAction(restartSimAct);
-    simToolBar->addAction(resetSimAct);
-    simToolBar->addAction(stopSimAct);
+    m_simToolBar = addToolBar(tr("Simulation"));
+    m_simToolBar->addAction(m_loadSimAct);
+    m_simToolBar->addAction(m_runSimAct);
+    m_simToolBar->addAction(m_restartSimAct);
+    m_simToolBar->addAction(m_resetSimAct);
+    m_simToolBar->addAction(m_stopSimAct);
 }
 
 
@@ -217,43 +214,41 @@ void MainWindow::createStatusBar()
 
 void MainWindow::createDocks()
 {
-    setCorner(Qt::BottomRightCorner,Qt::RightDockWidgetArea);
+    setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
-    logWidget = new LogWidget;
-    logWidget->setMaximumHeight(100);
-    logWidget->newMsg(QString("The simulator is up and ready to roll..."));
-    logDock = new QDockWidget(tr("Console"), this);
-    logDock->setWidget(logWidget);
-    addDockWidget(Qt::BottomDockWidgetArea, logDock);
+    m_logWidget = new LogWidget;
+    m_logWidget->setMaximumHeight(100);
+    m_logWidget->newMsg(QString("The simulator is up and ready to roll..."));
 
+    m_logDock = new QDockWidget(tr("Console"), this);
+    m_logDock->setWidget(m_logWidget);
+    addDockWidget(Qt::BottomDockWidgetArea, m_logDock);
 
-    dataTrees = new DataTrees();
-    dataTreesDock = new QDockWidget(tr("Data Trees"), this);
-    dataTreesDock->setWidget(dataTrees);
-    addDockWidget(Qt::RightDockWidgetArea, dataTreesDock);
+    m_dataTrees = new DataTrees();
+    m_dataTreesDock = new QDockWidget(tr("Data Trees"), this);
+    m_dataTreesDock->setWidget(m_dataTrees);
+    addDockWidget(Qt::RightDockWidgetArea, m_dataTreesDock);
 
+    m_infos = new InformationsBox;
+    m_infoDock = new QDockWidget(tr("Data Dock"), this);
+    m_infoDock->setWidget(m_infos);
+    addDockWidget(Qt::RightDockWidgetArea, m_infoDock);
 
-    infos = new InformationsBox;
-    infoDock = new QDockWidget(tr("Data Dock"), this);
-    infoDock->setWidget(infos);
-    addDockWidget(Qt::RightDockWidgetArea, infoDock);
+    QObject::connect(m_dataTrees->mainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+                     m_infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
+    QObject::connect(m_dataTrees->simTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
+                     m_infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
 
-    QObject::connect(dataTrees->getMainTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
-                     infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
-    QObject::connect(dataTrees->getSimTree(), SIGNAL(itemClicked(QTreeWidgetItem*, int)),
-                     infos, SLOT(setCurrentItem(QTreeWidgetItem*, int)));
-
-
-    controlsWidget = new ControlsWidget;
-    controlsDock = new QDockWidget(tr("Controls"), this);
-    controlsDock->setWidget(controlsWidget);
-    addDockWidget(Qt::RightDockWidgetArea, controlsDock);
+    m_controlsWidget = new ControlsWidget;
+    m_controlsDock = new QDockWidget(tr("Controls"), this);
+    m_controlsDock->setWidget(m_controlsWidget);
+    addDockWidget(Qt::RightDockWidgetArea, m_controlsDock);
 }
 
 
 void MainWindow::loadFile(const QString &fileName)
 {
-    logWidget->newMsg( "You chose: " + fileName );
+    m_logWidget->newMsg("You chose: " + fileName);
 }
 
 
@@ -265,12 +260,13 @@ void MainWindow::setCurrentFile(const QString &fileName)
 
 QString MainWindow::strippedName(const QString &fullFileName)
 {
-    //Apparement cette partie donne uniquement le nom du ficher. Utile pour la barre de status et le titre.
+    // Apparement cette partie donne uniquement le nom du ficher.
+    // Utile pour la barre de status et le titre.
     return QFileInfo(fullFileName).fileName();
 }
 
 
 void MainWindow::slotToggleFullScreen()
 {
-    ( isFullScreen() ) ? showNormal() : showFullScreen();
+    (isFullScreen()) ? showNormal() : showFullScreen();
 }

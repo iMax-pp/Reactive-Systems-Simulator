@@ -26,16 +26,16 @@
 #include <QList>
 #include <QStringList>
 
-//#include "GLControler.h"
-//#include "../interface/logwidget.h"
-//#include "../interface/informationsbox.h"
+// #include "GLControler.h"
+// #include "../interface/logwidget.h"
+// #include "../interface/informationsbox.h"
 
 class Viewer : public QGLViewer {
-    Q_OBJECT
+        Q_OBJECT
 
     public:
-        //void setInfos(InformationsBox* infoPointer);
-        QStringList getCamData();
+        // void setInfos(InformationsBox* infoPointer);
+        QStringList camData();
         bool isStarted();
 
     protected:
@@ -44,10 +44,10 @@ class Viewer : public QGLViewer {
         virtual void init();
         virtual void drawWithNames();
         virtual void postSelection(const QPoint& point);
-        //virtual QString helpString() const;
+        // virtual QString helpString() const;
 
     signals:
-        void sigMsg( QString msg );
+        void sigMsg(QString msg);
 
     public slots:
         void start();
@@ -56,19 +56,21 @@ class Viewer : public QGLViewer {
         void restart();
 
     private:
-        GLfloat rot;
-        GLfloat step;
-        GLfloat amp;
-        GLuint cube;
-        GLuint world;
-        int framenum;
-        bool started;
+        GLfloat m_rot;
+        GLfloat m_step;
+        GLfloat m_amp;
+        GLuint  m_cube;
+        GLuint  m_world;
+        int     m_framenum;
+        bool    m_started;
 
-        //Controler *controler;
-        //LogWidget *console;
-        //InformationsBox *infos;
+        // Controler* m_controler;
+        // LogWidget* m_console;
+        // InformationsBox* m_infos;
 
-        qglviewer::Vec orig, dir, selectedPoint;
+        qglviewer::Vec m_orig;
+        qglviewer::Vec m_dir;
+        qglviewer::Vec m_selectedPoint;
 };
 
 #endif

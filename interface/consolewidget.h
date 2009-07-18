@@ -29,20 +29,20 @@
 #include <QTime>
 
 class ConsoleWidget : public QListWidget {
-	Q_OBJECT
+        Q_OBJECT
 
-	public:
-		ConsoleWidget();
-		void newMsg(QString message);
+    public:
+        ConsoleWidget();
+        void newMsg(QString message);
 
-	signals:
-		void consoleMsg(const QString message);
+    signals:
+        void consoleMsg(const QString message);
 
-	public slots:
-		void sendMsg(const QString message);
+    public slots:
+        void sendMsg(const QString message);
 
-	private:
-		//QListWidget *console;
+    private:
+        //QListWidget* m_console;
 };
 
 #endif
