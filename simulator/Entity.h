@@ -29,7 +29,7 @@ class Entity {
     public:
         Entity(void);
         Entity(Vec position, Vec angle);
-        Entity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        Entity(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~Entity() { }
 
         Vec* position(void);

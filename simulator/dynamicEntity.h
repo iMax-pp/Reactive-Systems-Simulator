@@ -26,7 +26,7 @@ class DynamicEntity : public Entity {
     public:
         DynamicEntity();
         DynamicEntity(Vec position, Vec angle);
-        DynamicEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        DynamicEntity(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~DynamicEntity() { }
 
         int setPosition(lua_State* L);

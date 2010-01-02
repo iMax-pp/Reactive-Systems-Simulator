@@ -26,7 +26,7 @@ class World : public Entity {
     public:
         World();
         World(Vec position, Vec angle);
-        World(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        World(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~World() { }
 
     private:

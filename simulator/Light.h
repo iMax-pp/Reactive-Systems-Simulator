@@ -26,7 +26,7 @@ class Light : public Entity {
     public:
         Light();
         Light(Vec position, Vec angle);
-        Light(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        Light(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~Light() { }
 
         void setPosition(lua_State* L);

@@ -26,7 +26,7 @@ class VoidEntity : public Entity {
     public:
         VoidEntity();
         VoidEntity(Vec position, Vec angle);
-        VoidEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        VoidEntity(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~VoidEntity() { }
 
         int setPosition(lua_State* L);

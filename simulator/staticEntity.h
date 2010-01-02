@@ -26,7 +26,7 @@ class StaticEntity : public Entity {
     public:
         StaticEntity();
         StaticEntity(Vec position, Vec angle);
-        StaticEntity(lua_State* L) { } // Surdéfinition du constructeur obligatoire pour Lunar
+        StaticEntity(lua_State*) { } // Surdéfinition du constructeur obligatoire pour Lunar
         ~StaticEntity() { }
 
         void setDisplayList(uint id);
