@@ -1,0 +1,16 @@
+== Reactive Systems Simulator ==
+
+RSS requires the Qt4 library, the Lua scripting language and QGLViewer library.
+
+- QGLViewer can be retrieved from http://www.libqglviewer.com/
+  A version >= 2.3 is required.
+
+If you want to compile the sources:
+
+$ qmake
+(On Mac OS X, add "-spec macx-g++" to get a Makefile instead of a XCode project)
+
+$ make
+
+- Windows users, the Lua and QGLViewer libraries are already available in the 
+lib/windows folder.
