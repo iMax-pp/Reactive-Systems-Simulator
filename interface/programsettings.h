@@ -18,19 +18,28 @@
 #ifndef PROGRAMSETTINGS_H
 #define PROGRAMSETTINGS_H
 
-#include <QSettings>
+#include <QObject>
 
-class ProgramSettings : public QSettings {
+class QString;
+class QSettings;
+
+class ProgramSettings : public QObject {
         Q_OBJECT
 
     public:
         ProgramSettings();
         ~ProgramSettings();
 
+        bool isFullscreen();
+        int shadingMode();
+        int ambientLight();
+
     public slots:
         void setFullscreen(int fullscreen);
         void setShadingMode(int value);
         void setAmbientLight(int value);
+
+        QString backgroundColor();
         void setBackgroundColor(QString color);
 
     private:

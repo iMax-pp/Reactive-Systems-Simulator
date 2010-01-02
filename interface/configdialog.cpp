@@ -19,31 +19,30 @@
 
 // Partie pages de configuration
 
-ConfigurationPage::ConfigurationPage()
+ConfigurationPage::ConfigurationPage(ProgramSettings* settings)
 {
-    ProgramSettings* settings = new ProgramSettings();
     QVBoxLayout* programConfigLayout = new QVBoxLayout;
     QCheckBox* fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
 
-    fullscreenCheckBox->setChecked(settings->value("window/fullscreen").toBool());
+    fullscreenCheckBox->setChecked(settings->isFullscreen());
     QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)),
                      settings, SLOT(setFullscreen(int)));
+
     programConfigLayout->addWidget(fullscreenCheckBox);
 
     setLayout(programConfigLayout);
 }
 
 
-OpenGLPage::OpenGLPage()
+OpenGLPage::OpenGLPage(ProgramSettings* settings)
 {
-    ProgramSettings* settings = new ProgramSettings();
     QGridLayout* openglConfigLayout = new QGridLayout();
     QLabel* shadingmodetitle = new QLabel(tr("Shading Mode (0-3)"));
     QSpinBox* shadingmode = new QSpinBox();
 
     shadingmode->setMaximum(3);
     shadingmode->setMinimum(0);
-    shadingmode->setValue(settings->value("opengl/shadingmode").toInt());
+    shadingmode->setValue(settings->shadingMode());
     QObject::connect(shadingmode, SIGNAL(valueChanged(int)),
                      settings, SLOT(setShadingMode(int)));
 
@@ -52,7 +51,7 @@ OpenGLPage::OpenGLPage()
 
     ambientlight->setMaximum(100);
     ambientlight->setMinimum(0);
-    ambientlight->setValue(settings->value("opengl/ambientlight").toInt());
+    ambientlight->setValue(settings->ambientLight());
     QObject::connect(ambientlight, SIGNAL(valueChanged(int)),
                      settings, SLOT(setAmbientLight(int)));
 
@@ -62,8 +61,8 @@ OpenGLPage::OpenGLPage()
     backgroundcolor->addItem(tr("blue"));
     backgroundcolor->addItem(tr("red"));
     backgroundcolor->addItem(tr("green"));
-    backgroundcolor->addItem(tr("brown"));
-    backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->value("opengl/backgroundcolor").toString()));
+    backgroundcolor->addItem(tr("black"));
+    backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->backgroundColor()));
     QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)),
                      settings, SLOT(setBackgroundColor(QString)));
 
@@ -82,9 +81,10 @@ OpenGLPage::OpenGLPage()
 
 // Partie boîte de configuration
 
-ConfigDialog::ConfigDialog()
+ConfigDialog::ConfigDialog(ProgramSettings* settings)
     : m_contentsWidget(new QListWidget)
     , m_pagesWidget(new QStackedWidget)
+    , m_settings(settings)
 {
     m_contentsWidget->setViewMode(QListView::IconMode);
     m_contentsWidget->setIconSize(QSize(96, 84));
@@ -93,8 +93,8 @@ ConfigDialog::ConfigDialog()
     m_contentsWidget->setMinimumHeight(300);
     m_contentsWidget->setSpacing(12);
 
-    m_pagesWidget->addWidget(new ConfigurationPage);
-    m_pagesWidget->addWidget(new OpenGLPage);
+    m_pagesWidget->addWidget(new ConfigurationPage(m_settings));
+    m_pagesWidget->addWidget(new OpenGLPage(m_settings));
 
     QPushButton* closeButton = new QPushButton(tr("Close"));
 

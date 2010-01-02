@@ -21,12 +21,12 @@
 
 MainWindow::MainWindow()
     : m_glViewer(new Viewer)
+    , m_settings(new ProgramSettings)
 {
-    ProgramSettings settings;
     setMinimumSize(800, 500);
 
     //J'adore ce petit bout de code...je veux ca en poster...well done max :P
-    if (settings.value("window/fullscreen").toBool())
+    if (m_settings->isFullscreen())
         showFullScreen();
 
     setCentralWidget(m_glViewer);
@@ -100,7 +100,7 @@ void MainWindow::slotAbout()
 
 void MainWindow::slotOpenConfigBox()
 {
-    ConfigDialog dialog;
+    ConfigDialog dialog(m_settings);
     dialog.exec();
 }
 

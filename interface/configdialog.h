@@ -35,12 +35,14 @@ class ConfigurationPage : public QWidget {
         Q_OBJECT
 
     public:
-        ConfigurationPage();
+        ConfigurationPage(ProgramSettings*);
 };
 
 class OpenGLPage : public QWidget {
+        Q_OBJECT
+
     public:
-        OpenGLPage();
+        OpenGLPage(ProgramSettings*);
 };
 
 
@@ -50,7 +52,7 @@ class ConfigDialog : public QDialog {
         Q_OBJECT
 
     public:
-        ConfigDialog();
+        ConfigDialog(ProgramSettings*);
 
     public slots:
         void changePage(QListWidgetItem* current, QListWidgetItem* previous);
@@ -60,6 +62,7 @@ class ConfigDialog : public QDialog {
 
         QListWidget* m_contentsWidget;
         QStackedWidget* m_pagesWidget;
+        ProgramSettings* m_settings;
 };
 
 #endif

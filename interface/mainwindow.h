@@ -24,6 +24,7 @@
 #include "datatrees.h"
 #include "informationsbox.h"
 #include "logwidget.h"
+#include "programsettings.h"
 
 #include <QGroupBox>
 #include <QListWidget>
@@ -112,6 +113,7 @@ class MainWindow : public QMainWindow {
         QAction*            m_fullscreenAct;
         QAction*            m_programConfigAct;
         //QAction*          m_simConfigAct;
+        ProgramSettings*    m_settings;
 
         //Help menu actions
         QAction*            m_aboutAct;
