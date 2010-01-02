@@ -1,23 +1,19 @@
-/*******************************************************************************************
-**
-**    Copyright 2008 Simon & Humphries
-**
-**    This file is part of the Reactive Systems Simulator.
-**
-**    The Reactive Systems Simulator is free software: you can redistribute it and/or modify
-**    it under the terms of the GNU General Public License as published by
-**    the Free Software Foundation, either version 3 of the License, or
-**    (at your option) any later version.
-**
-**    The Reactive Systems Simulator is distributed in the hope that it will be useful,
-**    but WITHOUT ANY WARRANTY; without even the implied warranty of
-**    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**    GNU General Public License for more details.
-**
-**    You should have received a copy of the GNU General Public License
-**    along with the Reactive Systems Simulator .  If not, see <http://www.gnu.org/licenses/>.
-**
-********************************************************************************************/
+/*
+ *    Copyright 2010 Humhpries & Simon
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ *
+ */
 
 #include "GLViewer.h"
 
@@ -54,36 +50,36 @@ void Viewer::init()
     glNewList(m_cube, GL_COMPILE);
     glScalef(0.05, 0.05, 0.05);
     glBegin(GL_QUADS);
-    glColor3f(0.0f, 1.0f, 0.0f);			// Set The Color To Green
-    glVertex3f(1.0f, 1.0f, -1.0f);			// Top Right Of The Quad (Top)
-    glVertex3f(-1.0f, 1.0f, -1.0f);			// Top Left Of The Quad (Top)
-    glVertex3f(-1.0f, 1.0f, 1.0f);			// Bottom Left Of The Quad (Top)
-    glVertex3f(1.0f, 1.0f, 1.0f);			// Bottom Right Of The Quad (Top)
-    glColor3f(1.0f, 0.5f, 0.0f);			// Set The Color To Orange
-    glVertex3f(1.0f, -1.0f, 1.0f);			// Top Right Of The Quad (Bottom)
-    glVertex3f(-1.0f, -1.0f, 1.0f);			// Top Left Of The Quad (Bottom)
-    glVertex3f(-1.0f, -1.0f, -1.0f);		// Bottom Left Of The Quad (Bottom)
-    glVertex3f(1.0f, -1.0f, -1.0f);			// Bottom Right Of The Quad (Bottom)
-    glColor3f(1.0f, 0.0f, 0.0f);			// Set The Color To Red
-    glVertex3f(1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Front)
-    glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Front)
-    glVertex3f(-1.0f, -1.0f, 1.0f);			// Bottom Left Of The Quad (Front)
-    glVertex3f(1.0f, -1.0f, 1.0f);			// Bottom Right Of The Quad (Front)
-    glColor3f(1.0f, 1.0f, 0.0f);			// Set The Color To Yellow
-    glVertex3f(1.0f, -1.0f, -1.0f);			// Bottom Left Of The Quad (Back)
-    glVertex3f(-1.0f, -1.0f, -1.0f);		// Bottom Right Of The Quad (Back)
-    glVertex3f(-1.0f, 1.0f, -1.0f);			// Top Right Of The Quad (Back)
-    glVertex3f(1.0f, 1.0f, -1.0f);			// Top Left Of The Quad (Back)
-    glColor3f(0.0f, 0.0f, 1.0f);			// Set The Color To Blue
-    glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Left)
-    glVertex3f(-1.0f, 1.0f, -1.0f);			// Top Left Of The Quad (Left)
-    glVertex3f(-1.0f, -1.0f, -1.0f);		// Bottom Left Of The Quad (Left)
-    glVertex3f(-1.0f, -1.0f, 1.0f);			// Bottom Right Of The Quad (Left)
-    glColor3f(1.0f, 0.0f, 1.0f);			// Set The Color To Violet
-    glVertex3f(1.0f, 1.0f, -1.0f);			// Top Right Of The Quad (Right)
-    glVertex3f(1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Right)
-    glVertex3f(1.0f, -1.0f, 1.0f);			// Bottom Left Of The Quad (Right)
-    glVertex3f(1.0f, -1.0f, -1.0f);			// Bottom Right Of The Quad (Right)
+    glColor3f(0.0f, 1.0f, 0.0f);            // Set The Color To Green
+    glVertex3f(1.0f, 1.0f, -1.0f);          // Top Right Of The Quad (Top)
+    glVertex3f(-1.0f, 1.0f, -1.0f);         // Top Left Of The Quad (Top)
+    glVertex3f(-1.0f, 1.0f, 1.0f);          // Bottom Left Of The Quad (Top)
+    glVertex3f(1.0f, 1.0f, 1.0f);           // Bottom Right Of The Quad (Top)
+    glColor3f(1.0f, 0.5f, 0.0f);            // Set The Color To Orange
+    glVertex3f(1.0f, -1.0f, 1.0f);          // Top Right Of The Quad (Bottom)
+    glVertex3f(-1.0f, -1.0f, 1.0f);         // Top Left Of The Quad (Bottom)
+    glVertex3f(-1.0f, -1.0f, -1.0f);        // Bottom Left Of The Quad (Bottom)
+    glVertex3f(1.0f, -1.0f, -1.0f);         // Bottom Right Of The Quad (Bottom)
+    glColor3f(1.0f, 0.0f, 0.0f);            // Set The Color To Red
+    glVertex3f(1.0f, 1.0f, 1.0f);           // Top Right Of The Quad (Front)
+    glVertex3f(-1.0f, 1.0f, 1.0f);          // Top Left Of The Quad (Front)
+    glVertex3f(-1.0f, -1.0f, 1.0f);         // Bottom Left Of The Quad (Front)
+    glVertex3f(1.0f, -1.0f, 1.0f);          // Bottom Right Of The Quad (Front)
+    glColor3f(1.0f, 1.0f, 0.0f);            // Set The Color To Yellow
+    glVertex3f(1.0f, -1.0f, -1.0f);         // Bottom Left Of The Quad (Back)
+    glVertex3f(-1.0f, -1.0f, -1.0f);        // Bottom Right Of The Quad (Back)
+    glVertex3f(-1.0f, 1.0f, -1.0f);         // Top Right Of The Quad (Back)
+    glVertex3f(1.0f, 1.0f, -1.0f);          // Top Left Of The Quad (Back)
+    glColor3f(0.0f, 0.0f, 1.0f);            // Set The Color To Blue
+    glVertex3f(-1.0f, 1.0f, 1.0f);          // Top Right Of The Quad (Left)
+    glVertex3f(-1.0f, 1.0f, -1.0f);         // Top Left Of The Quad (Left)
+    glVertex3f(-1.0f, -1.0f, -1.0f);        // Bottom Left Of The Quad (Left)
+    glVertex3f(-1.0f, -1.0f, 1.0f);         // Bottom Right Of The Quad (Left)
+    glColor3f(1.0f, 0.0f, 1.0f);            // Set The Color To Violet
+    glVertex3f(1.0f, 1.0f, -1.0f);          // Top Right Of The Quad (Right)
+    glVertex3f(1.0f, 1.0f, 1.0f);           // Top Left Of The Quad (Right)
+    glVertex3f(1.0f, -1.0f, 1.0f);          // Bottom Left Of The Quad (Right)
+    glVertex3f(1.0f, -1.0f, -1.0f);         // Bottom Right Of The Quad (Right)
     glEnd();
     glEndList();
 
