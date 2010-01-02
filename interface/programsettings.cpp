@@ -22,6 +22,10 @@
 ProgramSettings::ProgramSettings()
     : m_settings(new QSettings(QSettings::UserScope, "Reactive Systems Simulator"))
 {
+    m_fullscreen = m_settings->value("window/fullscreen", false).toBool();
+    m_shadingMode = m_settings->value("opengl/shadingmode", 0).toInt();
+    m_ambientLight = m_settings->value("opengl/ambientlight", 0).toInt();
+    m_backgroundColor = m_settings->value("opengl/backgroundcolor", "black").toString();
 }
 
 
@@ -33,53 +37,68 @@ ProgramSettings::~ProgramSettings()
 
 bool ProgramSettings::isFullscreen()
 {
-    return m_settings->value("window/fullscreen", false).toBool();
+    return m_fullscreen;
 }
 
 
 void ProgramSettings::setFullscreen(int fullscreen)
 {
     if (!fullscreen)
-        m_settings->setValue("window/fullscreen", false);
+        m_fullscreen = false;
     else
-        m_settings->setValue("window/fullscreen", true);
+        m_fullscreen = true;
 }
 
 
 int ProgramSettings::shadingMode()
 {
-    // default value is 0
-    return m_settings->value("opengl/shadingmode", 0).toInt();
+    return m_shadingMode;
 }
 
 
 void ProgramSettings::setShadingMode(int value)
 {
-    m_settings->setValue("opengl/shadingmode", value);
+    m_shadingMode = value;
 }
 
 
 int ProgramSettings::ambientLight()
 {
-    // default value is 0
-    return m_settings->value("opengl/ambientlight", 0).toInt();
+    return m_ambientLight;
 }
 
 
 void ProgramSettings::setAmbientLight(int value)
 {
-    m_settings->setValue("opengl/ambientlight", value);
+    m_ambientLight = value;
 }
 
 
 QString ProgramSettings::backgroundColor()
 {
-    // default value is "black"
-    return m_settings->value("opengl/backgroundcolor", "black").toString();
+    return m_backgroundColor;
 }
 
 
 void ProgramSettings::setBackgroundColor(QString color)
 {
-    m_settings->setValue("opengl/backgroundcolor", color);
+    m_backgroundColor = color;
+}
+
+
+void ProgramSettings::save()
+{
+    m_settings->setValue("window/fullscreen", m_fullscreen);
+    m_settings->setValue("opengl/shadingmode", m_shadingMode);
+    m_settings->setValue("opengl/ambientlight", m_ambientLight);
+    m_settings->setValue("opengl/backgroundcolor", m_backgroundColor);
+}
+
+
+void ProgramSettings::reset()
+{
+    m_fullscreen = m_settings->value("window/fullscreen", false).toBool();
+    m_shadingMode = m_settings->value("opengl/shadingmode", 0).toInt();
+    m_ambientLight = m_settings->value("opengl/ambientlight", 0).toInt();
+    m_backgroundColor = m_settings->value("opengl/backgroundcolor", "black").toString();
 }

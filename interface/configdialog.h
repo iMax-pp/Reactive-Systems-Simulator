@@ -23,7 +23,6 @@
 #include <QDialog>
 #include <QWidget>
 #include <QtGui>
-#include <iostream>
 
 class QListWidget;
 class QListWidgetItem;
@@ -56,6 +55,8 @@ class ConfigDialog : public QDialog {
 
     public slots:
         void changePage(QListWidgetItem* current, QListWidgetItem* previous);
+        void save();
+        void closeConfig();
 
     private:
         void createIcons();

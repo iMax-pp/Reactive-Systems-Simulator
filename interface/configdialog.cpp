@@ -96,11 +96,13 @@ ConfigDialog::ConfigDialog(ProgramSettings* settings)
     m_pagesWidget->addWidget(new ConfigurationPage(m_settings));
     m_pagesWidget->addWidget(new OpenGLPage(m_settings));
 
+    QPushButton* saveButton = new QPushButton(tr("Save"));
     QPushButton* closeButton = new QPushButton(tr("Close"));
 
     createIcons();
     m_contentsWidget->setCurrentRow(0);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeConfig()));
 
     QHBoxLayout* horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_contentsWidget);
@@ -108,6 +110,7 @@ ConfigDialog::ConfigDialog(ProgramSettings* settings)
 
     QHBoxLayout* buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
+    buttonsLayout->addWidget(saveButton);
     buttonsLayout->addWidget(closeButton);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -148,4 +151,18 @@ void ConfigDialog::createIcons()
 
     connect(m_contentsWidget, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
             this, SLOT(changePage(QListWidgetItem*, QListWidgetItem*)));
+}
+
+
+void ConfigDialog::save()
+{
+    m_settings->save();
+    close();
+}
+
+
+void ConfigDialog::closeConfig()
+{
+    m_settings->reset();
+    close();
 }

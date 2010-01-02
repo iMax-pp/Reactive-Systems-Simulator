@@ -33,17 +33,23 @@ class ProgramSettings : public QObject {
         bool isFullscreen();
         int shadingMode();
         int ambientLight();
+        QString backgroundColor();
 
     public slots:
         void setFullscreen(int fullscreen);
         void setShadingMode(int value);
         void setAmbientLight(int value);
-
-        QString backgroundColor();
         void setBackgroundColor(QString color);
+        void save();
+        void reset();
 
     private:
         QSettings *m_settings;
+
+        bool m_fullscreen;
+        int m_shadingMode;
+        int m_ambientLight;
+        QString m_backgroundColor;
 };
 
 #endif
