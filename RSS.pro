@@ -1,8 +1,18 @@
 TEMPLATE = app
 TARGET = RSS
-CONFIG  += qt opengl warn_on debug thread
+CONFIG += debug
+
+CONFIG(debug, debug|release) {
+    DESTDIR = debug
+} else { # Release
+    DESTDIR = release
+}
+
+OBJECTS_DIR = $(DESTDIR)/obj
+MOC_DIR = $(DESTDIR)/moc
+
+CONFIG += qt opengl warn_on thread
 QT += xml opengl
-DESTDIR = release
 
 DEPENDPATH += . \
               interface \
