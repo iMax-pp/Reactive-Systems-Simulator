@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+#
+#    Copyright 2010 Humhpries & Simon
+# 
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
+from os import path
+from sys import exit
+
+from subprocess import call
+from subprocess import PIPE
+from subprocess import Popen
+
+def get_modified_files():
+    files = Popen(["git", "diff", "--name-only", "HEAD"], stdout=PIPE).communicate()
+    return files
+
+def check_files(modified_files):
+    files_to_check = ["python", ".git/hooks/cpp_style.py"]
+    files_to_check += modified_files
+    
+    # And check them (non-cpp and non-h files will be automatically ignored)
+    retcode = call(files_to_check)
+    if retcode != 0 :
+        exit("Error: Not all the files have a clean style, please correct them before retrying to commit.")
+
+def main():
+    files = get_modified_files()
+    check_files(files[0].splitlines())
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,12 @@
+== Pre-commit hook ==
+
+Please, put those two files into .git/hooks/ before commiting any piece of code.
+This hook is designed to prevent any breach of style before committing.
+
+command-line:
+$ cd Reactive-systems-Simulator
+(Whatever it is.)
+$ cp tools/* .git/hooks/
+$ git commit ...
+
+If a commit breaks the style, you won't be able to commit.
