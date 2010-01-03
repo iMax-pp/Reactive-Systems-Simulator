@@ -2,18 +2,21 @@ TEMPLATE = app
 TARGET = RSS
 CONFIG += debug
 
+# Destdir (and cie)
 CONFIG(debug, debug|release) {
     DESTDIR = $$PWD/debug
-} else { # Release
+} else { # release
     DESTDIR = $$PWD/release
 }
 
 OBJECTS_DIR = $$DESTDIR/obj
 MOC_DIR = $$DESTDIR/moc
 
-CONFIG += qt opengl warn_on thread
+# Config
+CONFIG += qt opengl warn_on
 QT += xml opengl
 
+# Paths
 DEPENDPATH += . \
               interface \
               simulator \
@@ -58,6 +61,7 @@ SOURCES += main.cpp \
 
 RESOURCES += application.qrc
 
+# Libraries
 linux-g++:LIBS += -lQGLViewer -llua
 macx:LIBS += -framework QGLViewer -llua
 win32:LIBS *= -Llib/windows -lQGLViewer2 -llua
