@@ -33,7 +33,7 @@ class InformationsBox : public QListWidget {
     public slots:
         void listSet(QStringList infos);
         void setCurrentItem(QTreeWidgetItem* ent, int col);
-        void refreshBox(bool auto);
+        void refreshBox(bool);
 
     private:
         Viewer* m_viewer;

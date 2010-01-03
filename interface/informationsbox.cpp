@@ -50,7 +50,7 @@ void InformationsBox::setCurrentItem(QTreeWidgetItem* ent, int col)
 }
 
 
-void InformationsBox::refreshBox(bool auto)
+void InformationsBox::refreshBox(bool)
 {
     if (m_currentItem) {
         clear();
