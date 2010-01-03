@@ -22,15 +22,21 @@
 ConfigurationPage::ConfigurationPage(ProgramSettings* settings)
 {
     QVBoxLayout* programConfigLayout = new QVBoxLayout;
-    QCheckBox* fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
+    m_fullscreenCheckBox = new QCheckBox(tr("Set program fullscreen\n on startup."));
 
-    fullscreenCheckBox->setChecked(settings->isFullscreen());
-    QObject::connect(fullscreenCheckBox, SIGNAL(stateChanged(int)),
+    m_fullscreenCheckBox->setChecked(settings->isFullscreen());
+    QObject::connect(m_fullscreenCheckBox, SIGNAL(stateChanged(int)),
                      settings, SLOT(setFullscreen(int)));
 
-    programConfigLayout->addWidget(fullscreenCheckBox);
+    programConfigLayout->addWidget(m_fullscreenCheckBox);
 
     setLayout(programConfigLayout);
+}
+
+
+void ConfigurationPage::reset(ProgramSettings* settings)
+{
+    m_fullscreenCheckBox->setChecked(settings->isFullscreen());
 }
 
 
@@ -38,42 +44,50 @@ OpenGLPage::OpenGLPage(ProgramSettings* settings)
 {
     QGridLayout* openglConfigLayout = new QGridLayout();
     QLabel* shadingmodetitle = new QLabel(tr("Shading Mode (0-3)"));
-    QSpinBox* shadingmode = new QSpinBox();
+    m_shadingmode = new QSpinBox();
 
-    shadingmode->setMaximum(3);
-    shadingmode->setMinimum(0);
-    shadingmode->setValue(settings->shadingMode());
-    QObject::connect(shadingmode, SIGNAL(valueChanged(int)),
+    m_shadingmode->setMaximum(3);
+    m_shadingmode->setMinimum(0);
+    m_shadingmode->setValue(settings->shadingMode());
+    QObject::connect(m_shadingmode, SIGNAL(valueChanged(int)),
                      settings, SLOT(setShadingMode(int)));
 
     QLabel* ambientlighttitle = new QLabel(tr("Ambient Light Intensity"));
-    QSpinBox* ambientlight = new QSpinBox();
+    m_ambientlight = new QSpinBox();
 
-    ambientlight->setMaximum(100);
-    ambientlight->setMinimum(0);
-    ambientlight->setValue(settings->ambientLight());
-    QObject::connect(ambientlight, SIGNAL(valueChanged(int)),
+    m_ambientlight->setMaximum(100);
+    m_ambientlight->setMinimum(0);
+    m_ambientlight->setValue(settings->ambientLight());
+    QObject::connect(m_ambientlight, SIGNAL(valueChanged(int)),
                      settings, SLOT(setAmbientLight(int)));
 
     QLabel* backgroundcolortitle = new QLabel(tr("Background Color"));
-    QComboBox* backgroundcolor = new QComboBox();
+    m_backgroundcolor = new QComboBox();
 
-    backgroundcolor->addItem(tr("blue"));
-    backgroundcolor->addItem(tr("red"));
-    backgroundcolor->addItem(tr("green"));
-    backgroundcolor->addItem(tr("black"));
-    backgroundcolor->setCurrentIndex(backgroundcolor->findText(settings->backgroundColor()));
-    QObject::connect(backgroundcolor, SIGNAL(currentIndexChanged(QString)),
+    m_backgroundcolor->addItem(tr("blue"));
+    m_backgroundcolor->addItem(tr("red"));
+    m_backgroundcolor->addItem(tr("green"));
+    m_backgroundcolor->addItem(tr("black"));
+    m_backgroundcolor->setCurrentIndex(m_backgroundcolor->findText(settings->backgroundColor()));
+    QObject::connect(m_backgroundcolor, SIGNAL(currentIndexChanged(QString)),
                      settings, SLOT(setBackgroundColor(QString)));
 
     openglConfigLayout->addWidget(shadingmodetitle, 1, 1);
-    openglConfigLayout->addWidget(shadingmode, 1, 2);
+    openglConfigLayout->addWidget(m_shadingmode, 1, 2);
     openglConfigLayout->addWidget(ambientlighttitle, 2, 1);
-    openglConfigLayout->addWidget(ambientlight, 2, 2);
+    openglConfigLayout->addWidget(m_ambientlight, 2, 2);
     openglConfigLayout->addWidget(backgroundcolortitle, 3, 1);
-    openglConfigLayout->addWidget(backgroundcolor, 3, 2);
+    openglConfigLayout->addWidget(m_backgroundcolor, 3, 2);
 
     setLayout(openglConfigLayout);
+}
+
+
+void OpenGLPage::reset(ProgramSettings* settings)
+{
+    m_shadingmode->setValue(settings->shadingMode());
+    m_ambientlight->setValue(settings->ambientLight());
+    m_backgroundcolor->setCurrentIndex(m_backgroundcolor->findText(settings->backgroundColor()));
 }
 
 
@@ -85,6 +99,8 @@ ConfigDialog::ConfigDialog(ProgramSettings* settings)
     : m_contentsWidget(new QListWidget)
     , m_pagesWidget(new QStackedWidget)
     , m_settings(settings)
+    , m_configurationPage(new ConfigurationPage(m_settings))
+    , m_openGLPage(new OpenGLPage(m_settings))
 {
     m_contentsWidget->setViewMode(QListView::IconMode);
     m_contentsWidget->setIconSize(QSize(96, 84));
@@ -93,16 +109,16 @@ ConfigDialog::ConfigDialog(ProgramSettings* settings)
     m_contentsWidget->setMinimumHeight(300);
     m_contentsWidget->setSpacing(12);
 
-    m_pagesWidget->addWidget(new ConfigurationPage(m_settings));
-    m_pagesWidget->addWidget(new OpenGLPage(m_settings));
+    m_pagesWidget->addWidget(m_configurationPage);
+    m_pagesWidget->addWidget(m_openGLPage);
 
-    QPushButton* saveButton = new QPushButton(tr("Save"));
-    QPushButton* closeButton = new QPushButton(tr("Close"));
+    QPushButton* applyButton = new QPushButton(tr("Apply"));
+    QPushButton* revertButton = new QPushButton(tr("Revert"));
 
     createIcons();
     m_contentsWidget->setCurrentRow(0);
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeConfig()));
+    connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+    connect(revertButton, SIGNAL(clicked()), this, SLOT(revert()));
 
     QHBoxLayout* horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_contentsWidget);
@@ -110,8 +126,8 @@ ConfigDialog::ConfigDialog(ProgramSettings* settings)
 
     QHBoxLayout* buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(saveButton);
-    buttonsLayout->addWidget(closeButton);
+    buttonsLayout->addWidget(applyButton);
+    buttonsLayout->addWidget(revertButton);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addLayout(horizontalLayout);
@@ -154,15 +170,16 @@ void ConfigDialog::createIcons()
 }
 
 
-void ConfigDialog::save()
+void ConfigDialog::apply()
 {
     m_settings->save();
     close();
 }
 
 
-void ConfigDialog::closeConfig()
+void ConfigDialog::revert()
 {
     m_settings->reset();
-    close();
+    m_configurationPage->reset(m_settings);
+    m_openGLPage->reset(m_settings);
 }

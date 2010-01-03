@@ -35,6 +35,10 @@ class ConfigurationPage : public QWidget {
 
     public:
         ConfigurationPage(ProgramSettings*);
+        void reset(ProgramSettings*);
+
+    private:
+        QCheckBox* m_fullscreenCheckBox;
 };
 
 class OpenGLPage : public QWidget {
@@ -42,6 +46,12 @@ class OpenGLPage : public QWidget {
 
     public:
         OpenGLPage(ProgramSettings*);
+        void reset(ProgramSettings*);
+
+    private:
+        QSpinBox* m_shadingmode;
+        QSpinBox* m_ambientlight;
+        QComboBox* m_backgroundcolor;
 };
 
 
@@ -55,8 +65,8 @@ class ConfigDialog : public QDialog {
 
     public slots:
         void changePage(QListWidgetItem* current, QListWidgetItem* previous);
-        void save();
-        void closeConfig();
+        void apply();
+        void revert();
 
     private:
         void createIcons();
@@ -64,6 +74,8 @@ class ConfigDialog : public QDialog {
         QListWidget* m_contentsWidget;
         QStackedWidget* m_pagesWidget;
         ProgramSettings* m_settings;
+        ConfigurationPage* m_configurationPage;
+        OpenGLPage* m_openGLPage;
 };
 
 #endif
