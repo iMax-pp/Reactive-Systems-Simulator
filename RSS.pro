@@ -3,13 +3,13 @@ TARGET = RSS
 CONFIG += debug
 
 CONFIG(debug, debug|release) {
-    DESTDIR = debug
+    DESTDIR = $$PWD/debug
 } else { # Release
-    DESTDIR = release
+    DESTDIR = $$PWD/release
 }
 
-OBJECTS_DIR = $(DESTDIR)/obj
-MOC_DIR = $(DESTDIR)/moc
+OBJECTS_DIR = $$DESTDIR/obj
+MOC_DIR = $$DESTDIR/moc
 
 CONFIG += qt opengl warn_on thread
 QT += xml opengl
